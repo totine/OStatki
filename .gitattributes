@@ -1,0 +1,15 @@
+# These files are text
+*.php
+*.css
+*.js
+*.html
+*.xml
+*.txt
+*.ini
+
+# These files are binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.zip binary
