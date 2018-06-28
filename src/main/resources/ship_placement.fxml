@@ -13,7 +13,7 @@
             fx:controller="gui.board.placement.Controller">
     <center>
         <AnchorPane prefHeight="582.0" prefWidth="800.0">
-                <GridPane layoutX="200.0" layoutY="50.0" style="-fx-background-color: lightblue;" gridLinesVisible="true">
+                <GridPane layoutX="200.0" layoutY="50.0" style="-fx-background-color: lightblue;" gridLinesVisible="true" fx:id="board">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"/>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"/>
@@ -61,7 +61,7 @@
                 <Button layoutX="1022.0" layoutY="140.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="164.0"
                         text="Start"/>
                 <Button layoutX="518.0" layoutY="14.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="164.0"
-                        text="Losuj"/>
+                        text="Losuj" onMouseClicked="#placeRandom"/>
         </AnchorPane>
     </bottom>
 
