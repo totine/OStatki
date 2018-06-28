@@ -25,6 +25,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.targetEncoding>UTF-8</project.build.targetEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!--Versions-->
+        <maven.jar.plugin.version>2.4</maven.jar.plugin.version>
     </properties>
 
     <dependencies>
@@ -58,7 +61,18 @@
 
     <build>
         <plugins>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>gui.board.placement.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
             <!-- findbugs -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
