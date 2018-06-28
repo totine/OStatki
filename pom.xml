@@ -61,6 +61,7 @@
 
     <build>
         <plugins>
+            <!-- JarPlugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -73,7 +74,7 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!-- findbugs -->
+            <!-- Findbugs -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
