@@ -5,4 +5,9 @@ public class BufferField implements Field {
     public FieldState getState() {
         return FieldState.BUFFER;
     }
+
+    @Override
+    public String getMark() {
+        return ".";
+    }
 }

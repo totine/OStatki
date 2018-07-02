@@ -5,4 +5,9 @@ public class OccupiedField implements Field {
     public FieldState getState() {
         return FieldState.OCCUPIED;
     }
+
+    @Override
+    public String getMark() {
+        return "X";
+    }
 }

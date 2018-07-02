@@ -5,4 +5,9 @@ public class EmptyField implements Field {
     public FieldState getState() {
         return FieldState.EMPTY;
     }
+
+    @Override
+    public String getMark() {
+        return "O";
+    }
 }

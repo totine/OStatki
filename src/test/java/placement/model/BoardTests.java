@@ -43,7 +43,7 @@ public class BoardTests {
         Board board = new Board();
         Ship ship = new Ship(1, Direction.SOUTH);
 
-        board.placeShip(ship, 6,6);
+        board.placeShip(ship, 6, 6);
 
         Assert.assertTrue(board.isFieldOccupied(6, 6));
         Assert.assertFalse(board.isFieldOccupied(3, 7));
@@ -54,7 +54,7 @@ public class BoardTests {
         Board board = new Board();
         Ship ship = new Ship(3, Direction.EAST);
 
-        board.placeShip(ship, 5,5);
+        board.placeShip(ship, 5, 5);
 
         Assert.assertTrue(board.isFieldOccupied(5, 5));
         Assert.assertTrue(board.isFieldOccupied(6, 5));
@@ -67,7 +67,7 @@ public class BoardTests {
     @Test
     public void givenEmptyBoard_WhenShipIsPlaced_ThenSurroundingFieldsAreBuffers() {
         Board board = new Board();
-        Ship ship = new Ship(1,  Direction.NORTH);
+        Ship ship = new Ship(1, Direction.NORTH);
         board.placeShip(ship, 3, 3);
 
         // (3, 3) is not a buffer, but a ship
@@ -84,8 +84,8 @@ public class BoardTests {
         Assert.assertTrue(board.isFieldBuffer(4, 4));
 
         // just a quick check that some other field is not a buffer (nor occupied)
-        Assert.assertFalse(board.isFieldBuffer(5,5));
-        Assert.assertFalse(board.isFieldBuffer(2,1));
+        Assert.assertFalse(board.isFieldBuffer(5, 5));
+        Assert.assertFalse(board.isFieldBuffer(2, 1));
     }
 
     @Test
@@ -104,8 +104,8 @@ public class BoardTests {
 
 
         // just a quick check that some other field is not a buffer (nor occupied)
-        Assert.assertFalse(board.isFieldBuffer(2,2));
-        Assert.assertFalse(board.isFieldBuffer(2,1));
+        Assert.assertFalse(board.isFieldBuffer(2, 2));
+        Assert.assertFalse(board.isFieldBuffer(2, 1));
     }
 
     @Test
@@ -118,7 +118,7 @@ public class BoardTests {
         Assert.assertFalse(board.isFieldBuffer(3, 3));
         Assert.assertFalse(board.isFieldBuffer(3, 2));
         Assert.assertTrue(board.isFieldOccupied(3, 3));
-        Assert.assertTrue(board.isFieldOccupied(3, 2 ));
+        Assert.assertTrue(board.isFieldOccupied(3, 2));
 
         // 8 surrounding fields are supposed to be buffers now
         Assert.assertTrue(board.isFieldBuffer(2, 1));
@@ -133,10 +133,9 @@ public class BoardTests {
         Assert.assertTrue(board.isFieldBuffer(4, 4));
 
 
-
         // just a quick check that some other field is not a buffer (nor occupied)
-        Assert.assertFalse(board.isFieldBuffer(5,5));
-        Assert.assertFalse(board.isFieldBuffer(7,6));
+        Assert.assertFalse(board.isFieldBuffer(5, 5));
+        Assert.assertFalse(board.isFieldBuffer(7, 6));
     }
 
     @Test
@@ -150,15 +149,66 @@ public class BoardTests {
         Assert.assertTrue(board.isFieldOccupied(9, 1));
         Assert.assertTrue(board.isFieldOccupied(9, 2));
 
-        Assert.assertTrue(board.isFieldBuffer(8,0));
-        Assert.assertTrue(board.isFieldBuffer(8,1));
-        Assert.assertTrue(board.isFieldBuffer(8,2));
-        Assert.assertTrue(board.isFieldBuffer(8,3));
-        Assert.assertTrue(board.isFieldBuffer(9,3));
+        Assert.assertTrue(board.isFieldBuffer(8, 0));
+        Assert.assertTrue(board.isFieldBuffer(8, 1));
+        Assert.assertTrue(board.isFieldBuffer(8, 2));
+        Assert.assertTrue(board.isFieldBuffer(8, 3));
+        Assert.assertTrue(board.isFieldBuffer(9, 3));
 
-        Assert.assertFalse(board.isFieldBuffer(7,1));
-        Assert.assertFalse(board.isFieldBuffer(7,3));
-        Assert.assertFalse(board.isFieldBuffer(6,2));
+        Assert.assertFalse(board.isFieldBuffer(7, 1));
+        Assert.assertFalse(board.isFieldBuffer(7, 3));
+        Assert.assertFalse(board.isFieldBuffer(6, 2));
+    }
+
+    @Test
+    public void givenEmptyBoard_WhenPLacingTwoShipsFarApart_ThenEverythingOK() {
+        Board board = new Board();
+        Ship ship = new Ship(1, Direction.NORTH);
+        board.placeShip(ship, 3, 3);
+
+        // (3, 3) is not a buffer, but a ship
+        Assert.assertFalse(board.isFieldBuffer(3, 3));
+
+        // 8 surrounding fields are supposed to be buffers now
+        Assert.assertTrue(board.isFieldBuffer(2, 3));
+        Assert.assertTrue(board.isFieldBuffer(4, 3));
+        Assert.assertTrue(board.isFieldBuffer(2, 2));
+        Assert.assertTrue(board.isFieldBuffer(3, 2));
+        Assert.assertTrue(board.isFieldBuffer(4, 2));
+        Assert.assertTrue(board.isFieldBuffer(2, 4));
+        Assert.assertTrue(board.isFieldBuffer(3, 4));
+        Assert.assertTrue(board.isFieldBuffer(4, 4));
+
+        // just a quick check that some other field is not a buffer (nor occupied)
+        Assert.assertFalse(board.isFieldBuffer(5, 5));
+        Assert.assertFalse(board.isFieldBuffer(2, 1));
+
+
+        Ship ship1 = new Ship(3, Direction.SOUTH);
+        board.placeShip(ship1, 6, 5);
+        System.out.println(board);
+        // (6, 5) (6, 6) (6, 7) are not a buffer, but a ship
+        Assert.assertFalse(board.isFieldBuffer(6, 5));
+        Assert.assertFalse(board.isFieldBuffer(6, 6));
+        Assert.assertFalse(board.isFieldBuffer(6, 7));
+
+        // 8 surrounding fields are supposed to be buffers now
+        Assert.assertTrue(board.isFieldBuffer(5, 4));
+        Assert.assertTrue(board.isFieldBuffer(6, 4));
+        Assert.assertTrue(board.isFieldBuffer(7, 4));
+        Assert.assertTrue(board.isFieldBuffer(7, 5));
+        Assert.assertTrue(board.isFieldBuffer(7, 6));
+        Assert.assertTrue(board.isFieldBuffer(7, 7));
+        Assert.assertTrue(board.isFieldBuffer(7, 8));
+        Assert.assertTrue(board.isFieldBuffer(6, 8));
+        Assert.assertTrue(board.isFieldBuffer(5, 8));
+        Assert.assertTrue(board.isFieldBuffer(5, 7));
+        Assert.assertTrue(board.isFieldBuffer(5, 6));
+        Assert.assertTrue(board.isFieldBuffer(5, 5));
+
+        // just a quick check that some other field is not a buffer (nor occupied)
+        Assert.assertFalse(board.isFieldBuffer(5, 9));
+        Assert.assertFalse(board.isFieldBuffer(8, 8));
     }
 
 
