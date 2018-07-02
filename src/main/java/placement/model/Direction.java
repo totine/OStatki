@@ -5,37 +5,37 @@ import java.util.Random;
 public enum Direction {
     NORTH {
         @Override
-        Coordinates nextCoordinates(int previousX, int previousY) {
-            return new Coordinates(previousX, previousY - 1);
+        Coordinates nextCoordinates() {
+            return new Coordinates(0,  -1);
         }
     },
     EAST {
         @Override
-        Coordinates nextCoordinates(int previousX, int previousY) {
-            return new Coordinates(previousX + 1, previousY);
+        Coordinates nextCoordinates() {
+            return new Coordinates(1, 0);
         }
     },
     SOUTH {
         @Override
-        Coordinates nextCoordinates(int previousX, int previousY) {
-            return new Coordinates(previousX, previousY + 1);
+        Coordinates nextCoordinates() {
+            return new Coordinates(0, 1);
         }
     },
     WEST {
         @Override
-        Coordinates nextCoordinates(int previousX, int previousY) {
-            return new Coordinates(previousX - 1, previousY);
+        Coordinates nextCoordinates() {
+            return new Coordinates(-1, 0);
         }
     },
     BROKEN {
         @Override
-        Coordinates nextCoordinates(int previousX, int previousY) {
+        Coordinates nextCoordinates() {
             int[] coord = {-1, 0, 1};
             int[] coord2 = {-1, 1};
             Random random = new Random();
             int newX = coord[random.nextInt(3)];
             int newY = newX != 0 ? 0 : coord2[random.nextInt(2)];
-            return new Coordinates(previousX + newX, previousY + newY);
+            return new Coordinates(newX, newY);
         }
     };
 
@@ -47,7 +47,7 @@ public enum Direction {
         return directions[index];
     }
 
-    abstract Coordinates nextCoordinates(int previousX, int previousY);
+    abstract Coordinates nextCoordinates();
 
 
 }

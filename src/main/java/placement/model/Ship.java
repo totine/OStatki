@@ -1,18 +1,29 @@
 package placement.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Ship {
     private Coordinates headCoordinates;
     private final int mastNumber;
     private Direction direction;
     private boolean placed;
 
+    public List<Coordinates> getDirectionCoordinates() {
+        return directionCoordinates;
+    }
+
+    private List<Coordinates> directionCoordinates;
+
     public Ship(int mastCount, Direction direction) {
         this.mastNumber = mastCount;
         this.direction = direction;
+        directionCoordinates = new ArrayList<>();
     }
 
     public Ship(int i) {
         mastNumber = i;
+        directionCoordinates = new ArrayList<>();
     }
 
     public Coordinates getHeadCoordinates() {
@@ -41,5 +52,10 @@ public class Ship {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public void addDirectionCoord(Coordinates coordinates) {
+
+        directionCoordinates.add(coordinates);
     }
 }

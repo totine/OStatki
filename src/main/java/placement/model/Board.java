@@ -14,7 +14,7 @@ public class Board {
     private final int rows;
     private final int cols;
 
-    Board() {
+    public Board() {
         this.coordinatesToFieldsMap = new HashMap<>();
         this.rows = DEFAULT_COLUMN_COUNT;
         this.cols = DEFAULT_ROW_COUNT;
@@ -39,8 +39,10 @@ public class Board {
             mastCoordinates.forEach(coordinate -> {
                 coordinatesToFieldsMap.put(coordinate, new OccupiedField());
                 surroundWithBuffer(coordinate);
+                ship.addDirectionCoord(coordinate);
             });
             ship.setHeadCoordinates(new Coordinates(x, y));
+
             ship.markAsPlaced();
 
         } catch (ShipOutOfBoardException | ShipOnBufferException | ShipOnOccupiedFieldException e) {
@@ -52,8 +54,9 @@ public class Board {
         Set<Coordinates> mastCoordinates = new HashSet<>();
         while (mastCoordinates.size()<ship.getMastNumber()) {
             checkCoordinates(coordinates);
+            Coordinates nextCoord = ship.getDirection().nextCoordinates();
             mastCoordinates.add(coordinates);
-            coordinates = ship.getDirection().nextCoordinates(coordinates.getX(), coordinates.getY());
+            coordinates = coordinates.add(nextCoord);
         }
         return mastCoordinates;
     }

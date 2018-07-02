@@ -4,6 +4,8 @@ package gui.board.placement;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import placement.model.*;
 
 /**
  * JavaFX standard application controller class
@@ -24,13 +26,15 @@ public class Controller {
 
     @FXML
     private void placeRandom() {
-        int shipPosRow = 1;
-        int shipPosCol = 5;
-
-        int secondShipPosCol = 5;
-        int secondShipPostRow = 5;
-        createShip(BATTLESHIP, shipPosCol, shipPosRow, true);
-        createShip(CRUISER, secondShipPosCol, secondShipPostRow, false);
+        board.getChildren().clear();
+        Fleet fleet = new Fleet();
+        Board board = new Board();
+        RandomBoardCreator randomBoardCreator = new RandomBoardCreator(fleet, board);
+        Fleet fleetToSend = randomBoardCreator.generateFleet();
+        System.out.println(board);
+        for (Ship ship : fleetToSend.getShipList()) {
+            createShip(ship);
+        }
     }
 
     private Rectangle createRectangle() {
@@ -41,20 +45,19 @@ public class Controller {
     }
 
 
-    private void createShip(int shipType, int columnPosition,
-                            int rowPosition, boolean horizontal) {
-        if (horizontal) {
-            for (int i = 0; i < shipType; i++) {
-                board.add(createRectangle(), rowPosition, columnPosition);
-                rowPosition++;
+    private void createShip(Ship ship) {
+        Shape start = createRectangle();
+
+        board.add(start, ship.getHeadCoordinates().getX(), ship.getHeadCoordinates().getY());
+        for (Coordinates coord : ship.getDirectionCoordinates()) {
+
+            Shape next = createRectangle();
+
+            board.add(next, coord.getX(), coord.getY());
+
             }
-        }
-        else
-        {
-            for (int i = 0; i < shipType; i++) {
-                board.add(createRectangle(), rowPosition, columnPosition);
-                columnPosition++;
-            }
-        }
+
+
+
     }
 }

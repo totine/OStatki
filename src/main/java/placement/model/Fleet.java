@@ -6,7 +6,7 @@ import java.util.List;
 public class Fleet {
     List<Ship> shipList;
 
-    Fleet() {
+    public Fleet() {
         this(4, 3, 3, 2, 2, 2, 1, 1, 1, 1);
     }
 
@@ -17,5 +17,9 @@ public class Fleet {
             shipList.add(ship);
         }
 
+    }
+
+    public List<Ship> getShipList() {
+        return shipList;
     }
 }
