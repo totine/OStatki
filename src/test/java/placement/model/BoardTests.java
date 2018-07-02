@@ -288,4 +288,51 @@ public class BoardTests {
 
     }
 
+    @Test
+    public void board_shipPlacedOutOfBoard_ShipIsNotPlaced() {
+        Board board = new Board();
+        Ship ship = new Ship(3, Direction.EAST);
+        board.placeShip(ship, 9, 0);
+        System.out.println(board);
+
+        Assert.assertFalse(board.isFieldOccupied(9, 0));
+    }
+
+    @Test
+    public void board_shipPlacedOnOtherShip_ShipIsNotPlaced() {
+        Board board = new Board();
+        Ship ship = new Ship(3, Direction.EAST);
+        Ship ship2 = new Ship(3, Direction.SOUTH);
+        board.placeShip(ship, 1, 1);
+        board.placeShip(ship2, 1, 1);
+        System.out.println(board);
+
+        Assert.assertFalse(board.isFieldOccupied(1, 2));
+        Assert.assertFalse(board.isFieldOccupied(1, 3));
+
+        Assert.assertTrue(board.isFieldOccupied(1, 1));
+        Assert.assertTrue(board.isFieldOccupied(2, 1));
+        Assert.assertTrue(board.isFieldOccupied(2, 1));
+    }
+
+    @Test
+    public void board_shipPlacedOnBuffer_ShipIsNotPlaced() {
+        Board board = new Board();
+        Ship ship = new Ship(3, Direction.EAST);
+        Ship ship2 = new Ship(3, Direction.SOUTH);
+        board.placeShip(ship, 1, 1);
+        board.placeShip(ship2, 1, 2);
+        System.out.println(board);
+
+        Assert.assertFalse(board.isFieldOccupied(1, 2));
+        Assert.assertFalse(board.isFieldOccupied(1, 3));
+        Assert.assertFalse(board.isFieldOccupied(1, 4));
+
+
+        Assert.assertTrue(board.isFieldBuffer(1, 2));
+        Assert.assertTrue(board.isFieldOccupied(1, 1));
+        Assert.assertTrue(board.isFieldOccupied(2, 1));
+        Assert.assertTrue(board.isFieldOccupied(2, 1));
+    }
+
 }
