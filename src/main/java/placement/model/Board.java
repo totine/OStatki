@@ -65,7 +65,6 @@ public class Board {
 
         neighbours.removeIf(isOutOfBoard());
         neighbours.removeIf(this::isFieldOccupied);
-        System.out.println(neighbours);
         return neighbours;
     }
 

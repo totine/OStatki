@@ -8,6 +8,6 @@ public class OccupiedField implements Field {
 
     @Override
     public String getMark() {
-        return "X";
+        return "⛴";
     }
 }

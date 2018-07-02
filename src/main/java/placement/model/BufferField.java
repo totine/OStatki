@@ -8,6 +8,6 @@ public class BufferField implements Field {
 
     @Override
     public String getMark() {
-        return ".";
+        return "⚓";
     }
 }

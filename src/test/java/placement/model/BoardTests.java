@@ -211,5 +211,41 @@ public class BoardTests {
         Assert.assertFalse(board.isFieldBuffer(8, 8));
     }
 
+    @Test
+    public void givenEmptyBoard_WhenPLacingTwoShipsNextToEachOther_ThenEverythingOK() {
+        Board board = new Board();
+        Ship ship = new Ship(3, Direction.EAST);
+        Ship ship1 = new Ship(2, Direction.SOUTH);
+
+        board.placeShip(ship1, 3, 7);
+        board.placeShip(ship, 3, 5);
+
+        System.out.println(board);
+
+        Assert.assertTrue(board.isFieldBuffer(3, 4));
+        Assert.assertTrue(board.isFieldBuffer(4, 4));
+        Assert.assertTrue(board.isFieldBuffer(5, 4));
+        Assert.assertTrue(board.isFieldBuffer(6, 4));
+        Assert.assertTrue(board.isFieldBuffer(6, 5));
+        Assert.assertTrue(board.isFieldBuffer(6, 6));
+        Assert.assertTrue(board.isFieldBuffer(5, 6));
+        Assert.assertTrue(board.isFieldBuffer(4, 6));
+        Assert.assertTrue(board.isFieldBuffer(3, 6));
+
+        Assert.assertFalse(board.isFieldBuffer(3, 7));
+        Assert.assertFalse(board.isFieldBuffer(3, 8));
+
+        Assert.assertFalse(board.isFieldBuffer(3, 5));
+        Assert.assertFalse(board.isFieldBuffer(4, 5));
+        Assert.assertFalse(board.isFieldBuffer(5, 5));
+
+
+        Assert.assertTrue(board.isFieldBuffer(4, 7));
+        Assert.assertTrue(board.isFieldBuffer(4, 8));
+        Assert.assertTrue(board.isFieldBuffer(3, 9));
+        Assert.assertTrue(board.isFieldBuffer(4, 9));
+
+    }
+
 
 }
