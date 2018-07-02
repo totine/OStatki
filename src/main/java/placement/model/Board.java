@@ -50,7 +50,7 @@ public class Board {
 
     private Set<Coordinates> getMastCoordinates(Ship ship, Coordinates coordinates) throws ShipOutOfBoardException, ShipOnBufferException, ShipOnOccupiedFieldException {
         Set<Coordinates> mastCoordinates = new HashSet<>();
-        for (int i = 0; i < ship.getMastNumber(); i++) {
+        while (mastCoordinates.size()<ship.getMastNumber()) {
             checkCoordinates(coordinates);
             mastCoordinates.add(coordinates);
             coordinates = ship.getDirection().nextCoordinates(coordinates.getX(), coordinates.getY());
