@@ -8,6 +8,6 @@ public class EmptyField implements Field {
 
     @Override
     public String getMark() {
-        return "⋅";
+        return "~";
     }
 }
