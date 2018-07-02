@@ -24,7 +24,13 @@ public class Controller {
 
     @FXML
     private void placeRandom() {
-        createShip(BATTLESHIP, 1, 2, true);
+        int shipPosRow = 1;
+        int shipPosCol = 5;
+
+        int secondShipPosCol = 5;
+        int secondShipPostRow = 5;
+        createShip(BATTLESHIP, shipPosCol, shipPosRow, true);
+        createShip(CRUISER, secondShipPosCol, secondShipPostRow, false);
     }
 
     private Rectangle createRectangle() {
@@ -41,6 +47,13 @@ public class Controller {
             for (int i = 0; i < shipType; i++) {
                 board.add(createRectangle(), rowPosition, columnPosition);
                 rowPosition++;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < shipType; i++) {
+                board.add(createRectangle(), rowPosition, columnPosition);
+                columnPosition++;
             }
         }
     }
