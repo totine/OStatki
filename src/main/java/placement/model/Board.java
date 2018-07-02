@@ -134,4 +134,8 @@ public class Board {
         }
         return sb.toString();
     }
+
+    public void placeShip(Ship ship, Coordinates coordinates) {
+        placeShip(ship, coordinates.getX(), coordinates.getY());
+    }
 }

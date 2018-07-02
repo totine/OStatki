@@ -1,6 +1,7 @@
 package placement.model;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class Coordinates {
     int x;
@@ -8,6 +9,15 @@ public class Coordinates {
     public Coordinates(int coordinateX, int coordinateY) {
         this.x = coordinateX;
         this.y = coordinateY;
+    }
+
+    public static Coordinates getRandom(int rows, int cols) {
+        Random random = new Random();
+        int x = random.nextInt(rows);
+        int y = random.nextInt(cols);
+
+
+        return new Coordinates(x, y);
     }
 
     public int getX() {

@@ -3,12 +3,16 @@ package placement.model;
 public class Ship {
     private Coordinates headCoordinates;
     private final int mastNumber;
-    private final Direction direction;
+    private Direction direction;
     private boolean placed;
 
     public Ship(int mastCount, Direction direction) {
         this.mastNumber = mastCount;
         this.direction = direction;
+    }
+
+    public Ship(int i) {
+        mastNumber = i;
     }
 
     public Coordinates getHeadCoordinates() {
@@ -33,5 +37,9 @@ public class Ship {
 
     public void setHeadCoordinates(Coordinates headCoordinates) {
         this.headCoordinates = headCoordinates;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 }

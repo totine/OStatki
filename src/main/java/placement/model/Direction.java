@@ -1,5 +1,7 @@
 package placement.model;
 
+import java.util.Random;
+
 public enum Direction {
     NORTH {
         @Override
@@ -26,6 +28,12 @@ public enum Direction {
         }
     };
 
+
+    public static Direction getRandomDirection() {
+        Random random = new Random();
+        int index = random.nextInt(4);
+        return Direction.class.getEnumConstants()[index];
+    }
 
     abstract Coordinates nextCoordinates(int previousX, int previousY);
 
