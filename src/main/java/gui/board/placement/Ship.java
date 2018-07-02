@@ -1,5 +1,8 @@
 package gui.board.placement;
 
-public class Ship {
+/**
+ * Type representing a ship
+ */
+public abstract class Ship {
 
 }
