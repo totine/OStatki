@@ -14,8 +14,7 @@ public class Main extends Application {
     private static final int SCENE_HEIGHT = 900;
     @Override
     public final void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass()
-                .getResource("/ship_placement.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/ship_placement.fxml"));
         primaryStage.setTitle("Battleships OStatki");
         primaryStage.setScene(new Scene(root, SCENE_WIDTH, SCENE_HEIGHT));
         primaryStage.resizableProperty().setValue(false);
