@@ -1,17 +1,19 @@
-package placement.model;
+package placement.controller;
 
-public class RandomBoardCreator {
+import placement.model.*;
+
+class RandomBoardCreator {
 
     private final Fleet fleet;
     private final Board board;
 
-    public RandomBoardCreator(Fleet fleet, Board board) {
+    RandomBoardCreator(Fleet fleet, Board board) {
         this.fleet = fleet;
         this.board = board;
     }
 
-    public Fleet generateFleet() {
-        for (Ship ship : fleet.shipList) {
+    Fleet generateFleet() {
+        for (Ship ship : fleet.getShipList()) {
             while (!ship.isPlaced()) {
                 Direction direction = Direction.getRandomDirection();
                 ship.setDirection(direction);

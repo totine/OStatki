@@ -15,26 +15,23 @@ public class Ship {
 
     private List<Coordinates> directionCoordinates;
 
-    public Ship(int mastCount, Direction direction) {
+    Ship(int mastCount, Direction direction) {
         this.mastNumber = mastCount;
         this.direction = direction;
         directionCoordinates = new ArrayList<>();
     }
 
-    public Ship(int i) {
+    Ship(int i) {
         mastNumber = i;
         directionCoordinates = new ArrayList<>();
     }
 
-    public Coordinates getHeadCoordinates() {
-        return headCoordinates;
-    }
 
-    public int getMastNumber() {
+    int getMastNumber() {
         return mastNumber;
     }
 
-    public Direction getDirection() {
+    Direction getDirection() {
         return direction;
     }
 
@@ -42,11 +39,11 @@ public class Ship {
         return placed;
     }
 
-    public void markAsPlaced() {
+    void markAsPlaced() {
         this.placed = true;
     }
 
-    public void setHeadCoordinates(Coordinates headCoordinates) {
+    void setHeadCoordinates(Coordinates headCoordinates) {
         this.headCoordinates = headCoordinates;
     }
 
@@ -54,7 +51,7 @@ public class Ship {
         this.direction = direction;
     }
 
-    public void addDirectionCoord(Coordinates coordinates) {
+    void addDirectionCoord(Coordinates coordinates) {
 
         directionCoordinates.add(coordinates);
     }

@@ -27,11 +27,11 @@ public class Board {
         return coordinatesToFieldsMap.isEmpty();
     }
 
-    final int rows() {
+    public final int rows() {
         return rows;
     }
 
-    final int cols() {
+    public final int cols() {
         return cols;
     }
 
