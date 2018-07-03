@@ -1,7 +1,14 @@
 package placement.controller;
 
-import placement.model.*;
+import placement.model.Fleet;
+import placement.model.Board;
+import placement.model.Coordinates;
+import placement.model.Ship;
+import placement.model.Direction;
 
+/**
+ * Uses RandomBoardCreator to randomize ship placement.
+ */
 class RandomBoardCreator {
 
     private final Fleet fleet;

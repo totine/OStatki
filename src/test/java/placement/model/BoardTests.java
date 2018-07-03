@@ -7,20 +7,20 @@ import org.testng.annotations.Test;
 public class BoardTests {
     @Test
     public void givenNewlyCreatedBoard_WhenCheck_ItIsEmpty() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Assert.assertTrue(board.isEmpty());
     }
 
     @Test
     public void givenNewlyCreatedBoard_WhenCheckSize_ItIs10x10() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Assert.assertEquals(board.rows(), 10);
         Assert.assertEquals(board.cols(), 10);
     }
 
     @Test
     public void givenNewlyCreatedBoard_WhenShipIsPlacedCorrectly_ItIsNotEmpty() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(4, Direction.SOUTH);
 
         board.placeShip(ship, 8, 3);
@@ -30,7 +30,7 @@ public class BoardTests {
 
     @Test
     public void givenNewlyCreatedBoard_WhenShipIsPlacedIncorrectly_ItIsEmpty() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship incorrectShip = new Ship(3, Direction.NORTH);
 
         board.placeShip(incorrectShip, 5, 15);
@@ -40,7 +40,7 @@ public class BoardTests {
 
     @Test
     public void givenBoard_WhenShipWithOneMastIsPlaced_ThenFieldIsMarkedAsOccupied() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(1, Direction.SOUTH);
 
         board.placeShip(ship, 6, 6);
@@ -51,7 +51,7 @@ public class BoardTests {
 
     @Test
     public void givenEmptyBoard_WhenShipWithLengthIsPlaced_ThenAllFieldAreMarkedAsOccupied() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(3, Direction.EAST);
 
         board.placeShip(ship, 5, 5);
@@ -66,7 +66,7 @@ public class BoardTests {
 
     @Test
     public void givenEmptyBoard_WhenShipIsPlaced_ThenSurroundingFieldsAreBuffers() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(1, Direction.NORTH);
         board.placeShip(ship, 3, 3);
 
@@ -90,7 +90,7 @@ public class BoardTests {
 
     @Test
     public void givenEmptyBoard_WhenShipIsPlacedInCorner_ThenSurroundingFieldsAreBuffers() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(1, Direction.NORTH);
         board.placeShip(ship, 0, 0);
 
@@ -110,7 +110,7 @@ public class BoardTests {
 
     @Test
     public void givenEmptyBoard_WhenTwoMastShipIsPlaced_ThenSurroundingFieldsAreBuffers() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(2, Direction.NORTH);
         board.placeShip(ship, 3, 3);
 
@@ -140,7 +140,7 @@ public class BoardTests {
 
     @Test
     public void givenEmptyBoard_WhenThreeMastShipIsPlacedInCorner_ThenSurroundingFieldsAreBuffers() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(3, Direction.SOUTH);
 
         board.placeShip(ship, 9, 0);
@@ -162,7 +162,7 @@ public class BoardTests {
 
     @Test
     public void givenEmptyBoard_WhenPLacingTwoShipsFarApart_ThenEverythingOK() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(1, Direction.NORTH);
         board.placeShip(ship, 3, 3);
 
@@ -213,7 +213,7 @@ public class BoardTests {
 
     @Test
     public void givenEmptyBoard_WhenPLacingTwoShipsNextToEachOther_ThenEverythingOK() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(3, Direction.EAST);
         Ship ship1 = new Ship(2, Direction.SOUTH);
 
@@ -250,7 +250,7 @@ public class BoardTests {
 
     @Test
     public void givenEmptyBoard_WhenPlacingThreeShipsOnTheBoardEdge_ThenEverythingOK() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(3, Direction.EAST);
         Ship ship1 = new Ship(2, Direction.SOUTH);
         Ship ship2 = new Ship(4, Direction.NORTH);
@@ -290,7 +290,7 @@ public class BoardTests {
 
     @Test
     public void board_shipPlacedOutOfBoard_ShipIsNotPlaced() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(3, Direction.EAST);
         board.placeShip(ship, 9, 0);
         System.out.println(board);
@@ -300,7 +300,7 @@ public class BoardTests {
 
     @Test
     public void board_shipPlacedOnOtherShip_ShipIsNotPlaced() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(3, Direction.EAST);
         Ship ship2 = new Ship(3, Direction.SOUTH);
         board.placeShip(ship, 1, 1);
@@ -317,7 +317,7 @@ public class BoardTests {
 
     @Test
     public void board_shipPlacedOnBuffer_ShipIsNotPlaced() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(3, Direction.EAST);
         Ship ship2 = new Ship(3, Direction.SOUTH);
         board.placeShip(ship, 1, 1);

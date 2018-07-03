@@ -3,8 +3,11 @@ package placement.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a default fleet of ships.
+ */
 public class Fleet {
-    List<Ship> shipList;
+    private List<Ship> shipList;
 
     private static final int BATTLESHIP = 4;
     private static final int CRUISER = 3;
@@ -27,7 +30,7 @@ public class Fleet {
 
     }
 
-    public List<Ship> getShipList() {
+    public final List<Ship> getShipList() {
         return shipList;
     }
 }

@@ -3,17 +3,25 @@ package placement.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a ship in the context of placing ships on a board. Knows its shape and position on the board.
+ */
 public class Ship {
-    private Coordinates headCoordinates;
+
     private final int mastNumber;
     private Direction direction;
     private boolean placed;
+    private List<Coordinates> directionCoordinates;
 
-    public List<Coordinates> getDirectionCoordinates() {
+
+    /**
+     * Returns a list of ship's absolute coordinates.
+     * @return list of coordinates.
+     */
+    public final List<Coordinates> getDirectionCoordinates() {
         return directionCoordinates;
     }
 
-    private List<Coordinates> directionCoordinates;
 
     Ship(int mastCount, Direction direction) {
         this.mastNumber = mastCount;
@@ -27,31 +35,32 @@ public class Ship {
     }
 
 
-    int getMastNumber() {
+    final int getMastNumber() {
         return mastNumber;
     }
 
-    Direction getDirection() {
+    final Direction getDirection() {
         return direction;
     }
 
-    public boolean isPlaced() {
+    public final boolean isPlaced() {
         return placed;
     }
 
-    void markAsPlaced() {
+    final void markAsPlaced() {
         this.placed = true;
     }
 
-    void setHeadCoordinates(Coordinates headCoordinates) {
-        this.headCoordinates = headCoordinates;
-    }
 
-    public void setDirection(Direction direction) {
+    /**
+     * Sets an orientation of the ship - if it's heading north, south, east, west OR if it's
+     * @param direction - south, west, east or north
+     */
+    public final void setDirection(Direction direction) {
         this.direction = direction;
     }
 
-    void addDirectionCoord(Coordinates coordinates) {
+    final void addDirectionCoord(Coordinates coordinates) {
 
         directionCoordinates.add(coordinates);
     }

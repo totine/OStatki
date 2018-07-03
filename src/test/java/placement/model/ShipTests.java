@@ -7,7 +7,7 @@ public class ShipTests {
 
     @Test
     public void givenNewlyCreatedShip_WhenCheckingItsStatus_ThenItIsNotPlaced() {
-        Board board = new Board();
+        Board board = Board.createDefaultBoard();
         Ship ship = new Ship(2, Direction.WEST);
 
         Assert.assertFalse(ship.isPlaced());

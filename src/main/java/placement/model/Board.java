@@ -5,7 +5,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class Board {
+/**
+ * Represents battleship board in the context of ship placement (initial game phase).
+ */
+public final class Board {
     private static final int DEFAULT_COLUMN_COUNT = 10;
     private static final int DEFAULT_ROW_COUNT = 10;
 
@@ -17,25 +20,51 @@ public class Board {
     /**
      * creates a Board object with preset dimensions.
      */
-    public Board() {
+    private Board(int rows, int cols) {
         this.coordinatesToFieldsMap = new HashMap<>();
-        this.rows = DEFAULT_COLUMN_COUNT;
-        this.cols = DEFAULT_ROW_COUNT;
+        this.rows = rows;
+        this.cols = cols;
     }
 
-    final boolean isEmpty() {
+    /**
+     * Factory method for creating 10x10 board.
+     *
+     * @return Board of size 10x10
+     */
+    public static Board createDefaultBoard() {
+        return new Board(DEFAULT_ROW_COUNT, DEFAULT_COLUMN_COUNT);
+    }
+
+    /**
+     * Returns true if a board is not yet populated.
+     *
+     * @return true if a board is not yet populated.
+     */
+
+    boolean isEmpty() {
         return coordinatesToFieldsMap.isEmpty();
     }
 
-    public final int rows() {
+    /**
+     * Returns number of rows in the board (y-size).
+     *
+     * @return number of rows in the board.
+     */
+    public int rows() {
         return rows;
     }
 
-    public final int cols() {
+    /**
+     * Returns number of columns in the board (x-size).
+     *
+     * @return number of columns in the board.
+     */
+    public int cols() {
         return cols;
     }
 
-    final void placeShip(Ship ship, int x, int y) {
+
+    void placeShip(Ship ship, int x, int y) {
         try {
             Coordinates coordinates = new Coordinates(x, y);
             Set<Coordinates> mastCoordinates = getMastCoordinates(ship, coordinates);
@@ -44,7 +73,7 @@ public class Board {
                 surroundWithBuffer(coordinate);
                 ship.addDirectionCoord(coordinate);
             });
-            ship.setHeadCoordinates(new Coordinates(x, y));
+
 
             ship.markAsPlaced();
 
@@ -53,22 +82,31 @@ public class Board {
         }
     }
 
-    public final void placeShip(Ship ship, Coordinates coordinates) {
+    /**
+     * Places given ship on the board if it's possible.
+     * @see ShipOnBufferException
+     * @see ShipOnOccupiedFieldException
+     * @see ShipOutOfBoardException
+     * @param ship ship to place.
+     * @param coordinates coordinates of the ship's "head".
+     */
+    public void placeShip(Ship ship, Coordinates coordinates) {
         placeShip(ship, coordinates.getX(), coordinates.getY());
     }
 
-    final boolean isFieldBuffer(int x, int y) {
+
+    boolean isFieldBuffer(int x, int y) {
         Coordinates coordinates = new Coordinates(x, y);
         return isFieldBuffer(coordinates);
     }
 
-    final boolean isFieldOccupied(int x, int y) {
+    boolean isFieldOccupied(int x, int y) {
         Coordinates coordinates = new Coordinates(x, y);
         return isFieldOccupied(coordinates);
     }
 
     @Override
-    public final String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
 
         for (int i = -1; i < rows; i++) {

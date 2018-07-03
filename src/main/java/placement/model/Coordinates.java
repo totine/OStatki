@@ -3,6 +3,12 @@ package placement.model;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * Represents 2-D coordinates on the board. The top-left coordinate of the board will be (0, 0).
+ * x is a horizontal coordinate
+ * y is a vertical coordinate
+ * Implements adding of two coordinates, e.g. (4, 4) + (2, -1) = (6, 3)
+ */
 public class Coordinates {
     private int x;
     private int y;
@@ -55,7 +61,7 @@ public class Coordinates {
                 + '}';
     }
 
-    public final Coordinates add(Coordinates coordinates) {
+    final Coordinates add(Coordinates coordinates) {
         return new Coordinates(x + coordinates.x, y + coordinates.y);
     }
 }

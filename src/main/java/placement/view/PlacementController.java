@@ -6,7 +6,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import placement.controller.FleetController;
-import placement.model.*;
+import placement.model.Fleet;
+import placement.model.Ship;
+import placement.model.Coordinates;
 
 /**
  * JavaFX standard application controller class
@@ -26,7 +28,6 @@ public class PlacementController {
     private void placeRandom() {
         board.getChildren().removeIf(node -> node instanceof Shape);
         Fleet fleet = fleetController.generateFleet();
-        System.out.println(board);
         for (Ship ship : fleet.getShipList()) {
             createShip(ship);
         }
