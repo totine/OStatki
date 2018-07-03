@@ -6,8 +6,16 @@ import java.util.List;
 public class Fleet {
     List<Ship> shipList;
 
+    private static final int BATTLESHIP = 4;
+    private static final int CRUISER = 3;
+    private static final int DESTROYER = 2;
+    private static final int SUBMARINE = 1;
+
     public Fleet() {
-        this(4, 3, 3, 2, 2, 2, 1, 1, 1, 1);
+        this(BATTLESHIP,
+                CRUISER, CRUISER,
+                DESTROYER, DESTROYER, DESTROYER,
+                SUBMARINE, SUBMARINE, SUBMARINE, SUBMARINE);
     }
 
     private Fleet(int... masts) {

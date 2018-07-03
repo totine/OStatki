@@ -2,12 +2,12 @@ package placement.model;
 
 public class OccupiedField implements Field {
     @Override
-    public FieldState getState() {
+    public final FieldState getState() {
         return FieldState.OCCUPIED;
     }
 
     @Override
-    public String getMark() {
+    public final String getMark() {
         return "⛴";
     }
 }

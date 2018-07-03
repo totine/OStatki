@@ -6,7 +6,7 @@ public enum Direction {
     NORTH {
         @Override
         Coordinates nextCoordinates() {
-            return new Coordinates(0,  -1);
+            return new Coordinates(0, -1);
         }
     },
     EAST {
@@ -34,7 +34,12 @@ public enum Direction {
             int[] coord2 = {-1, 1};
             Random random = new Random();
             int newX = coord[random.nextInt(3)];
-            int newY = newX != 0 ? 0 : coord2[random.nextInt(2)];
+            int newY;
+            if (newX != 0) {
+                newY = 0;
+            } else {
+                newY = coord2[random.nextInt(2)];
+            }
             return new Coordinates(newX, newY);
         }
     };
