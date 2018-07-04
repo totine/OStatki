@@ -64,4 +64,6 @@ public class Ship {
 
         directionCoordinates.add(coordinates);
     }
+
+
 }

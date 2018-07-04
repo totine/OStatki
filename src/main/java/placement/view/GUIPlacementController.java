@@ -21,15 +21,15 @@ public class GUIPlacementController {
     private static final int FIELD_HEIGHT = 50;
 
     @FXML
-    private GridPane board;
+    private GridPane guiBoard;
 
 
     @FXML
     private void placeRandom() {
-        board.getChildren().removeIf(node -> node instanceof Shape);
+        guiBoard.getChildren().removeIf(node -> node instanceof Shape);
         Fleet fleet = fleetController.generatePlacedStandardFleet();
         for (Ship ship : fleet.getShipList()) {
-            createShip(ship);
+            printShip(ship);
         }
     }
 
@@ -37,14 +37,16 @@ public class GUIPlacementController {
         Rectangle mast = new Rectangle();
         mast.setHeight(FIELD_HEIGHT);
         mast.setWidth(FIELD_WIDTH);
+
         return mast;
     }
 
 
-    private void createShip(Ship ship) {
+    private void printShip(Ship ship) {
+
         for (Coordinates coord : ship.getDirectionCoordinates()) {
             Shape next = createMast();
-            board.add(next, coord.getX(), coord.getY());
+            guiBoard.add(next, coord.getX(), coord.getY());
         }
 
 

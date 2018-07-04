@@ -13,7 +13,8 @@
             fx:controller="placement.view.GUIPlacementController">
     <center>
         <AnchorPane prefHeight="582.0" prefWidth="800.0">
-                <GridPane layoutX="200.0" layoutY="50.0" style="-fx-background-color: lightblue;" gridLinesVisible="true" fx:id="board">
+            <GridPane layoutX="200.0" layoutY="50.0" style="-fx-background-color: lightblue;" gridLinesVisible="true"
+                      fx:id="guiBoard">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"/>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0"/>

@@ -27,7 +27,6 @@ public class Fleet {
             Ship ship = new Ship(i);
             shipList.add(ship);
         }
-
     }
 
     public static Fleet createDefaultFleet() {

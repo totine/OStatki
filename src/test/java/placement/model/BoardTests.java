@@ -45,8 +45,8 @@ public class BoardTests {
 
         board.placeShip(ship, 6, 6);
 
-        Assert.assertTrue(board.isFieldOccupied(6, 6));
-        Assert.assertFalse(board.isFieldOccupied(3, 7));
+        Assert.assertEquals(board.checkFieldState(6, 6), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.checkFieldState(3, 7), FieldState.OCCUPIED);
     }
 
     @Test
@@ -56,12 +56,12 @@ public class BoardTests {
 
         board.placeShip(ship, 5, 5);
 
-        Assert.assertTrue(board.isFieldOccupied(5, 5));
-        Assert.assertTrue(board.isFieldOccupied(6, 5));
-        Assert.assertTrue(board.isFieldOccupied(7, 5));
+        Assert.assertEquals(board.checkFieldState(5, 5), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(6, 5), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(7, 5), FieldState.OCCUPIED);
 
-        Assert.assertFalse(board.isFieldOccupied(8, 5));
-        Assert.assertFalse(board.isFieldOccupied(4, 5));
+        Assert.assertNotEquals(board.checkFieldState(8, 5), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.checkFieldState(4, 5), FieldState.OCCUPIED);
     }
 
     @Test
@@ -71,21 +71,21 @@ public class BoardTests {
         board.placeShip(ship, 3, 3);
 
         // (3, 3) is not a buffer, but a ship
-        Assert.assertFalse(board.isFieldBuffer(3, 3));
+        Assert.assertNotEquals(board.checkFieldState(3, 3), FieldState.BUFFER);
 
         // 8 surrounding fields are supposed to be buffers now
-        Assert.assertTrue(board.isFieldBuffer(2, 3));
-        Assert.assertTrue(board.isFieldBuffer(4, 3));
-        Assert.assertTrue(board.isFieldBuffer(2, 2));
-        Assert.assertTrue(board.isFieldBuffer(3, 2));
-        Assert.assertTrue(board.isFieldBuffer(4, 2));
-        Assert.assertTrue(board.isFieldBuffer(2, 4));
-        Assert.assertTrue(board.isFieldBuffer(3, 4));
-        Assert.assertTrue(board.isFieldBuffer(4, 4));
+        Assert.assertEquals(board.checkFieldState(2, 3), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 3), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(2, 2), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(3, 2), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 2), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(2, 4), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(3, 4), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 4), FieldState.BUFFER);
 
         // just a quick check that some other field is not a buffer (nor occupied)
-        Assert.assertFalse(board.isFieldBuffer(5, 5));
-        Assert.assertFalse(board.isFieldBuffer(2, 1));
+        Assert.assertNotEquals(board.checkFieldState(5, 5), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(2, 1), FieldState.BUFFER);
     }
 
     @Test
@@ -95,17 +95,17 @@ public class BoardTests {
         board.placeShip(ship, 0, 0);
 
         // (3, 3) is not a buffer, but a ship
-        Assert.assertFalse(board.isFieldBuffer(0, 0));
+        Assert.assertNotEquals(board.checkFieldState(0, 0), FieldState.BUFFER);
 
         // 8 surrounding fields are supposed to be buffers now
-        Assert.assertTrue(board.isFieldBuffer(0, 1));
-        Assert.assertTrue(board.isFieldBuffer(1, 0));
-        Assert.assertTrue(board.isFieldBuffer(1, 1));
+        Assert.assertEquals(board.checkFieldState(0, 1), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(1, 0), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(1, 1), FieldState.BUFFER);
 
 
         // just a quick check that some other field is not a buffer (nor occupied)
-        Assert.assertFalse(board.isFieldBuffer(2, 2));
-        Assert.assertFalse(board.isFieldBuffer(2, 1));
+        Assert.assertNotEquals(board.checkFieldState(2, 2), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(2, 1), FieldState.BUFFER);
     }
 
     @Test
@@ -115,27 +115,27 @@ public class BoardTests {
         board.placeShip(ship, 3, 3);
 
         // (3, 3) is not a buffer, but a ship
-        Assert.assertFalse(board.isFieldBuffer(3, 3));
-        Assert.assertFalse(board.isFieldBuffer(3, 2));
-        Assert.assertTrue(board.isFieldOccupied(3, 3));
-        Assert.assertTrue(board.isFieldOccupied(3, 2));
+        Assert.assertNotEquals(board.checkFieldState(3, 3), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(3, 2), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(3, 3), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(3, 2), FieldState.OCCUPIED);
 
         // 8 surrounding fields are supposed to be buffers now
-        Assert.assertTrue(board.isFieldBuffer(2, 1));
-        Assert.assertTrue(board.isFieldBuffer(3, 1));
-        Assert.assertTrue(board.isFieldBuffer(4, 1));
-        Assert.assertTrue(board.isFieldBuffer(2, 2));
-        Assert.assertTrue(board.isFieldBuffer(4, 2));
-        Assert.assertTrue(board.isFieldBuffer(2, 3));
-        Assert.assertTrue(board.isFieldBuffer(4, 3));
-        Assert.assertTrue(board.isFieldBuffer(2, 4));
-        Assert.assertTrue(board.isFieldBuffer(3, 4));
-        Assert.assertTrue(board.isFieldBuffer(4, 4));
+        Assert.assertEquals(board.checkFieldState(2, 1), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(3, 1), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 1), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(2, 2), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 2), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(2, 3), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 3), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(2, 4), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(3, 4), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 4), FieldState.BUFFER);
 
 
         // just a quick check that some other field is not a buffer (nor occupied)
-        Assert.assertFalse(board.isFieldBuffer(5, 5));
-        Assert.assertFalse(board.isFieldBuffer(7, 6));
+        Assert.assertNotEquals(board.checkFieldState(5, 5), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(7, 6), FieldState.BUFFER);
     }
 
     @Test
@@ -145,19 +145,19 @@ public class BoardTests {
 
         board.placeShip(ship, 9, 0);
 
-        Assert.assertTrue(board.isFieldOccupied(9, 0));
-        Assert.assertTrue(board.isFieldOccupied(9, 1));
-        Assert.assertTrue(board.isFieldOccupied(9, 2));
+        Assert.assertEquals(board.checkFieldState(9, 0), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(9, 1), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(9, 2), FieldState.OCCUPIED);
 
-        Assert.assertTrue(board.isFieldBuffer(8, 0));
-        Assert.assertTrue(board.isFieldBuffer(8, 1));
-        Assert.assertTrue(board.isFieldBuffer(8, 2));
-        Assert.assertTrue(board.isFieldBuffer(8, 3));
-        Assert.assertTrue(board.isFieldBuffer(9, 3));
+        Assert.assertEquals(board.checkFieldState(8, 0), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(8, 1), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(8, 2), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(8, 3), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(9, 3), FieldState.BUFFER);
 
-        Assert.assertFalse(board.isFieldBuffer(7, 1));
-        Assert.assertFalse(board.isFieldBuffer(7, 3));
-        Assert.assertFalse(board.isFieldBuffer(6, 2));
+        Assert.assertNotEquals(board.checkFieldState(7, 1), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(7, 3), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(6, 2), FieldState.BUFFER);
     }
 
     @Test
@@ -167,48 +167,48 @@ public class BoardTests {
         board.placeShip(ship, 3, 3);
 
         // (3, 3) is not a buffer, but a ship
-        Assert.assertFalse(board.isFieldBuffer(3, 3));
+        Assert.assertNotEquals(board.checkFieldState(3, 3), FieldState.BUFFER);
 
         // 8 surrounding fields are supposed to be buffers now
-        Assert.assertTrue(board.isFieldBuffer(2, 3));
-        Assert.assertTrue(board.isFieldBuffer(4, 3));
-        Assert.assertTrue(board.isFieldBuffer(2, 2));
-        Assert.assertTrue(board.isFieldBuffer(3, 2));
-        Assert.assertTrue(board.isFieldBuffer(4, 2));
-        Assert.assertTrue(board.isFieldBuffer(2, 4));
-        Assert.assertTrue(board.isFieldBuffer(3, 4));
-        Assert.assertTrue(board.isFieldBuffer(4, 4));
+        Assert.assertEquals(board.checkFieldState(2, 3), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 3), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(2, 2), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(3, 2), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 2), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(2, 4), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(3, 4), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 4), FieldState.BUFFER);
 
         // just a quick check that some other field is not a buffer (nor occupied)
-        Assert.assertFalse(board.isFieldBuffer(5, 5));
-        Assert.assertFalse(board.isFieldBuffer(2, 1));
+        Assert.assertNotEquals(board.checkFieldState(5, 5), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(2, 1), FieldState.BUFFER);
 
 
         Ship ship1 = new Ship(3, Direction.SOUTH);
         board.placeShip(ship1, 6, 5);
         System.out.println(board);
         // (6, 5) (6, 6) (6, 7) are not a buffer, but a ship
-        Assert.assertFalse(board.isFieldBuffer(6, 5));
-        Assert.assertFalse(board.isFieldBuffer(6, 6));
-        Assert.assertFalse(board.isFieldBuffer(6, 7));
+        Assert.assertNotEquals(board.checkFieldState(6, 5), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(6, 6), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(6, 7), FieldState.BUFFER);
 
         // 8 surrounding fields are supposed to be buffers now
-        Assert.assertTrue(board.isFieldBuffer(5, 4));
-        Assert.assertTrue(board.isFieldBuffer(6, 4));
-        Assert.assertTrue(board.isFieldBuffer(7, 4));
-        Assert.assertTrue(board.isFieldBuffer(7, 5));
-        Assert.assertTrue(board.isFieldBuffer(7, 6));
-        Assert.assertTrue(board.isFieldBuffer(7, 7));
-        Assert.assertTrue(board.isFieldBuffer(7, 8));
-        Assert.assertTrue(board.isFieldBuffer(6, 8));
-        Assert.assertTrue(board.isFieldBuffer(5, 8));
-        Assert.assertTrue(board.isFieldBuffer(5, 7));
-        Assert.assertTrue(board.isFieldBuffer(5, 6));
-        Assert.assertTrue(board.isFieldBuffer(5, 5));
+        Assert.assertEquals(board.checkFieldState(5, 4), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(6, 4), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(7, 4), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(7, 5), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(7, 6), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(7, 7), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(7, 8), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(6, 8), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(5, 8), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(5, 7), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(5, 6), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(5, 5), FieldState.BUFFER);
 
         // just a quick check that some other field is not a buffer (nor occupied)
-        Assert.assertFalse(board.isFieldBuffer(5, 9));
-        Assert.assertFalse(board.isFieldBuffer(8, 8));
+        Assert.assertNotEquals(board.checkFieldState(5, 9), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(8, 8), FieldState.BUFFER);
     }
 
     @Test
@@ -222,28 +222,28 @@ public class BoardTests {
 
         System.out.println(board);
 
-        Assert.assertTrue(board.isFieldBuffer(3, 4));
-        Assert.assertTrue(board.isFieldBuffer(4, 4));
-        Assert.assertTrue(board.isFieldBuffer(5, 4));
-        Assert.assertTrue(board.isFieldBuffer(6, 4));
-        Assert.assertTrue(board.isFieldBuffer(6, 5));
-        Assert.assertTrue(board.isFieldBuffer(6, 6));
-        Assert.assertTrue(board.isFieldBuffer(5, 6));
-        Assert.assertTrue(board.isFieldBuffer(4, 6));
-        Assert.assertTrue(board.isFieldBuffer(3, 6));
+        Assert.assertEquals(board.checkFieldState(3, 4), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 4), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(5, 4), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(6, 4), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(6, 5), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(6, 6), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(5, 6), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 6), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(3, 6), FieldState.BUFFER);
 
-        Assert.assertFalse(board.isFieldBuffer(3, 7));
-        Assert.assertFalse(board.isFieldBuffer(3, 8));
+        Assert.assertNotEquals(board.checkFieldState(3, 7), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(3, 8), FieldState.BUFFER);
 
-        Assert.assertFalse(board.isFieldBuffer(3, 5));
-        Assert.assertFalse(board.isFieldBuffer(4, 5));
-        Assert.assertFalse(board.isFieldBuffer(5, 5));
+        Assert.assertNotEquals(board.checkFieldState(3, 5), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(4, 5), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(5, 5), FieldState.BUFFER);
 
 
-        Assert.assertTrue(board.isFieldBuffer(4, 7));
-        Assert.assertTrue(board.isFieldBuffer(4, 8));
-        Assert.assertTrue(board.isFieldBuffer(3, 9));
-        Assert.assertTrue(board.isFieldBuffer(4, 9));
+        Assert.assertEquals(board.checkFieldState(4, 7), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 8), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(3, 9), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(4, 9), FieldState.BUFFER);
 
     }
 
@@ -262,29 +262,30 @@ public class BoardTests {
         System.out.println(board);
 
 
-        Assert.assertFalse(board.isFieldBuffer(3, 9));
-        Assert.assertFalse(board.isFieldBuffer(4, 9));
-        Assert.assertFalse(board.isFieldBuffer(5, 9));
+        Assert.assertNotEquals(board.checkFieldState(3, 9), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(4, 9), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(5, 9), FieldState.BUFFER);
 
-        Assert.assertTrue(board.isFieldOccupied(3, 9));
-        Assert.assertTrue(board.isFieldOccupied(4, 9));
-        Assert.assertTrue(board.isFieldOccupied(5, 9));
+        Assert.assertEquals(board.checkFieldState(3, 9), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(4, 9), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(5, 9), FieldState.OCCUPIED);
 
-        Assert.assertFalse(board.isFieldBuffer(0, 7));
-        Assert.assertFalse(board.isFieldBuffer(0, 8));
 
-        Assert.assertTrue(board.isFieldOccupied(0, 7));
-        Assert.assertTrue(board.isFieldOccupied(0, 8));
+        Assert.assertNotEquals(board.checkFieldState(0, 7), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(0, 8), FieldState.BUFFER);
 
-        Assert.assertFalse(board.isFieldBuffer(9, 6));
-        Assert.assertFalse(board.isFieldBuffer(9, 7));
-        Assert.assertFalse(board.isFieldBuffer(9, 8));
-        Assert.assertFalse(board.isFieldBuffer(9, 9));
+        Assert.assertEquals(board.checkFieldState(0, 7), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(0, 8), FieldState.OCCUPIED);
 
-        Assert.assertTrue(board.isFieldOccupied(9, 6));
-        Assert.assertTrue(board.isFieldOccupied(9, 7));
-        Assert.assertTrue(board.isFieldOccupied(9, 8));
-        Assert.assertTrue(board.isFieldOccupied(9, 9));
+        Assert.assertNotEquals(board.checkFieldState(9, 6), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(9, 7), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(9, 8), FieldState.BUFFER);
+        Assert.assertNotEquals(board.checkFieldState(9, 9), FieldState.BUFFER);
+
+        Assert.assertEquals(board.checkFieldState(9, 6), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(9, 7), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(9, 8), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(9, 9), FieldState.OCCUPIED);
 
     }
 
@@ -295,7 +296,7 @@ public class BoardTests {
         board.placeShip(ship, 9, 0);
         System.out.println(board);
 
-        Assert.assertFalse(board.isFieldOccupied(9, 0));
+        Assert.assertNotEquals(board.checkFieldState(9, 0), FieldState.OCCUPIED);
     }
 
     @Test
@@ -307,12 +308,12 @@ public class BoardTests {
         board.placeShip(ship2, 1, 1);
         System.out.println(board);
 
-        Assert.assertFalse(board.isFieldOccupied(1, 2));
-        Assert.assertFalse(board.isFieldOccupied(1, 3));
+        Assert.assertNotEquals(board.checkFieldState(1, 2), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.checkFieldState(1, 3), FieldState.OCCUPIED);
 
-        Assert.assertTrue(board.isFieldOccupied(1, 1));
-        Assert.assertTrue(board.isFieldOccupied(2, 1));
-        Assert.assertTrue(board.isFieldOccupied(2, 1));
+        Assert.assertEquals(board.checkFieldState(1, 1), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(2, 1), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(2, 1), FieldState.OCCUPIED);
     }
 
     @Test
@@ -324,15 +325,15 @@ public class BoardTests {
         board.placeShip(ship2, 1, 2);
         System.out.println(board);
 
-        Assert.assertFalse(board.isFieldOccupied(1, 2));
-        Assert.assertFalse(board.isFieldOccupied(1, 3));
-        Assert.assertFalse(board.isFieldOccupied(1, 4));
+        Assert.assertNotEquals(board.checkFieldState(1, 2), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.checkFieldState(1, 3), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.checkFieldState(1, 4), FieldState.OCCUPIED);
 
 
-        Assert.assertTrue(board.isFieldBuffer(1, 2));
-        Assert.assertTrue(board.isFieldOccupied(1, 1));
-        Assert.assertTrue(board.isFieldOccupied(2, 1));
-        Assert.assertTrue(board.isFieldOccupied(2, 1));
+        Assert.assertEquals(board.checkFieldState(1, 2), FieldState.BUFFER);
+        Assert.assertEquals(board.checkFieldState(1, 1), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(2, 1), FieldState.OCCUPIED);
+        Assert.assertEquals(board.checkFieldState(2, 1), FieldState.OCCUPIED);
     }
 
 }
