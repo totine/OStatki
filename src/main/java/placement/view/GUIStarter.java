@@ -20,6 +20,7 @@ public class GUIStarter extends Application {
         primaryStage.resizableProperty().setValue(false);
         primaryStage.show();
 
+
     }
 
     /**

@@ -80,7 +80,7 @@ public final class Board {
             throws ShipOutOfBoardException, ShipOnBufferException, ShipOnOccupiedFieldException {
         Set<Coordinates> mastCoordinates = new HashSet<>();
         while (mastCoordinates.size() < ship.getMastNumber()) {
-            checkCoordinates(coordinates);
+            checkIsAbleToPlace(coordinates);
             Coordinates nextCoord = ship.nextCoordinates();
             mastCoordinates.add(coordinates);
             coordinates = coordinates.add(nextCoord);
@@ -103,20 +103,13 @@ public final class Board {
                 neighbours.add(neighbour);
             }
         }
-
         neighbours.removeIf(this::isOutOfBoard);
         neighbours.removeIf(this::isFieldOccupied);
         return neighbours;
     }
 
 
-    private boolean isOutOfBoard(Coordinates coordinates) {
-        return coordinates.getY() < 0 || coordinates.getY() >= rows
-                || coordinates.getX() < 0 || coordinates.getX() >= cols;
-    }
-
-
-    private void checkCoordinates(Coordinates coordinates)
+    private void checkIsAbleToPlace(Coordinates coordinates)
             throws ShipOutOfBoardException, ShipOnBufferException, ShipOnOccupiedFieldException {
         if (isOutOfBoard(coordinates)) {
             throw new ShipOutOfBoardException();
@@ -127,6 +120,11 @@ public final class Board {
         if (isFieldOccupied(coordinates)) {
             throw new ShipOnOccupiedFieldException();
         }
+    }
+
+    private boolean isOutOfBoard(Coordinates coordinates) {
+        return coordinates.getY() < 0 || coordinates.getY() >= rows
+                || coordinates.getX() < 0 || coordinates.getX() >= cols;
     }
 
     private boolean isFieldOccupied(Coordinates coordinates) {

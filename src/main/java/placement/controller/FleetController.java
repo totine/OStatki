@@ -8,7 +8,7 @@ import placement.model.Fleet;
  */
 public class FleetController {
 
-    public final Fleet generatePlacedStandardFleet() {
+    public static Fleet generatePlacedStandardFleet() {
         Fleet fleet = Fleet.createDefaultFleet();
         Board board = Board.createDefaultBoard();
         RandomFleetPlacer randomFleetPlacer = new RandomFleetPlacer(fleet, board);

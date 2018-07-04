@@ -5,17 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import placement.controller.FleetController;
-import placement.model.Fleet;
-import placement.model.ship.Ship;
 import placement.model.Coordinates;
 
 /**
  * JavaFX standard application controller class
  */
 public class GUIPlacementController {
-
-    private FleetController fleetController = new FleetController();
 
     private static final int FIELD_WIDTH = 50;
     private static final int FIELD_HEIGHT = 50;
@@ -27,8 +22,9 @@ public class GUIPlacementController {
     @FXML
     private void placeRandom() {
         guiBoard.getChildren().removeIf(node -> node instanceof Shape);
-        Fleet fleet = fleetController.generatePlacedStandardFleet();
-        for (Ship ship : fleet.getShipList()) {
+        FleetDAO fleetDAO = new FleetFromRandomGenerator();
+        GUIFleet fleet = fleetDAO.getFleet();
+        for (GUIShip ship : fleet.getShipList()) {
             printShip(ship);
         }
     }
@@ -42,7 +38,7 @@ public class GUIPlacementController {
     }
 
 
-    private void printShip(Ship ship) {
+    private void printShip(GUIShip ship) {
 
         for (Coordinates coord : ship.getPositionCoordinates()) {
             Shape next = createMast();
