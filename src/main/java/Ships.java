@@ -1,4 +1,4 @@
-import placement.view.Main;
+import placement.view.GUIStarter;
 
 /**
  * Entry point of the application.
@@ -11,10 +11,7 @@ public final class Ships {
      * entry point
      * @param args
      */
-
-
-
     public static void main(String[] args) {
-        Main.main(args);
+        GUIStarter.main(args);
     }
 }

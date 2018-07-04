@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 /**
  * The entry point of GUI package. Sets up a window, loads components.
  */
-public class Main extends Application {
+public class GUIStarter extends Application {
     private static final int SCENE_WIDTH = 1200;
     private static final int SCENE_HEIGHT = 900;
     @Override

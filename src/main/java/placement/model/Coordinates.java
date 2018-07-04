@@ -13,7 +13,7 @@ public class Coordinates {
     private int x;
     private int y;
 
-    public Coordinates(int coordinateX, int coordinateY) {
+    Coordinates(int coordinateX, int coordinateY) {
         this.x = coordinateX;
         this.y = coordinateY;
     }
@@ -22,8 +22,6 @@ public class Coordinates {
         Random random = new Random();
         int x = random.nextInt(rows);
         int y = random.nextInt(cols);
-
-
         return new Coordinates(x, y);
     }
 
@@ -33,6 +31,10 @@ public class Coordinates {
 
     public final int getY() {
         return this.y;
+    }
+
+    final Coordinates add(Coordinates coordinates) {
+        return new Coordinates(x + coordinates.x, y + coordinates.y);
     }
 
     @Override
@@ -59,9 +61,5 @@ public class Coordinates {
                 + "x=" + x
                 + ", y=" + y
                 + '}';
-    }
-
-    final Coordinates add(Coordinates coordinates) {
-        return new Coordinates(x + coordinates.x, y + coordinates.y);
     }
 }

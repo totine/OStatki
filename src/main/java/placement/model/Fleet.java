@@ -14,7 +14,7 @@ public class Fleet {
     private static final int DESTROYER = 2;
     private static final int SUBMARINE = 1;
 
-    public Fleet() {
+    private Fleet() {
         this(BATTLESHIP,
                 CRUISER, CRUISER,
                 DESTROYER, DESTROYER, DESTROYER,
@@ -28,6 +28,10 @@ public class Fleet {
             shipList.add(ship);
         }
 
+    }
+
+    public static Fleet createDefaultFleet() {
+        return new Fleet();
     }
 
     public final List<Ship> getShipList() {

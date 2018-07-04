@@ -3,5 +3,9 @@ package placement.model;
 /**
  * Denotes that the player is trying to put his ship onto nonexistent field.
  */
-class ShipOutOfBoardException extends Exception {
+public class ShipOutOfBoardException extends Exception {
+    @Override
+    public String getMessage() {
+        return "Attempt to place ship out of the board.";
+    }
 }

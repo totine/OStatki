@@ -13,7 +13,7 @@ import placement.model.Coordinates;
 /**
  * JavaFX standard application controller class
  */
-public class PlacementController {
+public class GUIPlacementController {
 
     private FleetController fleetController = new FleetController();
 
@@ -27,7 +27,7 @@ public class PlacementController {
     @FXML
     private void placeRandom() {
         board.getChildren().removeIf(node -> node instanceof Shape);
-        Fleet fleet = fleetController.generateFleet();
+        Fleet fleet = fleetController.generatePlacedStandardFleet();
         for (Ship ship : fleet.getShipList()) {
             createShip(ship);
         }

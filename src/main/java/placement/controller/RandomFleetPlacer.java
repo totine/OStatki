@@ -7,14 +7,14 @@ import placement.model.Ship;
 import placement.model.Direction;
 
 /**
- * Uses RandomBoardCreator to randomize ship placement.
+ * Uses RandomFleetPlacer to randomize ship placement.
  */
-class RandomBoardCreator {
+class RandomFleetPlacer {
 
     private final Fleet fleet;
     private final Board board;
 
-    RandomBoardCreator(Fleet fleet, Board board) {
+    RandomFleetPlacer(Fleet fleet, Board board) {
         this.fleet = fleet;
         this.board = board;
     }
@@ -31,4 +31,6 @@ class RandomBoardCreator {
         }
         return fleet;
     }
+
+
 }
