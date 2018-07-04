@@ -13,7 +13,7 @@ public class Coordinates {
     private int x;
     private int y;
 
-    Coordinates(int coordinateX, int coordinateY) {
+    public Coordinates(int coordinateX, int coordinateY) {
         this.x = coordinateX;
         this.y = coordinateY;
     }

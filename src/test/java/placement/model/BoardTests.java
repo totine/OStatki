@@ -2,6 +2,9 @@ package placement.model;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import placement.model.field.FieldState;
+import placement.model.ship.Direction;
+import placement.model.ship.Ship;
 
 
 public class BoardTests {

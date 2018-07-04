@@ -1,5 +1,8 @@
 package placement.model;
 
+import placement.model.field.*;
+import placement.model.ship.Ship;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -78,7 +81,7 @@ public final class Board {
         Set<Coordinates> mastCoordinates = new HashSet<>();
         while (mastCoordinates.size() < ship.getMastNumber()) {
             checkCoordinates(coordinates);
-            Coordinates nextCoord = ship.getDirection().nextCoordinates();
+            Coordinates nextCoord = ship.nextCoordinates();
             mastCoordinates.add(coordinates);
             coordinates = coordinates.add(nextCoord);
         }

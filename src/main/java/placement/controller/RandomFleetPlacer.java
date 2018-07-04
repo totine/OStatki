@@ -3,8 +3,8 @@ package placement.controller;
 import placement.model.Fleet;
 import placement.model.Board;
 import placement.model.Coordinates;
-import placement.model.Ship;
-import placement.model.Direction;
+import placement.model.ship.Ship;
+import placement.model.ship.Direction;
 
 /**
  * Uses RandomFleetPlacer to randomize ship placement.

@@ -1,4 +1,6 @@
-package placement.model;
+package placement.model.ship;
+
+import placement.model.Coordinates;
 
 import java.util.Random;
 
@@ -10,25 +12,25 @@ import java.util.Random;
 public enum Direction {
     NORTH {
         @Override
-        Coordinates nextCoordinates() {
+        public Coordinates nextCoordinates() {
             return new Coordinates(0, -1);
         }
     },
     EAST {
         @Override
-        Coordinates nextCoordinates() {
+        public Coordinates nextCoordinates() {
             return new Coordinates(1, 0);
         }
     },
     SOUTH {
         @Override
-        Coordinates nextCoordinates() {
+        public Coordinates nextCoordinates() {
             return new Coordinates(0, 1);
         }
     },
     WEST {
         @Override
-        Coordinates nextCoordinates() {
+        public Coordinates nextCoordinates() {
             return new Coordinates(-1, 0);
         }
     };
@@ -41,5 +43,5 @@ public enum Direction {
         return directions[index];
     }
 
-    abstract Coordinates nextCoordinates();
+    public abstract Coordinates nextCoordinates();
 }

@@ -1,4 +1,4 @@
-package placement.model;
+package placement.model.field;
 
 /**
  * represents a field in the context of placing ships on the board.

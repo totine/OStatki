@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import placement.controller.FleetController;
 import placement.model.Fleet;
-import placement.model.Ship;
+import placement.model.ship.Ship;
 import placement.model.Coordinates;
 
 /**
@@ -44,7 +44,7 @@ public class GUIPlacementController {
 
     private void printShip(Ship ship) {
 
-        for (Coordinates coord : ship.getDirectionCoordinates()) {
+        for (Coordinates coord : ship.getPositionCoordinates()) {
             Shape next = createMast();
             guiBoard.add(next, coord.getX(), coord.getY());
         }

@@ -1,4 +1,4 @@
-package placement.model;
+package placement.model.field;
 
 /**
  * Represents a field already taken by some ship.

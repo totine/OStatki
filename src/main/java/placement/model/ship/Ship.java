@@ -1,4 +1,6 @@
-package placement.model;
+package placement.model.ship;
+
+import placement.model.Coordinates;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,43 +13,39 @@ public class Ship {
     private final int mastNumber;
     private Direction direction;
     private boolean placed;
-    private List<Coordinates> directionCoordinates;
+    private List<Coordinates> positionCoordinates;
 
 
     /**
      * Returns a list of ship's absolute coordinates.
      * @return list of coordinates.
      */
-    public final List<Coordinates> getDirectionCoordinates() {
-        return directionCoordinates;
+    public final List<Coordinates> getPositionCoordinates() {
+        return positionCoordinates;
     }
 
 
-    Ship(int mastCount, Direction direction) {
+    public Ship(int mastCount, Direction direction) {
         this.mastNumber = mastCount;
         this.direction = direction;
-        directionCoordinates = new ArrayList<>();
+        positionCoordinates = new ArrayList<>();
     }
 
-    Ship(int i) {
+    public Ship(int i) {
         mastNumber = i;
-        directionCoordinates = new ArrayList<>();
+        positionCoordinates = new ArrayList<>();
     }
 
 
-    final int getMastNumber() {
+    public final int getMastNumber() {
         return mastNumber;
-    }
-
-    final Direction getDirection() {
-        return direction;
     }
 
     public final boolean isPlaced() {
         return placed;
     }
 
-    final void markAsPlaced() {
+    public final void markAsPlaced() {
         this.placed = true;
     }
 
@@ -60,10 +58,13 @@ public class Ship {
         this.direction = direction;
     }
 
-    final void addDirectionCoord(Coordinates coordinates) {
+    public final void addDirectionCoord(Coordinates coordinates) {
 
-        directionCoordinates.add(coordinates);
+        positionCoordinates.add(coordinates);
     }
 
 
+    public Coordinates nextCoordinates() {
+        return direction.nextCoordinates();
+    }
 }
