@@ -19,7 +19,7 @@ class RandomFleetPlacer {
         this.board = board;
     }
 
-    Fleet generateFleet() {
+    Fleet placeFleet() {
         for (Ship ship : fleet.getShipList()) {
             while (!ship.isPlaced()) {
                 Direction direction = Direction.getRandomDirection();
@@ -27,7 +27,6 @@ class RandomFleetPlacer {
                 Coordinates randomCoordinates = Coordinates.getRandom(board.rows(), board.cols());
                 board.placeShip(ship, randomCoordinates);
             }
-
         }
         return fleet;
     }

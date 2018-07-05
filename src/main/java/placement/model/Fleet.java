@@ -1,11 +1,12 @@
 package placement.model;
 
 import placement.model.ship.Ship;
+import placement.model.ship.ShipType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static placement.model.ship.ShipTypes.*;
+import static placement.model.ship.ShipType.*;
 
 /**
  * Represents a default fleet of ships.
@@ -14,23 +15,23 @@ public class Fleet {
     private List<Ship> shipList;
 
 
-    private Fleet() {
-        this(BATTLESHIP.getSize(),
-                CRUISER.getSize(), CRUISER.getSize(),
-                DESTROYER.getSize(), DESTROYER.getSize(), DESTROYER.getSize(),
-                SUBMARINE.getSize(), SUBMARINE.getSize(), SUBMARINE.getSize(), SUBMARINE.getSize());
+    public Fleet() {
+        shipList = new ArrayList<>();
     }
 
-    private Fleet(int... masts) {
+    private Fleet(ShipType... shipTypes) {
         shipList = new ArrayList<>();
-        for (int i : masts) {
-            Ship ship = new Ship(i);
+        for (ShipType shipType : shipTypes) {
+            Ship ship = new Ship(shipType.getSize());
             shipList.add(ship);
         }
     }
 
     public static Fleet createDefaultFleet() {
-        return new Fleet();
+        return new Fleet(BATTLESHIP,
+                CRUISER, CRUISER,
+                DESTROYER, DESTROYER, DESTROYER,
+                SUBMARINE, SUBMARINE, SUBMARINE, SUBMARINE);
     }
 
     public final List<Ship> getShipList() {

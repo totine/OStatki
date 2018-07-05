@@ -1,6 +1,6 @@
 package placement.model.ship;
 
-public enum ShipTypes {
+public enum ShipType {
     BATTLESHIP(4),
     CRUISER(3),
     DESTROYER(2),
@@ -8,7 +8,7 @@ public enum ShipTypes {
 
     private int size;
 
-    ShipTypes(int size) {
+    ShipType(int size) {
         this.size = size;
     }
 

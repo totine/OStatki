@@ -33,13 +33,19 @@ public enum Direction {
         public Coordinates nextCoordinates() {
             return new Coordinates(-1, 0);
         }
+    },
+    UNDETERMINED {
+        @Override
+        public Coordinates nextCoordinates() {
+            return new Coordinates(0, 0);
+        }
     };
 
 
     public static Direction getRandomDirection() {
         Random random = new Random();
         Direction[] directions = Direction.class.getEnumConstants();
-        int index = random.nextInt(directions.length);
+        int index = random.nextInt(directions.length - 1);
         return directions[index];
     }
 

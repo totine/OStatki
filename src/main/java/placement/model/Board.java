@@ -135,24 +135,6 @@ public final class Board {
         return checkFieldState(coordinates).equals(FieldState.BUFFER);
     }
 
-    void placeShip(Ship ship, int x, int y) {
-        try {
-            Coordinates coordinates = new Coordinates(x, y);
-            Set<Coordinates> mastCoordinates = getMastCoordinates(ship, coordinates);
-            mastCoordinates.forEach(coordinate -> {
-                coordinatesToFieldsMap.put(coordinate, new OccupiedField());
-                surroundWithBuffer(coordinate);
-                ship.addDirectionCoord(coordinate);
-            });
-
-
-            ship.markAsPlaced();
-
-        } catch (ShipOutOfBoardException | ShipOnBufferException | ShipOnOccupiedFieldException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
     /**
      * Places given ship on the board if it's possible.
      *
@@ -163,7 +145,25 @@ public final class Board {
      * @see ShipOutOfBoardException
      */
     public void placeShip(Ship ship, Coordinates coordinates) {
-        placeShip(ship, coordinates.getX(), coordinates.getY());
+        try {
+
+            Set<Coordinates> mastCoordinates = getMastCoordinates(ship, coordinates);
+            mastCoordinates.forEach(coordinate -> {
+                coordinatesToFieldsMap.put(coordinate, new OccupiedField());
+                surroundWithBuffer(coordinate);
+                ship.addPositionCoord(coordinate);
+            });
+
+            ship.markAsPlaced();
+
+        } catch (ShipOutOfBoardException | ShipOnBufferException | ShipOnOccupiedFieldException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    void placeShip(Ship ship, int x, int y) {
+        Coordinates coordinates = new Coordinates(x, y);
+        placeShip(ship, coordinates);
     }
 
 

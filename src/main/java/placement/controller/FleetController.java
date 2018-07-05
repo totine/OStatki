@@ -12,6 +12,6 @@ public class FleetController {
         Fleet fleet = Fleet.createDefaultFleet();
         Board board = Board.createDefaultBoard();
         RandomFleetPlacer randomFleetPlacer = new RandomFleetPlacer(fleet, board);
-        return randomFleetPlacer.generateFleet();
+        return randomFleetPlacer.placeFleet();
     }
 }

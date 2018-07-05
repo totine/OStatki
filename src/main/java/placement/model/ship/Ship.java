@@ -17,15 +17,6 @@ public class Ship {
     private List<Coordinates> positionCoordinates;
 
 
-    /**
-     * Returns a list of ship's absolute coordinates.
-     *
-     * @return list of coordinates.
-     */
-    public final List<Coordinates> getPositionCoordinates() {
-        return positionCoordinates;
-    }
-
 
     public Ship(int mastCount, Direction direction) {
         this.id = UUID.randomUUID().toString();
@@ -34,16 +25,27 @@ public class Ship {
         positionCoordinates = new ArrayList<>();
     }
 
-    public Ship(int i) {
-        mastNumber = i;
-        positionCoordinates = new ArrayList<>();
-        id = UUID.randomUUID().toString();
-        ;
+    public Ship(int mastNumber) {
+        this(mastNumber, Direction.UNDETERMINED);
     }
 
 
+    public String getId() {
+        return id;
+    }
+
     public final int getMastNumber() {
         return mastNumber;
+    }
+
+
+    /**
+     * Returns a list of ship's absolute coordinates.
+     *
+     * @return list of coordinates.
+     */
+    public final List<Coordinates> getPositionCoordinates() {
+        return positionCoordinates;
     }
 
     public final boolean isPlaced() {
@@ -64,17 +66,11 @@ public class Ship {
         this.direction = direction;
     }
 
-    public final void addDirectionCoord(Coordinates coordinates) {
-
+    public final void addPositionCoord(Coordinates coordinates) {
         positionCoordinates.add(coordinates);
     }
 
-
     public Coordinates nextCoordinates() {
         return direction.nextCoordinates();
-    }
-
-    public String getId() {
-        return id;
     }
 }
