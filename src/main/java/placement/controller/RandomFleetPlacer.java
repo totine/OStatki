@@ -1,7 +1,7 @@
 package placement.controller;
 
 import placement.model.Fleet;
-import placement.model.Board;
+import placement.model.board.Board;
 import placement.model.Coordinates;
 import placement.model.ship.Ship;
 import placement.model.ship.Direction;

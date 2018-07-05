@@ -15,10 +15,6 @@ public class Fleet {
     private List<Ship> shipList;
 
 
-    public Fleet() {
-        shipList = new ArrayList<>();
-    }
-
     private Fleet(ShipType... shipTypes) {
         shipList = new ArrayList<>();
         for (ShipType shipType : shipTypes) {

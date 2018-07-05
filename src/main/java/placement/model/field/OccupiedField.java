@@ -1,5 +1,7 @@
 package placement.model.field;
 
+import placement.model.ShipOnOccupiedFieldException;
+
 /**
  * Represents a field already taken by some ship.
  */
@@ -12,5 +14,10 @@ public class OccupiedField implements Field {
     @Override
     public final String getMark() {
         return "⛴";
+    }
+
+    @Override
+    public void checkState() throws ShipOnOccupiedFieldException {
+        throw new ShipOnOccupiedFieldException();
     }
 }

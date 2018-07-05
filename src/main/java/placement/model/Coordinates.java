@@ -33,7 +33,7 @@ public class Coordinates {
         return this.y;
     }
 
-    final Coordinates add(Coordinates coordinates) {
+    public final Coordinates add(Coordinates coordinates) {
         return new Coordinates(x + coordinates.x, y + coordinates.y);
     }
 

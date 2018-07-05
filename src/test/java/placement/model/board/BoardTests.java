@@ -1,4 +1,4 @@
-package placement.model;
+package placement.model.board;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -58,8 +58,8 @@ public class BoardTests {
 
         board.placeShip(ship, 6, 6);
 
-        Assert.assertEquals(board.checkFieldState(6, 6), FieldState.OCCUPIED);
-        Assert.assertNotEquals(board.checkFieldState(3, 7), FieldState.OCCUPIED);
+        Assert.assertEquals(board.getFieldState(6, 6), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(3, 7), FieldState.OCCUPIED);
     }
 
     @Test
@@ -71,8 +71,8 @@ public class BoardTests {
         int[][] coordsThatShouldBeOccupied = {{5, 5}, {6, 5}, {7, 5}};
         multipleAssertEqualsIsExpectedFieldState(board, FieldState.OCCUPIED, coordsThatShouldBeOccupied);
 
-        Assert.assertNotEquals(board.checkFieldState(8, 5), FieldState.OCCUPIED);
-        Assert.assertNotEquals(board.checkFieldState(4, 5), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(8, 5), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(4, 5), FieldState.OCCUPIED);
     }
 
     @Test
@@ -82,8 +82,8 @@ public class BoardTests {
         board.placeShip(ship, 3, 3);
 
         // (3, 3) is not a buffer, but a ship
-        Assert.assertNotEquals(board.checkFieldState(3, 3), FieldState.BUFFER);
-        Assert.assertEquals(board.checkFieldState(3, 3), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(3, 3), FieldState.BUFFER);
+        Assert.assertEquals(board.getFieldState(3, 3), FieldState.OCCUPIED);
 
         // 8 surrounding fields are supposed to be buffers now
         int[][] coordsThatShouldBeBuffer = {{2, 3}, {4, 3}, {2, 2}, {3, 2}, {4, 2}, {2, 4}, {3, 4}, {4, 4}};
@@ -103,7 +103,7 @@ public class BoardTests {
         board.placeShip(ship, 0, 0);
 
         // (0,0) is not a buffer, but a ship
-        Assert.assertEquals(board.checkFieldState(0, 0), FieldState.OCCUPIED);
+        Assert.assertEquals(board.getFieldState(0, 0), FieldState.OCCUPIED);
 
         // 3 surrounding fields are supposed to be buffers now
         int[][] coordsThatShouldBeBuffer = {{0, 1}, {1, 0}, {1, 1}};
@@ -162,7 +162,7 @@ public class BoardTests {
         board.placeShip(ship2, 6, 5);
 
         // (3, 3) is not a buffer, but a ship
-        Assert.assertEquals(board.checkFieldState(3, 3), FieldState.OCCUPIED);
+        Assert.assertEquals(board.getFieldState(3, 3), FieldState.OCCUPIED);
 
         // 8 surrounding fields are supposed to be buffers now
         int[][] coordsThatShouldBeBufferForShip1 = {{2, 3}, {4, 3}, {2, 2}, {3, 2}, {4, 2}, {2, 4}, {3, 4}, {4, 4}};
@@ -247,7 +247,7 @@ public class BoardTests {
         Ship ship = new Ship(3, Direction.EAST);
         board.placeShip(ship, 9, 0);
 
-        Assert.assertNotEquals(board.checkFieldState(9, 0), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(9, 0), FieldState.OCCUPIED);
     }
 
     @Test
@@ -259,8 +259,8 @@ public class BoardTests {
         board.placeShip(shipPlacedOnFirstShip, 1, 1);
 
         //second ship is not placed
-        Assert.assertNotEquals(board.checkFieldState(1, 2), FieldState.OCCUPIED);
-        Assert.assertNotEquals(board.checkFieldState(1, 3), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(1, 2), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(1, 3), FieldState.OCCUPIED);
 
         //fist ship is placed
         int[][] coordsThatShouldBeOccupied = {{1, 1}, {2, 1}, {3, 1}};
@@ -281,14 +281,14 @@ public class BoardTests {
         multipleAssertEqualsIsExpectedFieldState(board, FieldState.OCCUPIED, coordsThatShouldBeOccupiedByShip1);
 
         //ship2 is not placed
-        Assert.assertNotEquals(board.checkFieldState(1, 2), FieldState.OCCUPIED);
-        Assert.assertNotEquals(board.checkFieldState(1, 3), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(1, 2), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(1, 3), FieldState.OCCUPIED);
 
     }
 
     private void multipleAssertEqualsIsExpectedFieldState(Board board, FieldState expectedFieldState, int[][] coordinates) {
         for (int[] coord : coordinates) {
-            Assert.assertEquals(board.checkFieldState(coord[0], coord[1]), expectedFieldState);
+            Assert.assertEquals(board.getFieldState(coord[0], coord[1]), expectedFieldState);
         }
     }
 

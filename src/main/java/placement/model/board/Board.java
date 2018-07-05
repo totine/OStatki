@@ -1,11 +1,13 @@
-package placement.model;
+package placement.model.board;
 
+import placement.model.Coordinates;
+import placement.model.ShipOnBufferException;
+import placement.model.ShipOnOccupiedFieldException;
+import placement.model.ShipOutOfBoardException;
 import placement.model.field.*;
 import placement.model.ship.Ship;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -14,8 +16,7 @@ import java.util.Set;
 public final class Board {
     private static final int DEFAULT_COLUMN_COUNT = 10;
     private static final int DEFAULT_ROW_COUNT = 10;
-
-    private final Map<Coordinates, Field> coordinatesToFieldsMap;
+    private final BoardFields boardFields;
 
     private final int rows;
     private final int cols;
@@ -24,7 +25,7 @@ public final class Board {
      * creates a Board object with preset dimensions.
      */
     private Board(int rows, int cols) {
-        this.coordinatesToFieldsMap = new HashMap<>();
+        boardFields = new BoardFields(rows, cols);
         this.rows = rows;
         this.cols = cols;
     }
@@ -44,7 +45,7 @@ public final class Board {
      * @return true if a board is not yet populated.
      */
     boolean isEmpty() {
-        return coordinatesToFieldsMap.isEmpty();
+        return boardFields.isEmpty();
     }
 
     /**
@@ -66,14 +67,43 @@ public final class Board {
     }
 
 
-    FieldState checkFieldState(int x, int y) {
-        Coordinates coordinates = new Coordinates(x, y);
-        Field field = coordinatesToFieldsMap.getOrDefault(coordinates, new EmptyField());
+    private FieldState getFieldState(Coordinates coordinates) {
+        Field field = boardFields.getField(coordinates);
         return field.getState();
     }
 
-    private FieldState checkFieldState(Coordinates coordinates) {
-        return checkFieldState(coordinates.getX(), coordinates.getY());
+    FieldState getFieldState(int x, int y) {
+        Coordinates coordinates = new Coordinates(x, y);
+        return getFieldState(coordinates);
+    }
+
+    /**
+     * Places given ship on the board if it's possible.
+     *
+     * @param ship        ship to place.
+     * @param coordinates coordinates of the ship's "head".
+     * @see ShipOnBufferException
+     * @see ShipOnOccupiedFieldException
+     * @see ShipOutOfBoardException
+     */
+    public void placeShip(Ship ship, Coordinates coordinates) {
+        try {
+            Set<Coordinates> mastCoordinates = getMastCoordinates(ship, coordinates);
+            mastCoordinates.forEach(coordinate -> {
+                boardFields.markAsOccupied(coordinate);
+                surroundWithBuffer(coordinate);
+                ship.addPositionCoord(coordinate);
+            });
+            ship.markAsPlaced();
+
+        } catch (ShipOutOfBoardException | ShipOnBufferException | ShipOnOccupiedFieldException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void placeShip(Ship ship, int x, int y) {
+        Coordinates coordinates = new Coordinates(x, y);
+        placeShip(ship, coordinates);
     }
 
     private Set<Coordinates> getMastCoordinates(Ship ship, Coordinates coordinates)
@@ -88,12 +118,18 @@ public final class Board {
         return mastCoordinates;
     }
 
-    private void surroundWithBuffer(Coordinates mastCoordinates) {
-        Set<Coordinates> neighbours = getNeighbours(mastCoordinates);
-        neighbours.forEach(coordinates -> coordinatesToFieldsMap.put(coordinates, new BufferField()));
+    private void checkIsAbleToPlace(Coordinates coordinates)
+            throws ShipOutOfBoardException, ShipOnBufferException, ShipOnOccupiedFieldException {
+        Field field = boardFields.getField(coordinates);
+        field.checkState();
     }
 
-    private Set<Coordinates> getNeighbours(Coordinates coordinates) {
+    private void surroundWithBuffer(Coordinates mastCoordinates) {
+        Set<Coordinates> neighbours = getNeighboursToMarkAsBuffer(mastCoordinates);
+        neighbours.forEach(boardFields::markAsBuffer);
+    }
+
+    private Set<Coordinates> getNeighboursToMarkAsBuffer(Coordinates coordinates) {
         HashSet<Coordinates> neighbours = new HashSet<>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -103,67 +139,17 @@ public final class Board {
                 neighbours.add(neighbour);
             }
         }
-        neighbours.removeIf(this::isOutOfBoard);
         neighbours.removeIf(this::isFieldOccupied);
+        neighbours.removeIf(this::isOutOfBound);
         return neighbours;
     }
 
-
-    private void checkIsAbleToPlace(Coordinates coordinates)
-            throws ShipOutOfBoardException, ShipOnBufferException, ShipOnOccupiedFieldException {
-        if (isOutOfBoard(coordinates)) {
-            throw new ShipOutOfBoardException();
-        }
-        if (isFieldBuffer(coordinates)) {
-            throw new ShipOnBufferException();
-        }
-        if (isFieldOccupied(coordinates)) {
-            throw new ShipOnOccupiedFieldException();
-        }
-    }
-
-    private boolean isOutOfBoard(Coordinates coordinates) {
-        return coordinates.getY() < 0 || coordinates.getY() >= rows
-                || coordinates.getX() < 0 || coordinates.getX() >= cols;
+    private boolean isOutOfBound(Coordinates coordinates) {
+        return getFieldState(coordinates).equals(FieldState.OUTOFBOUND);
     }
 
     private boolean isFieldOccupied(Coordinates coordinates) {
-        return checkFieldState(coordinates).equals(FieldState.OCCUPIED);
-    }
-
-    private boolean isFieldBuffer(Coordinates coordinates) {
-        return checkFieldState(coordinates).equals(FieldState.BUFFER);
-    }
-
-    /**
-     * Places given ship on the board if it's possible.
-     *
-     * @param ship        ship to place.
-     * @param coordinates coordinates of the ship's "head".
-     * @see ShipOnBufferException
-     * @see ShipOnOccupiedFieldException
-     * @see ShipOutOfBoardException
-     */
-    public void placeShip(Ship ship, Coordinates coordinates) {
-        try {
-
-            Set<Coordinates> mastCoordinates = getMastCoordinates(ship, coordinates);
-            mastCoordinates.forEach(coordinate -> {
-                coordinatesToFieldsMap.put(coordinate, new OccupiedField());
-                surroundWithBuffer(coordinate);
-                ship.addPositionCoord(coordinate);
-            });
-
-            ship.markAsPlaced();
-
-        } catch (ShipOutOfBoardException | ShipOnBufferException | ShipOnOccupiedFieldException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
-    void placeShip(Ship ship, int x, int y) {
-        Coordinates coordinates = new Coordinates(x, y);
-        placeShip(ship, coordinates);
+        return getFieldState(coordinates).equals(FieldState.OCCUPIED);
     }
 
 
@@ -181,7 +167,7 @@ public final class Board {
                     sb.append("\t");
                 } else {
                     Coordinates coordinates = new Coordinates(j, i);
-                    Field field = coordinatesToFieldsMap.getOrDefault(coordinates, new EmptyField());
+                    Field field = boardFields.getField(coordinates);
                     sb.append(field.getMark());
                     sb.append("\t");
                 }

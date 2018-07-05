@@ -1,6 +1,6 @@
 package placement.controller;
 
-import placement.model.Board;
+import placement.model.board.Board;
 import placement.model.Fleet;
 
 /**

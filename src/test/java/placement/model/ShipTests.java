@@ -2,6 +2,7 @@ package placement.model;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import placement.model.board.Board;
 import placement.model.ship.Direction;
 import placement.model.ship.Ship;
 
