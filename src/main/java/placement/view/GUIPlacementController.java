@@ -29,7 +29,7 @@ public class GUIPlacementController {
         }
     }
 
-    private Rectangle createMast() {
+    private Rectangle createMastRepresentation() {
         Rectangle mast = new Rectangle();
         mast.setHeight(FIELD_HEIGHT);
         mast.setWidth(FIELD_WIDTH);
@@ -41,7 +41,7 @@ public class GUIPlacementController {
     private void printShip(GUIShip ship) {
 
         for (Coordinates coord : ship.getPositionCoordinates()) {
-            Shape next = createMast();
+            Shape next = createMastRepresentation();
             guiBoard.add(next, coord.getX(), coord.getY());
         }
 
