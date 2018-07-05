@@ -6,7 +6,7 @@ package placement.model;
  */
 public class ShipOnOccupiedFieldException extends Exception {
     @Override
-    public String getMessage() {
+    public final String getMessage() {
         return "Attempt to place ship on occupied field.";
     }
 }

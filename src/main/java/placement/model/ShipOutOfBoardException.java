@@ -5,7 +5,7 @@ package placement.model;
  */
 public class ShipOutOfBoardException extends Exception {
     @Override
-    public String getMessage() {
+    public final String getMessage() {
         return "Attempt to place ship out of the board.";
     }
 }

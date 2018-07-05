@@ -6,22 +6,26 @@ import placement.model.field.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BoardFields {
+/**
+ * Represents fields states on board
+ * coordinates are related to field state
+ */
+class BoardFields {
     private final Map<Coordinates, Field> coordinatesToFieldsMap;
     private final int rows;
     private final int cols;
 
-    public BoardFields(int rows, int cols) {
+    BoardFields(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
         coordinatesToFieldsMap = new HashMap<>();
     }
 
-    public boolean isEmpty() {
+    boolean isEmpty() {
         return coordinatesToFieldsMap.isEmpty();
     }
 
-    public Field getField(Coordinates coordinates) {
+    Field getField(Coordinates coordinates) {
         if (isCoordOutOfBound(coordinates)) {
             return new OutOfBoardField();
         }
@@ -33,11 +37,11 @@ public class BoardFields {
                 || coordinates.getX() < 0 || coordinates.getX() >= cols;
     }
 
-    public void markAsBuffer(Coordinates coordinates) {
+    void markAsBuffer(Coordinates coordinates) {
         coordinatesToFieldsMap.put(coordinates, new BufferField());
     }
 
-    public void markAsOccupied(Coordinates coordinates) {
+    void markAsOccupied(Coordinates coordinates) {
         coordinatesToFieldsMap.put(coordinates, new OccupiedField());
     }
 }

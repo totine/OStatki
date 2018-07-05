@@ -6,7 +6,7 @@ package placement.model;
  */
 public class ShipOnBufferException extends Exception {
     @Override
-    public String getMessage() {
+    public final String getMessage() {
         return "Attempt to place ship next to other ship.";
     }
 }
