@@ -42,12 +42,7 @@ public enum Direction {
     };
 
 
-    public static Direction getRandomDirection() {
-        Random random = new Random();
-        Direction[] directions = Direction.class.getEnumConstants();
-        int index = random.nextInt(directions.length - 1);
-        return directions[index];
-    }
+
 
     public abstract Coordinates nextCoordinates();
 }

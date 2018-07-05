@@ -18,12 +18,7 @@ public class Coordinates {
         this.y = coordinateY;
     }
 
-    public static Coordinates getRandom(int rows, int cols) {
-        Random random = new Random();
-        int x = random.nextInt(rows);
-        int y = random.nextInt(cols);
-        return new Coordinates(x, y);
-    }
+
 
     public final int getX() {
         return this.x;
