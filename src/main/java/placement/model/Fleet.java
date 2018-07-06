@@ -6,12 +6,15 @@ import placement.model.ship.ShipType;
 import java.util.ArrayList;
 import java.util.List;
 
-import static placement.model.ship.ShipType.*;
+import static placement.model.ship.ShipType.SUBMARINE;
+import static placement.model.ship.ShipType.DESTROYER;
+import static placement.model.ship.ShipType.CRUISER;
+import static placement.model.ship.ShipType.BATTLESHIP;
 
 /**
  * Represents a default fleet of ships.
  */
-public class Fleet {
+public final class Fleet {
     private List<Ship> shipList;
 
 
@@ -30,7 +33,7 @@ public class Fleet {
                 SUBMARINE, SUBMARINE, SUBMARINE, SUBMARINE);
     }
 
-    public final List<Ship> getShipList() {
+    public List<Ship> getShipList() {
         return shipList;
     }
 }

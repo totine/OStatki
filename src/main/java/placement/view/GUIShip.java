@@ -4,6 +4,9 @@ import placement.model.Coordinates;
 
 import java.util.List;
 
+/**
+ * GUI representation of ship object
+ */
 class GUIShip {
     private String id;
     private List<Coordinates> structure;
@@ -15,5 +18,9 @@ class GUIShip {
 
     List<Coordinates> getPositionCoordinates() {
         return structure;
+    }
+
+    public String getId() {
+        return id;
     }
 }

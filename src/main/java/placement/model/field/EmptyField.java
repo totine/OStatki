@@ -19,7 +19,7 @@ public class EmptyField implements Field {
     }
 
     @Override
-    public void checkState() throws ShipOutOfBoardException, ShipOnBufferException {
+    public final void checkState() throws ShipOutOfBoardException, ShipOnBufferException {
 
     }
 }

@@ -6,8 +6,8 @@ import placement.model.Fleet;
 /**
  * contains methods related to fleet control.
  */
-public class FleetController {
-
+public final class FleetController {
+    private FleetController() { }
     public static Fleet generatePlacedStandardFleet() {
         Fleet fleet = Fleet.createDefaultFleet();
         Board board = Board.createDefaultBoard();

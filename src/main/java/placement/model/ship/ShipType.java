@@ -1,5 +1,8 @@
 package placement.model.ship;
 
+/**
+ * Enum containing four standard ship sizes.
+ */
 public enum ShipType {
     BATTLESHIP(4),
     CRUISER(3),
@@ -11,7 +14,6 @@ public enum ShipType {
     ShipType(int size) {
         this.size = size;
     }
-
 
     public int getSize() {
         return size;

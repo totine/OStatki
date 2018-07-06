@@ -2,8 +2,6 @@ package placement.model.ship;
 
 import placement.model.Coordinates;
 
-import java.util.Random;
-
 /**
  * Represents a direction at which a ship is heading after being placed on a 2-D board.
  * Can be used to obtain unitary directional coordinates which can be used to calculate

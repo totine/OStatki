@@ -17,7 +17,7 @@ public class BufferField implements Field {
     }
 
     @Override
-    public void checkState() throws ShipOnBufferException {
+    public final void checkState() throws ShipOnBufferException {
         throw new ShipOnBufferException();
     }
 }

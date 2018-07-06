@@ -17,7 +17,7 @@ public class OccupiedField implements Field {
     }
 
     @Override
-    public void checkState() throws ShipOnOccupiedFieldException {
+    public final void checkState() throws ShipOnOccupiedFieldException {
         throw new ShipOnOccupiedFieldException();
     }
 }

@@ -4,7 +4,8 @@ import placement.model.Coordinates;
 import placement.model.ShipOnBufferException;
 import placement.model.ShipOnOccupiedFieldException;
 import placement.model.ShipOutOfBoardException;
-import placement.model.field.*;
+import placement.model.field.Field;
+import placement.model.field.FieldState;
 import placement.model.ship.Ship;
 
 import java.util.HashSet;

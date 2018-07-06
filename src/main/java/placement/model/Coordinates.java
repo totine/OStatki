@@ -1,7 +1,6 @@
 package placement.model;
 
 import java.util.Objects;
-import java.util.Random;
 
 /**
  * Represents 2-D coordinates on the board. The top-left coordinate of the board will be (0, 0).
@@ -10,8 +9,8 @@ import java.util.Random;
  * Implements adding of two coordinates, e.g. (4, 4) + (2, -1) = (6, 3)
  */
 public class Coordinates {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public Coordinates(int coordinateX, int coordinateY) {
         this.x = coordinateX;

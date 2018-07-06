@@ -37,7 +37,6 @@ public class GUIPlacementController {
         return mast;
     }
 
-
     private void printShip(GUIShip ship) {
 
         for (Coordinates coord : ship.getPositionCoordinates()) {

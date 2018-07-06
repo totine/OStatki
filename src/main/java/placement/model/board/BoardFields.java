@@ -1,7 +1,11 @@
 package placement.model.board;
 
 import placement.model.Coordinates;
-import placement.model.field.*;
+import placement.model.field.Field;
+import placement.model.field.OutOfBoardField;
+import placement.model.field.EmptyField;
+import placement.model.field.BufferField;
+import placement.model.field.OccupiedField;
 
 import java.util.HashMap;
 import java.util.Map;

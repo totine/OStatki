@@ -30,7 +30,7 @@ public class Ship {
     }
 
 
-    public String getId() {
+    public final String getId() {
         return id;
     }
 
@@ -70,7 +70,7 @@ public class Ship {
         positionCoordinates.add(coordinates);
     }
 
-    public Coordinates nextCoordinates() {
+    public final Coordinates nextCoordinates() {
         return direction.nextCoordinates();
     }
 }
