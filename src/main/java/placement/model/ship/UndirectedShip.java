@@ -17,7 +17,6 @@ public class UndirectedShip implements Ship {
         return false;
     }
 
-
     @Override
     public final DirectedShip direct(Direction direction) {
         return new DirectedShip(mastNumber, direction);

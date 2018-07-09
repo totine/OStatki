@@ -3,25 +3,25 @@ package placement.model.ship;
 import placement.model.Coordinates;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Represents a placed ship in the context of placing ships on a board. Knows its absolute mast coordinates and id.
  */
 public final class PlacedShip implements Ship {
-    private final String id;
     private final List<Coordinates> mastCoordinates;
 
     public PlacedShip(List<Coordinates> mastCoordinates) {
-        id = UUID.randomUUID().toString();
         this.mastCoordinates = mastCoordinates;
+    }
+
+    public PlacedShip(DirectedShip directedShip, Coordinates headCoordinates) {
+        mastCoordinates = directedShip.getTempCoordinates(headCoordinates);
     }
 
     @Override
     public boolean isPlaced() {
         return true;
     }
-
 
     public List<Coordinates> getMastCoordinates() {
         return mastCoordinates;
@@ -32,9 +32,6 @@ public final class PlacedShip implements Ship {
         return new DirectedShip(mastCoordinates.size(), direction);
     }
 
-    public String getId() {
-        return id;
-    }
 }
 
 

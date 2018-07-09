@@ -3,6 +3,7 @@ package placement.model.board;
 import placement.model.Coordinates;
 import placement.model.field.Field;
 import placement.model.field.FieldState;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -63,15 +64,11 @@ public final class Board {
     }
 
 
-    private FieldState getFieldState(Coordinates coordinates) {
+    public FieldState getFieldState(Coordinates coordinates) {
         Field field = boardFields.getField(coordinates);
         return field.getState();
     }
 
-    public FieldState getFieldState(int x, int y) {
-        Coordinates coordinates = new Coordinates(x, y);
-        return getFieldState(coordinates);
-    }
 
     public boolean isMastPlaceable(Coordinates mastCoordinates) {
         Field field = boardFields.getField(mastCoordinates);
@@ -88,19 +85,19 @@ public final class Board {
         neighbours.forEach(boardFields::markAsBuffer);
     }
 
-    private Set<Coordinates> getNeighboursToMarkAsBuffer(Coordinates coordinates) {
+    private Set<Coordinates> getNeighboursToMarkAsBuffer(Coordinates coordinatesToSurrounded) {
         HashSet<Coordinates> neighbours = new HashSet<>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 Coordinates neighbour = new Coordinates(
-                        coordinates.getX() + i,
-                        coordinates.getY() + j);
+                        coordinatesToSurrounded.getX() + i,
+                        coordinatesToSurrounded.getY() + j);
                 neighbours.add(neighbour);
             }
         }
         neighbours.removeIf(this::isFieldOccupied);
         neighbours.removeIf(this::isOutOfBound);
-        neighbours.remove(coordinates);
+        neighbours.remove(coordinatesToSurrounded);
         return neighbours;
     }
 

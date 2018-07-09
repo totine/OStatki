@@ -10,8 +10,6 @@ import placement.model.ship.*;
 import java.util.*;
 
 
-
-
 public class ShipTests {
 
     @Test
@@ -30,9 +28,9 @@ public class ShipTests {
         Board board = Board.createDefaultBoard();
         DirectedShip ship = new DirectedShip(3, Direction.EAST);
 
-        Ship placedShip = ShipPlacer.placeShip(board, ship, 5, 4);
+        boolean isPlaced = ShipPlacer.tryToPlaceShip(board, ship, new Coordinates(5, 4));
 
-        Assert.assertTrue(placedShip.isPlaced());
+        Assert.assertTrue(isPlaced);
 
     }
 
@@ -43,18 +41,11 @@ public class ShipTests {
 
         DirectedShip ship = new DirectedShip(4, Direction.NORTH);
 
-        Ship ship1 = ShipPlacer.placeShip(board, ship, 7, 8);
+        boolean isPlaced = ShipPlacer.tryToPlaceShip(board, ship, new Coordinates(7, 8));
 
-        List<Coordinates> expectedCoordinates = Arrays.asList(
-                new Coordinates(7, 8),
-                new Coordinates(7, 7),
-                new Coordinates(7, 6),
-                new Coordinates(7, 5));
 
-        List<Coordinates> actualCoordinates = ((PlacedShip) ship1).getMastCoordinates();
+        Assert.assertTrue(isPlaced);
 
-        Assert.assertTrue(ship1.isPlaced());
-        Assert.assertEquals(actualCoordinates, expectedCoordinates);
     }
 
     @Test

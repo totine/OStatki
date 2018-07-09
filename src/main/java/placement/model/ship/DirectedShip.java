@@ -14,20 +14,14 @@ public class DirectedShip implements Ship {
     private final int mastNumber;
     private Direction direction;
 
-
     public DirectedShip(int mastCount, Direction direction) {
         this.mastNumber = mastCount;
         this.direction = direction;
     }
 
-    public final int getMastNumber() {
-        return mastNumber;
-    }
-
     public final boolean isPlaced() {
         return false;
     }
-
 
     /**
      * Returns this ship with a updated direction
@@ -38,7 +32,6 @@ public class DirectedShip implements Ship {
         this.direction = direction;
         return this;
     }
-
 
     public final List<Coordinates> getTempCoordinates(Coordinates headCoordinates) {
         List<Coordinates> mastCoordinates = new ArrayList<>();

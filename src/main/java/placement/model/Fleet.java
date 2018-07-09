@@ -8,10 +8,10 @@ import placement.model.ship.UndirectedShip;
 import java.util.ArrayList;
 import java.util.List;
 
-import static placement.model.ship.ShipType.SUBMARINE;
-import static placement.model.ship.ShipType.DESTROYER;
-import static placement.model.ship.ShipType.CRUISER;
-import static placement.model.ship.ShipType.BATTLESHIP;
+import static placement.model.ship.ShipType.SHIP_MAST1;
+import static placement.model.ship.ShipType.SHIP_MAST2;
+import static placement.model.ship.ShipType.SHIP_MAST3;
+import static placement.model.ship.ShipType.SHIP_MAST4;
 
 /**
  * Represents a fleet of ships.
@@ -24,12 +24,12 @@ public final class Fleet<T extends Ship> {
         shipList = new ArrayList<>();
     }
 
-    public static Fleet<Ship> createDefaultFleet() {
-        Fleet<Ship> fleet = new Fleet<>();
-        ShipType[] shipTypes = {BATTLESHIP,
-                CRUISER, CRUISER,
-                DESTROYER, DESTROYER, DESTROYER,
-                SUBMARINE, SUBMARINE, SUBMARINE, SUBMARINE};
+    public static Fleet<UndirectedShip> createDefaultFleet() {
+        Fleet<UndirectedShip> fleet = new Fleet<>();
+        ShipType[] shipTypes = {SHIP_MAST4,
+                SHIP_MAST3, SHIP_MAST3,
+                SHIP_MAST2, SHIP_MAST2, SHIP_MAST2,
+                SHIP_MAST1, SHIP_MAST1, SHIP_MAST1, SHIP_MAST1};
         for (ShipType shipType : shipTypes) {
             UndirectedShip ship = new UndirectedShip(shipType.getSize());
             fleet.add(ship);

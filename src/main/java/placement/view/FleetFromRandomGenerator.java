@@ -14,7 +14,7 @@ public class FleetFromRandomGenerator implements FleetDAO {
         Fleet<PlacedShip> fleetFromRandom = FleetController.generatePlacedStandardFleet();
         GUIFleet guiFleet = new GUIFleet();
         for (PlacedShip ship : fleetFromRandom.getShipList()) {
-            GUIShip guiShip = new GUIShip(ship.getId(), ship.getMastCoordinates());
+            GUIShip guiShip = new GUIShip(ship.getMastCoordinates());
             guiFleet.add(guiShip);
         }
         return guiFleet;
