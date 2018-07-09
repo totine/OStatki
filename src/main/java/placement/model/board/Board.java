@@ -69,7 +69,6 @@ public final class Board {
         return field.getState();
     }
 
-
     public boolean isMastPlaceable(Coordinates mastCoordinates) {
         Field field = boardFields.getField(mastCoordinates);
         return field.isPlaceable();
@@ -85,19 +84,24 @@ public final class Board {
         neighbours.forEach(boardFields::markAsBuffer);
     }
 
-    private Set<Coordinates> getNeighboursToMarkAsBuffer(Coordinates coordinatesToSurrounded) {
+    private Set<Coordinates> getNeighboursToMarkAsBuffer(Coordinates coordinatesToSurroundWithBuffer) {
+        HashSet<Coordinates> neighbours = getAllNeighboursCoordinates(coordinatesToSurroundWithBuffer);
+        neighbours.removeIf(this::isFieldOccupied);
+        neighbours.removeIf(this::isOutOfBound);
+        return neighbours;
+
+    }
+
+    private HashSet<Coordinates> getAllNeighboursCoordinates(Coordinates coordinatesToSurroundWithBuffer) {
         HashSet<Coordinates> neighbours = new HashSet<>();
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                Coordinates neighbour = new Coordinates(
-                        coordinatesToSurrounded.getX() + i,
-                        coordinatesToSurrounded.getY() + j);
+        for (int toAddToX = -1; toAddToX <= 1; toAddToX++) {
+            for (int toAddToY = -1; toAddToY <= 1; toAddToY++) {
+                Coordinates toAdd = new Coordinates(toAddToX, toAddToY);
+                Coordinates neighbour = coordinatesToSurroundWithBuffer.add(toAdd);
                 neighbours.add(neighbour);
             }
         }
-        neighbours.removeIf(this::isFieldOccupied);
-        neighbours.removeIf(this::isOutOfBound);
-        neighbours.remove(coordinatesToSurrounded);
+        neighbours.remove(coordinatesToSurroundWithBuffer);
         return neighbours;
     }
 
@@ -108,7 +112,6 @@ public final class Board {
     private boolean isFieldOccupied(Coordinates coordinates) {
         return getFieldState(coordinates).equals(FieldState.OCCUPIED);
     }
-
 
     @Override
     public String toString() {

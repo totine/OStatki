@@ -23,7 +23,7 @@ public class GUIPlacementController {
     private void placeRandom() {
         guiBoard.getChildren().removeIf(node -> node instanceof Shape);
         FleetDAO fleetDAO = new FleetFromRandomGenerator();
-        GUIFleet fleet = fleetDAO.getFleet();
+        GUIFleet fleet = fleetDAO.getGUIFleet();
         for (GUIShip ship : fleet.getShipList()) {
             printShip(ship);
         }

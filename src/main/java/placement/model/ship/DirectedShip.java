@@ -34,14 +34,14 @@ public class DirectedShip implements Ship {
     }
 
     public final List<Coordinates> getTempCoordinates(Coordinates headCoordinates) {
-        List<Coordinates> mastCoordinates = new ArrayList<>();
-        mastCoordinates.add(headCoordinates);
-        Coordinates currentCoordinates = headCoordinates;
-        while (mastCoordinates.size() < mastNumber) {
-            Coordinates nextCoord = direction.nextCoordinates();
-            currentCoordinates = currentCoordinates.add(nextCoord);
-            mastCoordinates.add(currentCoordinates);
+        return createMastCoordinates(new ArrayList<>(), headCoordinates, mastNumber);
+    }
+
+    private List<Coordinates> createMastCoordinates(List<Coordinates> mastCoordinatesList, Coordinates headCoordinates, int mastNumber) {
+        if (mastCoordinatesList.size() == mastNumber) {
+            return mastCoordinatesList;
         }
-        return mastCoordinates;
+        mastCoordinatesList.add(headCoordinates);
+        return createMastCoordinates(mastCoordinatesList, headCoordinates.add(direction.nextCoordinates()), mastNumber);
     }
 }

@@ -10,7 +10,7 @@ import placement.model.ship.PlacedShip;
  */
 public class FleetFromRandomGenerator implements FleetDAO {
     @Override
-    public final GUIFleet getFleet() {
+    public final GUIFleet getGUIFleet() {
         Fleet<PlacedShip> fleetFromRandom = FleetController.generatePlacedStandardFleet();
         GUIFleet guiFleet = new GUIFleet();
         for (PlacedShip ship : fleetFromRandom.getShipList()) {

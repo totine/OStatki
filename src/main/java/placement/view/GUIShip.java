@@ -8,14 +8,14 @@ import java.util.List;
  * GUI representation of ship object
  */
 class GUIShip {
-    private List<Coordinates> structure;
+    private List<Coordinates> mastCoordinates;
 
     GUIShip(List<Coordinates> structure) {
-        this.structure = structure;
+        this.mastCoordinates = structure;
     }
 
     List<Coordinates> getPositionCoordinates() {
-        return structure;
+        return mastCoordinates;
     }
 
 
