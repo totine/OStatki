@@ -26,8 +26,6 @@ class RandomFleetPlacer {
         this.random = new Random();
     }
 
-
-
     Fleet<PlacedShip> placeFleet() {
         Fleet<PlacedShip> fleetToSend = new Fleet<>();
         for (Ship ship : fleet.getShipList()) {
@@ -42,13 +40,13 @@ class RandomFleetPlacer {
         return fleetToSend;
     }
 
-    public Direction getRandomDirection() {
+    private Direction getRandomDirection() {
         Direction[] directions = Direction.class.getEnumConstants();
         int index = random.nextInt(directions.length - 1);
         return directions[index];
     }
 
-    public Coordinates getRandomCoordinates(int rows, int cols) {
+    private Coordinates getRandomCoordinates(int rows, int cols) {
         int x = random.nextInt(rows);
         int y = random.nextInt(cols);
         return new Coordinates(x, y);

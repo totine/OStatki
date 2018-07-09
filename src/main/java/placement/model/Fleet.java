@@ -25,8 +25,8 @@ public final class Fleet<T extends Ship> {
 
 
 
-    public static Fleet<UndirectedShip> createDefaultFleet() {
-        Fleet<UndirectedShip> fleet = new Fleet<>();
+    public static Fleet<Ship> createDefaultFleet() {
+        Fleet<Ship> fleet = new Fleet<>();
         ShipType[] shipTypes = {BATTLESHIP,
                 CRUISER, CRUISER,
                 DESTROYER, DESTROYER, DESTROYER,
