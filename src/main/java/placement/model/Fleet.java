@@ -1,6 +1,5 @@
 package placement.model;
 
-import placement.model.ship.DirectedShip;
 import placement.model.ship.Ship;
 import placement.model.ship.ShipType;
 import placement.model.ship.UndirectedShip;
@@ -14,16 +13,15 @@ import static placement.model.ship.ShipType.CRUISER;
 import static placement.model.ship.ShipType.BATTLESHIP;
 
 /**
- * Represents a default fleet of ships.
+ * Represents a fleet of ships.
+ * @param <T> fleet can be generic - it is able to store different types of Ships.
  */
 public final class Fleet<T extends Ship> {
     private List<T> shipList;
 
-    public  Fleet() {
+    public Fleet() {
         shipList = new ArrayList<>();
     }
-
-
 
     public static Fleet<Ship> createDefaultFleet() {
         Fleet<Ship> fleet = new Fleet<>();

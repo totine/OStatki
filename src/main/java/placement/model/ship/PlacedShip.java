@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Represents a ship that is already placed on the board
+ * Represents a placed ship in the context of placing ships on a board. Knows its absolute mast coordinates and id.
  */
 public final class PlacedShip implements Ship {
     private final String id;

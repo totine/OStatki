@@ -2,10 +2,13 @@ package placement.model.ship;
 
 import placement.model.Coordinates;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
- * Represents a ship in the context of placing ships on a board. Knows its shape and position on the board.
+ * Represents a ship, that is directed but not placed in the context of placing ships on a board.
+ * Knows its direction and mast number.
  */
 public class DirectedShip implements Ship {
     private final int mastNumber;
@@ -17,14 +20,9 @@ public class DirectedShip implements Ship {
         this.direction = direction;
     }
 
-    public DirectedShip(int mastNumber) {
-        this(mastNumber, Direction.UNDETERMINED);
-    }
-
     public final int getMastNumber() {
         return mastNumber;
     }
-
 
     public final boolean isPlaced() {
         return false;
@@ -32,7 +30,7 @@ public class DirectedShip implements Ship {
 
 
     /**
-     * Sets an orientation of the ship - if it's heading north, south, east, west OR if it's
+     * Returns this ship with a updated direction
      *
      * @param direction - south, west, east or north
      */
@@ -42,7 +40,7 @@ public class DirectedShip implements Ship {
     }
 
 
-    public List<Coordinates> getTempCoordinates(Coordinates headCoordinates) {
+    public final List<Coordinates> getTempCoordinates(Coordinates headCoordinates) {
         List<Coordinates> mastCoordinates = new ArrayList<>();
         mastCoordinates.add(headCoordinates);
         Coordinates currentCoordinates = headCoordinates;

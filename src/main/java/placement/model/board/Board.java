@@ -3,8 +3,6 @@ package placement.model.board;
 import placement.model.Coordinates;
 import placement.model.field.Field;
 import placement.model.field.FieldState;
-
-
 import java.util.HashSet;
 import java.util.Set;
 

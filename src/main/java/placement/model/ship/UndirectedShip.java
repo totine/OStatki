@@ -1,5 +1,10 @@
 package placement.model.ship;
 
+
+/**
+ * Represents a ship, that is undirected and not placed in the context of placing ships on a board.
+ * Knows its mast number.
+ */
 public class UndirectedShip implements Ship {
     private final int mastNumber;
 
@@ -8,13 +13,13 @@ public class UndirectedShip implements Ship {
     }
 
     @Override
-    public boolean isPlaced() {
+    public final boolean isPlaced() {
         return false;
     }
 
 
     @Override
-    public DirectedShip direct(Direction direction) {
+    public final DirectedShip direct(Direction direction) {
         return new DirectedShip(mastNumber, direction);
     }
 }
