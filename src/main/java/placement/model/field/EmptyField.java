@@ -1,7 +1,5 @@
 package placement.model.field;
 
-
-
 /**
  * Represents a field that is not yet taken by any ship and it's not adjacent to any of them.
  * Basically means "water".

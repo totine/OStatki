@@ -2,17 +2,22 @@ package placement.model;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import placement.controller.ShipPlacer;
 import placement.model.board.Board;
 import placement.model.ship.*;
 
 import java.util.*;
 
+
+
+
 public class ShipTests {
 
     @Test
     public void givenNewlyCreatedShip_WhenCheckingItsStatus_ThenItIsNotPlaced() {
         Board board = Board.createDefaultBoard();
+
         DirectedShip ship = new DirectedShip(2, Direction.WEST);
 
         Assert.assertFalse(ship.isPlaced());
@@ -28,11 +33,13 @@ public class ShipTests {
         Ship placedShip = ShipPlacer.placeShip(board, ship, 5, 4);
 
         Assert.assertTrue(placedShip.isPlaced());
+
     }
 
     @Test
     public void testGetCoordinates() {
         Board board = Board.createDefaultBoard();
+
 
         DirectedShip ship = new DirectedShip(4, Direction.NORTH);
 
@@ -43,7 +50,6 @@ public class ShipTests {
                 new Coordinates(7, 7),
                 new Coordinates(7, 6),
                 new Coordinates(7, 5));
-
 
         List<Coordinates> actualCoordinates = ((PlacedShip) ship1).getMastCoordinates();
 

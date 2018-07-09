@@ -73,7 +73,6 @@ public final class Board {
         return getFieldState(coordinates);
     }
 
-
     public boolean isMastPlaceable(Coordinates mastCoordinates) {
         Field field = boardFields.getField(mastCoordinates);
         return field.isPlaceable();

@@ -4,6 +4,7 @@ import placement.model.ship.Ship;
 import placement.model.ship.ShipType;
 import placement.model.ship.UndirectedShip;
 
+
 import java.util.ArrayList;
 import java.util.List;
 

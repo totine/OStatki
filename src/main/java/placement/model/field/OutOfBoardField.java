@@ -1,6 +1,5 @@
 package placement.model.field;
 
-
 /**
  * Represents a notion of a field that is
  * impossible to exist. In other words a wrong field.

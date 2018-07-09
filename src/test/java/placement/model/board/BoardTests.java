@@ -28,4 +28,5 @@ public class BoardTests {
         Assert.assertEquals(board.rows(), 10);
         Assert.assertEquals(board.cols(), 10);
     }
+
 }

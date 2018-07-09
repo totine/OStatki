@@ -33,6 +33,5 @@ public enum Direction {
         }
     };
 
-
     public abstract Coordinates nextCoordinates();
 }

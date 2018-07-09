@@ -8,6 +8,7 @@ import placement.model.ship.Direction;
 import placement.model.ship.PlacedShip;
 import placement.model.ship.Ship;
 
+
 import java.util.Random;
 
 /**
@@ -20,11 +21,13 @@ class RandomFleetPlacer {
     private final Random random;
 
 
+
     RandomFleetPlacer(Fleet<Ship> fleet, Board board) {
         this.fleet = fleet;
         this.board = board;
         this.random = new Random();
     }
+
 
     Fleet<PlacedShip> placeFleet() {
         Fleet<PlacedShip> fleetToSend = new Fleet<>();
@@ -41,6 +44,7 @@ class RandomFleetPlacer {
     }
 
     private Direction getRandomDirection() {
+
         Direction[] directions = Direction.class.getEnumConstants();
         int index = random.nextInt(directions.length - 1);
         return directions[index];

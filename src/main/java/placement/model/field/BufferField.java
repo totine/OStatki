@@ -1,6 +1,5 @@
 package placement.model.field;
 
-
 /**
  * Represents a field that is adjacent to some ship.
  */
