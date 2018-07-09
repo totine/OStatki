@@ -4,7 +4,6 @@ import placement.model.board.Board;
 import placement.model.Fleet;
 import placement.model.ship.PlacedShip;
 import placement.model.ship.Ship;
-import placement.model.ship.UndirectedShip;
 
 /**
  * contains methods related to fleet control.

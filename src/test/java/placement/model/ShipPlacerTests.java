@@ -36,7 +36,7 @@ public class ShipPlacerTests {
 
     @Test
     public void givenNewlyCreatedBoard_WhenShipIsPlacedIncorrectly_ItIsEmpty() {
-        DirectedShip incorrectShip = new DirectedShip(3, Direction.NORTH);
+        DirectedShip incorrectShip = new DirectedShip(3, Direction.WEST);
 
         ShipPlacer.placeShip(board, incorrectShip, 5, 15);
 

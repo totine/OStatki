@@ -29,7 +29,7 @@ public final class PlacedShip implements Ship {
 
     @Override
     public DirectedShip direct(Direction direction) {
-        return null;
+        return new DirectedShip(mastCoordinates.size(), direction);
     }
 
     public String getId() {
