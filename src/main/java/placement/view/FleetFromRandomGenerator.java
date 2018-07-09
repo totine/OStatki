@@ -3,7 +3,6 @@ package placement.view;
 import placement.controller.FleetController;
 import placement.model.Fleet;
 import placement.model.ship.PlacedShip;
-import placement.model.ship.Ship;
 
 
 /**
