@@ -6,7 +6,7 @@ import placement.model.ShipOnOccupiedFieldException;
 import placement.model.ShipOutOfBoardException;
 import placement.model.field.Field;
 import placement.model.field.FieldState;
-import placement.model.ship.Ship;
+import placement.model.ship.DirectedShip;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -45,7 +45,7 @@ public final class Board {
      *
      * @return true if a board is not yet populated.
      */
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return boardFields.isEmpty();
     }
 
@@ -73,56 +73,20 @@ public final class Board {
         return field.getState();
     }
 
-    FieldState getFieldState(int x, int y) {
+    public FieldState getFieldState(int x, int y) {
         Coordinates coordinates = new Coordinates(x, y);
         return getFieldState(coordinates);
     }
 
-    /**
-     * Places given ship on the board if it's possible.
-     *
-     * @param ship        ship to place.
-     * @param coordinates coordinates of the ship's "head".
-     * @see ShipOnBufferException
-     * @see ShipOnOccupiedFieldException
-     * @see ShipOutOfBoardException
-     */
-    public void placeShip(Ship ship, Coordinates coordinates) {
-        try {
-            Set<Coordinates> mastCoordinates = getMastCoordinates(ship, coordinates);
-            mastCoordinates.forEach(coordinate -> {
-                boardFields.markAsOccupied(coordinate);
-                surroundWithBuffer(coordinate);
-                ship.addPositionCoord(coordinate);
-            });
-            ship.markAsPlaced();
 
-        } catch (ShipOutOfBoardException | ShipOnBufferException | ShipOnOccupiedFieldException e) {
-            System.err.println(e.getMessage());
-        }
+    public boolean isMastPlaceable(Coordinates mastCoordinates) {
+        Field field = boardFields.getField(mastCoordinates);
+        return field.isPlaceable();
     }
 
-    public void placeShip(Ship ship, int x, int y) {
-        Coordinates coordinates = new Coordinates(x, y);
-        placeShip(ship, coordinates);
-    }
-
-    private Set<Coordinates> getMastCoordinates(Ship ship, Coordinates coordinates)
-            throws ShipOutOfBoardException, ShipOnBufferException, ShipOnOccupiedFieldException {
-        Set<Coordinates> mastCoordinates = new HashSet<>();
-        while (mastCoordinates.size() < ship.getMastNumber()) {
-            checkIsAbleToPlace(coordinates);
-            Coordinates nextCoord = ship.nextCoordinates();
-            mastCoordinates.add(coordinates);
-            coordinates = coordinates.add(nextCoord);
-        }
-        return mastCoordinates;
-    }
-
-    private void checkIsAbleToPlace(Coordinates coordinates)
-            throws ShipOutOfBoardException, ShipOnBufferException, ShipOnOccupiedFieldException {
-        Field field = boardFields.getField(coordinates);
-        field.checkState();
+    public void placeMast(Coordinates coordinates) {
+        boardFields.markAsOccupied(coordinates);
+        surroundWithBuffer(coordinates);
     }
 
     private void surroundWithBuffer(Coordinates mastCoordinates) {
@@ -142,6 +106,7 @@ public final class Board {
         }
         neighbours.removeIf(this::isFieldOccupied);
         neighbours.removeIf(this::isOutOfBound);
+        neighbours.remove(coordinates);
         return neighbours;
     }
 

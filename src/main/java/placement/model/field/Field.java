@@ -12,5 +12,5 @@ public interface Field {
 
     String getMark();
 
-    void checkState() throws ShipOutOfBoardException, ShipOnBufferException, ShipOnOccupiedFieldException;
+    boolean isPlaceable();
 }

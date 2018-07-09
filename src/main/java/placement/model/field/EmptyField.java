@@ -1,7 +1,6 @@
 package placement.model.field;
 
-import placement.model.ShipOnBufferException;
-import placement.model.ShipOutOfBoardException;
+
 
 /**
  * Represents a field that is not yet taken by any ship and it's not adjacent to any of them.
@@ -19,7 +18,7 @@ public class EmptyField implements Field {
     }
 
     @Override
-    public final void checkState() throws ShipOutOfBoardException, ShipOnBufferException {
-
+    public final boolean isPlaceable() {
+        return true;
     }
 }

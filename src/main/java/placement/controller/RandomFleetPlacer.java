@@ -3,8 +3,10 @@ package placement.controller;
 import placement.model.Fleet;
 import placement.model.board.Board;
 import placement.model.Coordinates;
-import placement.model.ship.Ship;
+import placement.model.ship.DirectedShip;
 import placement.model.ship.Direction;
+import placement.model.ship.PlacedShip;
+import placement.model.ship.Ship;
 
 import java.util.Random;
 
@@ -13,12 +15,12 @@ import java.util.Random;
  */
 class RandomFleetPlacer {
 
-    private final Fleet fleet;
+    private final Fleet<Ship> fleet;
     private final Board board;
     private final Random random;
 
 
-    RandomFleetPlacer(Fleet fleet, Board board) {
+    RandomFleetPlacer(Fleet<Ship> fleet, Board board) {
         this.fleet = fleet;
         this.board = board;
         this.random = new Random();
@@ -26,16 +28,18 @@ class RandomFleetPlacer {
 
 
 
-    Fleet placeFleet() {
+    Fleet<PlacedShip> placeFleet() {
+        Fleet<PlacedShip> fleetToSend = new Fleet<>();
         for (Ship ship : fleet.getShipList()) {
             while (!ship.isPlaced()) {
                 Direction direction = getRandomDirection();
-                ship.setDirection(direction);
+                DirectedShip ship2 = ship.direct(direction);
                 Coordinates randomCoordinates = getRandomCoordinates(board.rows(), board.cols());
-                board.placeShip(ship, randomCoordinates);
+                ship = ShipPlacer.placeShip(board, ship2, randomCoordinates);
             }
+            fleetToSend.add((PlacedShip) ship);
         }
-        return fleet;
+        return fleetToSend;
     }
 
     public Direction getRandomDirection() {

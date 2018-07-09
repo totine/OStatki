@@ -3,7 +3,7 @@ package placement.model;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import placement.model.ship.Ship;
+import placement.model.ship.DirectedShip;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class FleetTests {
     @Test
     public void getShipListTest() {
         Fleet defaultFleet = Fleet.createDefaultFleet();
-        List<Ship> shipList = defaultFleet.getShipList();
+        List<DirectedShip> shipList = defaultFleet.getShipList();
 
         Assert.assertEquals(shipList.size(), 10);
     }
