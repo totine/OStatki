@@ -31,16 +31,7 @@ public enum Direction {
         public Coordinates nextCoordinates() {
             return new Coordinates(-1, 0);
         }
-    },
-    UNDETERMINED {
-        @Override
-        public Coordinates nextCoordinates() {
-            return new Coordinates(0, 0);
-        }
     };
-
-
-
 
     public abstract Coordinates nextCoordinates();
 }

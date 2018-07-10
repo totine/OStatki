@@ -2,21 +2,21 @@ package placement.model;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import placement.model.board.Board;
-import placement.model.ship.Direction;
-import placement.model.ship.Ship;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import placement.controller.ShipPlacer;
+import placement.model.board.Board;
+import placement.model.ship.*;
+
+import java.util.*;
+
 
 public class ShipTests {
 
     @Test
     public void givenNewlyCreatedShip_WhenCheckingItsStatus_ThenItIsNotPlaced() {
         Board board = Board.createDefaultBoard();
-        Ship ship = new Ship(2, Direction.WEST);
+
+        DirectedShip ship = new DirectedShip(2, Direction.WEST);
 
         Assert.assertFalse(ship.isPlaced());
 
@@ -26,31 +26,58 @@ public class ShipTests {
     @Test
     public void givenNewlyCreatedShip_WhenWePlaceIt_ThenItsStatusIsPlaced() {
         Board board = Board.createDefaultBoard();
-        Ship ship = new Ship(3, Direction.EAST);
+        DirectedShip ship = new DirectedShip(3, Direction.EAST);
 
-        board.placeShip(ship, 5, 4);
+        boolean isPlaced = ShipPlacer.tryToPlaceShip(board, ship, new Coordinates(5, 4));
 
-        Assert.assertTrue(ship.isPlaced());
+        Assert.assertTrue(isPlaced);
+
     }
 
     @Test
     public void testGetCoordinates() {
         Board board = Board.createDefaultBoard();
 
-        Ship ship = new Ship(4, Direction.NORTH);
 
-        board.placeShip(ship,7, 8);
+        DirectedShip ship = new DirectedShip(4, Direction.NORTH);
 
-        List<Coordinates> list = Arrays.asList(
-                new Coordinates(7, 8),
-                new Coordinates(7, 7),
-                new Coordinates(7, 6),
-                new Coordinates(7, 5));
+        boolean isPlaced = ShipPlacer.tryToPlaceShip(board, ship, new Coordinates(7, 8));
 
-        Set<Coordinates> expectedCoordinates = new HashSet<>(list);
 
-        Set<Coordinates> actualCoordinates = new HashSet<>(ship.getPositionCoordinates());
+        Assert.assertTrue(isPlaced);
 
-        Assert.assertEquals(expectedCoordinates, actualCoordinates);
+    }
+
+    @Test
+    public void undirectedShip_isNotPlaced() {
+        UndirectedShip ship = new UndirectedShip(4);
+        Assert.assertFalse(ship.isPlaced());
+    }
+
+    @Test
+    public void undirectedShip_afterDirect_returnsDirectedShip() {
+        UndirectedShip ship = new UndirectedShip(4);
+
+        Ship directShip = ship.direct(Direction.WEST);
+
+        Assert.assertEquals(directShip.getClass(), DirectedShip.class);
+    }
+
+    @Test
+    public void directedShip_afterDirect_returnsDirectedShip() {
+        DirectedShip ship = new DirectedShip(2, Direction.SOUTH);
+
+        Ship directShip = ship.direct(Direction.NORTH);
+
+        Assert.assertEquals(directShip.getClass(), DirectedShip.class);
+    }
+
+    @Test
+    public void placedShip_afterDirect_returnsDirectedShip() {
+        PlacedShip ship = new PlacedShip(new ArrayList<>());
+
+        Ship directShip = ship.direct(Direction.NORTH);
+
+        Assert.assertEquals(directShip.getClass(), DirectedShip.class);
     }
 }

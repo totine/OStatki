@@ -2,18 +2,19 @@ package placement.view;
 
 import placement.controller.FleetController;
 import placement.model.Fleet;
-import placement.model.ship.Ship;
+import placement.model.ship.PlacedShip;
+
 
 /**
  * GUI-side fleet randomizer
  */
 public class FleetFromRandomGenerator implements FleetDAO {
     @Override
-    public final GUIFleet getFleet() {
-        Fleet fleetFromRandom = FleetController.generatePlacedStandardFleet();
+    public final GUIFleet getGUIFleet() {
+        Fleet<PlacedShip> fleetFromRandom = FleetController.generatePlacedStandardFleet();
         GUIFleet guiFleet = new GUIFleet();
-        for (Ship ship : fleetFromRandom.getShipList()) {
-            GUIShip guiShip = new GUIShip(ship.getId(), ship.getPositionCoordinates());
+        for (PlacedShip ship : fleetFromRandom.getShipList()) {
+            GUIShip guiShip = new GUIShip(ship.getMastCoordinates());
             guiFleet.add(guiShip);
         }
         return guiFleet;

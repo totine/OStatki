@@ -8,19 +8,15 @@ import java.util.List;
  * GUI representation of ship object
  */
 class GUIShip {
-    private String id;
-    private List<Coordinates> structure;
+    private List<Coordinates> mastCoordinates;
 
-    GUIShip(String id, List<Coordinates> structure) {
-        this.id = id;
-        this.structure = structure;
+    GUIShip(List<Coordinates> structure) {
+        this.mastCoordinates = structure;
     }
 
     List<Coordinates> getPositionCoordinates() {
-        return structure;
+        return mastCoordinates;
     }
 
-    public String getId() {
-        return id;
-    }
+
 }

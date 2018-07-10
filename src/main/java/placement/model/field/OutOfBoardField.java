@@ -1,7 +1,5 @@
 package placement.model.field;
 
-import placement.model.ShipOutOfBoardException;
-
 /**
  * Represents a notion of a field that is
  * impossible to exist. In other words a wrong field.
@@ -19,7 +17,7 @@ public class OutOfBoardField implements Field {
     }
 
     @Override
-    public final void checkState() throws ShipOutOfBoardException {
-        throw new ShipOutOfBoardException();
+    public final boolean isPlaceable() {
+        return false;
     }
 }

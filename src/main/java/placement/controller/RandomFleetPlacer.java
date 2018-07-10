@@ -3,8 +3,12 @@ package placement.controller;
 import placement.model.Fleet;
 import placement.model.board.Board;
 import placement.model.Coordinates;
-import placement.model.ship.Ship;
+import placement.model.ship.DirectedShip;
 import placement.model.ship.Direction;
+import placement.model.ship.PlacedShip;
+import placement.model.ship.Ship;
+import placement.model.ship.UndirectedShip;
+
 
 import java.util.Random;
 
@@ -13,38 +17,54 @@ import java.util.Random;
  */
 class RandomFleetPlacer {
 
-    private final Fleet fleet;
+    private final Fleet<UndirectedShip> fleet;
     private final Board board;
     private final Random random;
 
 
-    RandomFleetPlacer(Fleet fleet, Board board) {
+    RandomFleetPlacer(Fleet<UndirectedShip> fleet, Board board) {
         this.fleet = fleet;
         this.board = board;
         this.random = new Random();
     }
 
 
-
-    Fleet placeFleet() {
+    Fleet<PlacedShip> placeFleet() {
+        Fleet<PlacedShip> fleetToSend = new Fleet<>();
         for (Ship ship : fleet.getShipList()) {
-            while (!ship.isPlaced()) {
-                Direction direction = getRandomDirection();
-                ship.setDirection(direction);
-                Coordinates randomCoordinates = getRandomCoordinates(board.rows(), board.cols());
-                board.placeShip(ship, randomCoordinates);
-            }
+            PlacedShip placedShip = (PlacedShip) getShipToPlace(ship);
+            fleetToSend.add(placedShip);
         }
-        return fleet;
+        return fleetToSend;
     }
 
-    public Direction getRandomDirection() {
+    private Ship getShipToPlace(Ship ship) {
+        while (!ship.isPlaced()) {
+            ship = getShipAfterTryToPlace(ship);
+        }
+        return ship;
+    }
+
+    private Ship getShipAfterTryToPlace(Ship ship) {
+        Direction direction = getRandomDirection();
+        Coordinates randomHeadCoordinates = getRandomCoordinates(board.rows(), board.cols());
+        DirectedShip directedShip = ship.direct(direction);
+        boolean isShipPlaced = ShipPlacer.tryToPlaceShip(board, directedShip, randomHeadCoordinates);
+        if (isShipPlaced) {
+            ship = new PlacedShip(directedShip, randomHeadCoordinates);
+        } else {
+            ship = directedShip;
+        }
+        return ship;
+    }
+
+    private Direction getRandomDirection() {
         Direction[] directions = Direction.class.getEnumConstants();
-        int index = random.nextInt(directions.length - 1);
+        int index = random.nextInt(directions.length);
         return directions[index];
     }
 
-    public Coordinates getRandomCoordinates(int rows, int cols) {
+    private Coordinates getRandomCoordinates(int rows, int cols) {
         int x = random.nextInt(rows);
         int y = random.nextInt(cols);
         return new Coordinates(x, y);

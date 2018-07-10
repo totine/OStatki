@@ -5,5 +5,5 @@ package placement.view;
  * De facto functional interface.
  */
 public interface FleetDAO {
-    GUIFleet getFleet();
+    GUIFleet getGUIFleet();
 }

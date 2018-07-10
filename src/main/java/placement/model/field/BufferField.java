@@ -1,7 +1,5 @@
 package placement.model.field;
 
-import placement.model.ShipOnBufferException;
-
 /**
  * Represents a field that is adjacent to some ship.
  */
@@ -17,7 +15,7 @@ public class BufferField implements Field {
     }
 
     @Override
-    public final void checkState() throws ShipOnBufferException {
-        throw new ShipOnBufferException();
+    public final boolean isPlaceable() {
+        return false;
     }
 }
