@@ -2,6 +2,7 @@ package placement.view;
 
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -17,6 +18,12 @@ public class GUIPlacementController {
 
     @FXML
     private GridPane guiBoard;
+    @FXML
+    private Button startButton;
+
+    public void initialize() {
+        startButton.setDisable(true);
+    }
 
 
     @FXML
@@ -27,6 +34,7 @@ public class GUIPlacementController {
         for (GUIShip ship : fleet.getShipList()) {
             printShip(ship);
         }
+        startButton.setDisable(false);
     }
 
     private Rectangle createMastRepresentation() {
