@@ -37,7 +37,8 @@ public class DirectedShip implements Ship {
         return createMastCoordinates(new ArrayList<>(), headCoordinates, mastNumber);
     }
 
-    private List<Coordinates> createMastCoordinates(List<Coordinates> mastCoordinatesList, Coordinates headCoordinates, int mastNumber) {
+    private List<Coordinates> createMastCoordinates(
+            List<Coordinates> mastCoordinatesList, Coordinates headCoordinates, int mastNumber) {
         if (mastCoordinatesList.size() == mastNumber) {
             return mastCoordinatesList;
         }
