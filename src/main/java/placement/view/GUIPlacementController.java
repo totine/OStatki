@@ -2,9 +2,12 @@ package placement.view;
 
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import placement.model.Coordinates;
 
 /**
@@ -17,6 +20,12 @@ public class GUIPlacementController {
 
     @FXML
     private GridPane guiBoard;
+    @FXML
+    private Button startButton;
+
+    public void initialize() {
+        startButton.setDisable(true);
+    }
 
 
     @FXML
@@ -27,6 +36,7 @@ public class GUIPlacementController {
         for (GUIShip ship : fleet.getShipList()) {
             printShip(ship);
         }
+        startButton.setDisable(false);
     }
 
     private Rectangle createMastRepresentation() {
@@ -45,5 +55,14 @@ public class GUIPlacementController {
         }
 
 
+    }
+    @FXML
+    private void startTheGame() throws Exception {
+        Window currentWindow = startButton.getScene().getWindow();
+        if (currentWindow instanceof Stage) {
+            Stage currentStage = (Stage) currentWindow;
+            GUIGameScreen guiGameScreen = new GUIGameScreen();
+            guiGameScreen.start(currentStage);
+        }
     }
 }

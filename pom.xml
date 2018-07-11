@@ -6,7 +6,7 @@
 
     <groupId>com.ostatki</groupId>
     <artifactId>battleships</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
 
     <name>
         Battleship - OStatki
@@ -28,6 +28,15 @@
 
         <!--Versions-->
         <maven.jar.plugin.version>2.4</maven.jar.plugin.version>
+		<testng.version>6.14.3</testng.version>
+        <mockito.version>2.19.0</mockito.version>
+        <log4j.version>2.11.0</log4j.version>
+        <findbugs.version>3.0.5</findbugs.version>
+        <jacoco.version>0.8.1</jacoco.version>
+        <checkstyle.version>3.0.0</checkstyle.version>
+        <enforcer.version>3.0.0-M2</enforcer.version>
+        <sonar.version>5.1</sonar.version>
+		
     </properties>
 
     <dependencies>
@@ -36,7 +45,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.14.3</version>
+            <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -44,7 +53,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.19.0</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -53,7 +62,7 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.11.0</version>
+            <version>${log4j.version}</version>
         </dependency>
 
 
@@ -78,7 +87,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.5</version>
+                <version>${findbugs.version}</version>
                 <configuration>
                     <!--
                             Enables analysis which takes more memory but finds more bugs.
@@ -113,14 +122,14 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.1</version>
+                <version>${jacoco.version}</version>
             </plugin>
 
             <!-- CheckStyle -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>${checkstyle.version}</version>
                 <executions>
                     <execution>
                         <id>validate</id>
@@ -143,7 +152,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M2</version>
+                <version>${enforcer.version}</version>
                 <executions>
                     <execution>
                         <id>enforce-versions</id>
@@ -168,9 +177,6 @@
                                 <requireJavaVersion>
                                     <version>1.8</version>
                                 </requireJavaVersion>
-                                <requireOS>
-                                    <family>unix</family>
-                                </requireOS>
                             </rules>
                         </configuration>
                     </execution>
@@ -181,7 +187,7 @@
             <plugin>
                 <groupId>org.codehaus.sonar</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>5.1</version>
+                <version>${sonar.version}</version>
             </plugin>
         </plugins>
 
