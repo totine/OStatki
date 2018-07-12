@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
 mvn clean install
-java -jar target/battleships-0.1.2.jar
+java -jar client/target/client-0.2.0.1.jar
+
 

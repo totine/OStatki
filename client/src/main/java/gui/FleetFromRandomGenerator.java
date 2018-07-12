@@ -1,4 +1,4 @@
-package placement.view;
+package gui;
 
 import placement.controller.FleetController;
 import placement.model.Fleet;

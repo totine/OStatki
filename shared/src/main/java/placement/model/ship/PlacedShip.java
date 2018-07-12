@@ -33,5 +33,3 @@ public final class PlacedShip implements Ship {
     }
 
 }
-
-

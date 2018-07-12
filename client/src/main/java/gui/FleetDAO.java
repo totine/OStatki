@@ -1,4 +1,4 @@
-package placement.view;
+package gui;
 
 /**
  * Layer of abstraction over fleet generation.

@@ -1,4 +1,4 @@
-package placement.view;
+package gui;
 
 
 import javafx.fxml.FXML;

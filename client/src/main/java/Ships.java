@@ -1,4 +1,4 @@
-import placement.view.GUIStarter;
+import gui.GUIStarter;
 
 /**
  * Entry point of the application.

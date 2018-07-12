@@ -1,4 +1,4 @@
-package placement.view;
+package gui;
 
 import java.util.ArrayList;
 import java.util.List;

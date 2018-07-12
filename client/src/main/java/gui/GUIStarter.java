@@ -1,4 +1,4 @@
-package placement.view;
+package gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -31,4 +31,3 @@ public class GUIStarter extends Application {
         launch(args);
     }
 }
-
