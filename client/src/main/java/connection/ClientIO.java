@@ -8,28 +8,23 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
-public class Client {
-    private final Socket socket;
-    PrintWriter out;
-    Scanner in;
+/**
+ * Wrapper for client socket input and output
+ */
+class ClientIO {
+    private final PrintWriter out;
+    private final Scanner in;
 
-    public Client(Socket socket) throws IOException {
-        this.socket = socket;
+    private ClientIO(Socket socket) throws IOException {
         OutputStream outputStream = socket.getOutputStream();
         OutputStreamWriter outputStreamWriterUTF8 = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
         this.out = new PrintWriter(outputStreamWriterUTF8, true);
         this.in = new Scanner(socket.getInputStream(), String.valueOf(StandardCharsets.UTF_8));
     }
 
-
-    public static Client createClient(String host, int port) throws IOException {
-        Socket socket = null;
-        try {
-            socket = new Socket(host, port);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new Client(socket);
+    static ClientIO createClient(String host, int port) throws IOException {
+        Socket socket = new Socket(host, port);
+        return new ClientIO(socket);
     }
 
     void sendMessage(String message) {

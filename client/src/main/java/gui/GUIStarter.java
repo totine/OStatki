@@ -1,14 +1,10 @@
 package gui;
 
-import connection.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * The entry point of GUI package. Sets up a window, loads components.
@@ -28,7 +24,7 @@ public class GUIStarter extends Application {
     }
 
     /**
-     * main method - actual entry point of the application
+     * chat method - actual entry point of the application
      * @param args - console arguments used by FX
      */
     public static void main(String[] args) {

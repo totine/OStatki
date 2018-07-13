@@ -1,11 +1,6 @@
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 
 /**
@@ -28,5 +23,6 @@ class MessagesFromClientHandler implements Runnable {
             server.sendMessageToAll(message);
         }
     }
+
 }
 

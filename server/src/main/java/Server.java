@@ -2,11 +2,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
-import java.util.concurrent.SynchronousQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class for server object. When calling start(), it starts
@@ -14,8 +13,8 @@ import java.util.concurrent.SynchronousQueue;
  */
 class Server {
     private final ServerSocket serverSocket;
-    private static final Logger logger = LogManager.getLogger(Server.class);
-    private List<Socket> clientSocketList;
+    private static final Logger LOGGER = LogManager.getLogger(Server.class);
+    private List<MessagesToClientHandler> clientSocketList;
 
 
     private Server(ServerSocket serverSocket) {
@@ -29,9 +28,8 @@ class Server {
         try {
             serverSocket = new ServerSocket(serverPort);
         } catch (IOException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
-        Queue<Socket> sockets = new SynchronousQueue<>();
         return new Server(serverSocket);
     }
 
@@ -39,24 +37,19 @@ class Server {
         while (true) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                clientSocketList.add(clientSocket);
-                logger.info(clientSocket.toString() + " connected");
+                LOGGER.info(clientSocket.toString() + " connected");
                 MessagesFromClientHandler clientIn = new MessagesFromClientHandler(clientSocket, this);
+                MessagesToClientHandler clientOut = new MessagesToClientHandler(clientSocket);
+                clientSocketList.add(clientOut);
                 new Thread(clientIn).start();
 
             } catch (IOException e) {
-                logger.error(e.getMessage());
+                LOGGER.error(e.getMessage());
             }
         }
     }
 
     public void sendMessageToAll(String message) {
-        clientSocketList.forEach(socket -> {
-            try {
-                new PrintWriter(socket.getOutputStream(), true).println(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        clientSocketList.forEach(io -> io.sendMessage(message));
     }
 }

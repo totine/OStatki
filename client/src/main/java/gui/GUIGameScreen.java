@@ -22,7 +22,7 @@ public class GUIGameScreen extends Application {
     }
 
     /**
-     * main method - actual entry point of the application
+     * chat method - actual entry point of the application
      * @param args - console arguments used by FX
      */
     public static void main(String[] args) {

@@ -16,7 +16,7 @@ public final class Ships {
      * @param args arguments from command line
      */
     public static void main(String[] args) {
-        new Thread(() -> ConnectionAttempt.main(null)).start();
+        new Thread(ConnectionAttempt::chat).start();
         new Thread(() -> Application.launch(GUIStarter.class)).start();
     }
 }
