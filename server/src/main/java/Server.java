@@ -1,3 +1,6 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -8,17 +11,20 @@ import java.net.Socket;
  */
 class Server {
     private final ServerSocket serverSocket;
+    private static final Logger logger = LogManager.getLogger(Server.class);
+
 
     private Server(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
     }
+
 
     static Server createServer(int serverPort) {
         ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(serverPort);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return new Server(serverSocket);
     }
@@ -27,10 +33,11 @@ class Server {
         while (true) {
             try {
                 Socket clientSocket = serverSocket.accept();
+                logger.info(clientSocket.toString() + " connected");
                 System.out.println(clientSocket);
 
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
         }
     }

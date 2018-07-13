@@ -1,5 +1,6 @@
 package gui;
 
+import connection.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,6 +29,7 @@ public class GUIStarter extends Application {
      * @param args - console arguments used by FX
      */
     public static void main(String[] args) {
+        Client client = Client.createClient("localhost", 7777);
         launch(args);
     }
 }
