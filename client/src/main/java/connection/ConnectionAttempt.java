@@ -9,9 +9,11 @@ public class ConnectionAttempt {
         try {
             client = Client.createClient("localhost", 7777);
             Scanner scanner = new Scanner(System.in);
+            new Thread(client::getMessage).start();
             while (scanner.hasNextLine()) {
                 client.sendMessage(scanner.nextLine());
             }
+
 
         } catch (IOException e) {
             e.printStackTrace();

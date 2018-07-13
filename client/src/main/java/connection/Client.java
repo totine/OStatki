@@ -32,11 +32,13 @@ public class Client {
         return new Client(socket);
     }
 
-    public void sendMessage(String message) {
+    void sendMessage(String message) {
         out.println(message);
     }
 
-    public String getMessage() {
-        return in.nextLine();
+    void getMessage() {
+        while (in.hasNextLine()) {
+            System.out.println(in.nextLine());
+        }
     }
 }

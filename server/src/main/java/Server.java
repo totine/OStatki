@@ -2,6 +2,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -47,5 +48,15 @@ class Server {
                 logger.error(e.getMessage());
             }
         }
+    }
+
+    public void sendMessageToAll(String message) {
+        clientSocketList.forEach(socket -> {
+            try {
+                new PrintWriter(socket.getOutputStream(), true).println(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

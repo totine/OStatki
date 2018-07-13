@@ -13,15 +13,19 @@ import java.util.Scanner;
  */
 class MessagesFromClientHandler implements Runnable {
     private Scanner in;
+    private Server server;
 
     MessagesFromClientHandler(Socket clientSocket, Server server) throws IOException {
         this.in = new Scanner(clientSocket.getInputStream(), String.valueOf(StandardCharsets.UTF_8));
+        this.server = server;
     }
 
     @Override
     public void run() {
         while (in.hasNextLine()) {
-            System.out.println(in.nextLine());
+            String message = in.nextLine();
+            System.out.println(message);
+            server.sendMessageToAll(message);
         }
     }
 }
