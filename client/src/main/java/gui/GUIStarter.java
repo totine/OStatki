@@ -32,21 +32,7 @@ public class GUIStarter extends Application {
      * @param args - console arguments used by FX
      */
     public static void main(String[] args) {
-        Client client;
-        try {
-            client = Client.createClient("localhost", 7777);
-            Scanner scanner = new Scanner(System.in);
-            while (scanner.hasNextLine()) {
-                client.sendMessage(scanner.nextLine());
-            }
-            client.sendMessage("message");
-            String message = client.getMessage();
-            System.out.println(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
 
-        launch(args);
     }
 }

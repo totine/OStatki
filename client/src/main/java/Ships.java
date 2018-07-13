@@ -1,4 +1,6 @@
+import connection.ConnectionAttempt;
 import gui.GUIStarter;
+import javafx.application.Application;
 
 /**
  * Entry point of the application.
@@ -14,6 +16,7 @@ public final class Ships {
      * @param args arguments from command line
      */
     public static void main(String[] args) {
-        GUIStarter.main(args);
+        new Thread(() -> ConnectionAttempt.main(null)).start();
+        new Thread(() -> Application.launch(GUIStarter.class)).start();
     }
 }

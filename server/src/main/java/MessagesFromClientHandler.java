@@ -14,7 +14,7 @@ import java.util.Scanner;
 class MessagesFromClientHandler implements Runnable {
     private Scanner in;
 
-    MessagesFromClientHandler(Socket clientSocket) throws IOException {
+    MessagesFromClientHandler(Socket clientSocket, Server server) throws IOException {
         this.in = new Scanner(clientSocket.getInputStream(), String.valueOf(StandardCharsets.UTF_8));
     }
 

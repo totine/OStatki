@@ -1,12 +1,11 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import placement.model.Coordinates;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.SynchronousQueue;
 
 /**
  * Class for server object. When calling start(), it starts
@@ -15,10 +14,12 @@ import java.util.List;
 class Server {
     private final ServerSocket serverSocket;
     private static final Logger logger = LogManager.getLogger(Server.class);
+    private List<Socket> clientSocketList;
 
 
     private Server(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
+        this.clientSocketList = new ArrayList<>();
     }
 
 
@@ -29,6 +30,7 @@ class Server {
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
+        Queue<Socket> sockets = new SynchronousQueue<>();
         return new Server(serverSocket);
     }
 
@@ -36,9 +38,10 @@ class Server {
         while (true) {
             try {
                 Socket clientSocket = serverSocket.accept();
+                clientSocketList.add(clientSocket);
                 logger.info(clientSocket.toString() + " connected");
-                MessagesFromClientHandler client = new MessagesFromClientHandler(clientSocket);
-                new Thread(client).start();
+                MessagesFromClientHandler clientIn = new MessagesFromClientHandler(clientSocket, this);
+                new Thread(clientIn).start();
 
             } catch (IOException e) {
                 logger.error(e.getMessage());
