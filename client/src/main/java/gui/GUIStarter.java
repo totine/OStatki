@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
  * The entry point of GUI package. Sets up a window, loads components.
  */
@@ -29,7 +31,17 @@ public class GUIStarter extends Application {
      * @param args - console arguments used by FX
      */
     public static void main(String[] args) {
-        Client client = Client.createClient("localhost", 7777);
+        Client client;
+        try {
+            client = Client.createClient("localhost", 7777);
+            client.sendMessage("message");
+            String message = client.getMessage();
+            System.out.println(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         launch(args);
     }
 }

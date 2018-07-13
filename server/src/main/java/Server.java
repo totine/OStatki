@@ -34,7 +34,9 @@ class Server {
             try {
                 Socket clientSocket = serverSocket.accept();
                 logger.info(clientSocket.toString() + " connected");
-                System.out.println(clientSocket);
+                User user = new User(clientSocket);
+                System.out.println(user.getMessage());
+                user.sendMessage("asdf");
 
             } catch (IOException e) {
                 logger.error(e.getMessage());
