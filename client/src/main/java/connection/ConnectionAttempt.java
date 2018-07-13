@@ -23,8 +23,6 @@ public class ConnectionAttempt {
             while (scanner.hasNextLine()) {
                 client.sendMessage(scanner.nextLine());
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }

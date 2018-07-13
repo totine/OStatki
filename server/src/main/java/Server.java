@@ -16,12 +16,10 @@ class Server {
     private static final Logger LOGGER = LogManager.getLogger(Server.class);
     private List<MessagesToClientHandler> clientSocketList;
 
-
     private Server(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
         this.clientSocketList = new ArrayList<>();
     }
-
 
     static Server createServer(int serverPort) {
         ServerSocket serverSocket = null;

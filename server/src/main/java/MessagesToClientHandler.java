@@ -17,10 +17,8 @@ class MessagesToClientHandler {
         this.out = new PrintWriter(outputStreamWriterUTF8, true);
     }
 
-
     void sendMessage(String message) {
         out.println(message);
     }
-
 }
 

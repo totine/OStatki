@@ -7,7 +7,6 @@
     <artifactId>shared</artifactId>
     <version>0.2.1</version>
 
-
     <parent>
         <artifactId>battleships</artifactId>
         <groupId>com.ostatki</groupId>
