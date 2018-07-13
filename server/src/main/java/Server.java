@@ -1,9 +1,12 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import placement.model.Coordinates;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class for server object. When calling start(), it starts
@@ -34,9 +37,8 @@ class Server {
             try {
                 Socket clientSocket = serverSocket.accept();
                 logger.info(clientSocket.toString() + " connected");
-                User user = new User(clientSocket);
-                System.out.println(user.getMessage());
-                user.sendMessage("asdf");
+                MessagesFromClientHandler client = new MessagesFromClientHandler(clientSocket);
+                new Thread(client).start();
 
             } catch (IOException e) {
                 logger.error(e.getMessage());

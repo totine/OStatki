@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * The entry point of GUI package. Sets up a window, loads components.
@@ -34,6 +35,10 @@ public class GUIStarter extends Application {
         Client client;
         try {
             client = Client.createClient("localhost", 7777);
+            Scanner scanner = new Scanner(System.in);
+            while (scanner.hasNextLine()) {
+                client.sendMessage(scanner.nextLine());
+            }
             client.sendMessage("message");
             String message = client.getMessage();
             System.out.println(message);
