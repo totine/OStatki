@@ -17,18 +17,46 @@ public class Coordinates {
         this.y = coordinateY;
     }
 
+    /**
+     * this is the factory method for Coordinates.
+     * @param coordinateX
+     * this parameter indicates horizontal coordinate on the 2D board.
+     * @param coordinateY
+     * this parameter indicates vertical coordinate on the 2D board.
+     * @return
+     * method returns an instance of Coordinates which is set which fields as in
+     * parameters.
+     */
     public static Coordinates createCoordinates(int coordinateX, int coordinateY) {
         return new Coordinates(coordinateX, coordinateY);
     }
 
+    /**
+     * this is simple getter for x coordinate.
+     * @return
+     * returns int type value which indicates horizontal coordinate.
+     */
     public final int getX() {
         return this.x;
     }
 
+    /**
+     * this is simple getter for y coordinate.
+     * @return
+     * returns int type value which indicates vertical coordinate.
+     */
     public final int getY() {
         return this.y;
     }
 
+    /**
+     * this method is a translation of Coordinates which transforms instance of Coordinates
+     * which is used on by a coordinates parameter.
+     * @param coordinates
+     * is used to translate object which is used on based on fields which it consists of.
+     * @return
+     * returns translated version of coordinates.
+     */
     public final Coordinates add(Coordinates coordinates) {
         return new Coordinates(x + coordinates.x, y + coordinates.y);
     }
