@@ -21,7 +21,6 @@ class RandomFleetPlacer {
     private final Board board;
     private final Random random;
 
-
     private RandomFleetPlacer(Fleet<UndirectedShip> fleet, Board board, Random random) {
         this.fleet = fleet;
         this.board = board;
