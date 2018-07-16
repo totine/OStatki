@@ -15,7 +15,7 @@ public final class ShipPlacer {
 
     public static boolean tryToPlaceShip(Board board, DirectedShip ship, Coordinates headCoordinates) {
         List<Coordinates> mastCoordinates = ship.getTempCoordinates(headCoordinates);
-        if (canBePlaced(board,mastCoordinates)) {
+        if (canBePlaced(board, mastCoordinates)) {
             mastCoordinates.forEach(board::placeMast);
             return true;
         }

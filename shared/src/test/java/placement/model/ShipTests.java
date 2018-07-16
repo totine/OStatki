@@ -28,7 +28,7 @@ public class ShipTests {
         Board board = Board.createDefaultBoard();
         DirectedShip ship = new DirectedShip(3, Direction.EAST);
 
-        boolean isPlaced = ShipPlacer.tryToPlaceShip(board, ship, new Coordinates(5, 4));
+        boolean isPlaced = ShipPlacer.tryToPlaceShip(board, ship, Coordinates.createCoordinates(5, 4));
 
         Assert.assertTrue(isPlaced);
 
@@ -41,7 +41,7 @@ public class ShipTests {
 
         DirectedShip ship = new DirectedShip(4, Direction.NORTH);
 
-        boolean isPlaced = ShipPlacer.tryToPlaceShip(board, ship, new Coordinates(7, 8));
+        boolean isPlaced = ShipPlacer.tryToPlaceShip(board, ship, Coordinates.createCoordinates(7, 8));
 
 
         Assert.assertTrue(isPlaced);

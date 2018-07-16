@@ -3,7 +3,12 @@ package placement.controller;
 import placement.model.Coordinates;
 import placement.model.Fleet;
 import placement.model.board.Board;
-import placement.model.ship.*;
+import placement.model.ship.Direction;
+import placement.model.ship.DirectedShip;
+import placement.model.ship.PlacedShip;
+import placement.model.ship.Ship;
+import placement.model.ship.UndirectedShip;
+
 
 import java.util.Random;
 

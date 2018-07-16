@@ -29,7 +29,7 @@ public class ShipPlacerTests {
     public void givenNewlyCreatedBoard_WhenShipIsPlacedCorrectly_ItIsNotEmpty() {
         int mastNumber = 4;
         DirectedShip ship = new DirectedShip(mastNumber, Direction.SOUTH);
-        Coordinates headCoordinates = new Coordinates(8, 3);
+        Coordinates headCoordinates = Coordinates.createCoordinates(8, 3);
         ShipPlacer.tryToPlaceShip(board, ship, headCoordinates);
 
         Assert.assertFalse(board.isEmpty());
@@ -40,7 +40,7 @@ public class ShipPlacerTests {
         int mastNumber = 3;
         DirectedShip incorrectShip = new DirectedShip(mastNumber, Direction.WEST);
 
-        ShipPlacer.tryToPlaceShip(board, incorrectShip, new Coordinates(5, 15));
+        ShipPlacer.tryToPlaceShip(board, incorrectShip, Coordinates.createCoordinates(5, 15));
 
         Assert.assertTrue(board.isEmpty());
     }
@@ -50,10 +50,10 @@ public class ShipPlacerTests {
         int mastNumber = 1;
         DirectedShip ship = new DirectedShip(mastNumber, Direction.SOUTH);
 
-        ShipPlacer.tryToPlaceShip(board, ship, new Coordinates(6, 6));
+        ShipPlacer.tryToPlaceShip(board, ship, Coordinates.createCoordinates(6, 6));
 
-        Assert.assertEquals(board.getFieldState(new Coordinates(6, 6)), FieldState.OCCUPIED);
-        Assert.assertNotEquals(board.getFieldState(new Coordinates(3, 7)), FieldState.OCCUPIED);
+        Assert.assertEquals(board.getFieldState(Coordinates.createCoordinates(6, 6)), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(Coordinates.createCoordinates(3, 7)), FieldState.OCCUPIED);
     }
 
     @Test
@@ -61,13 +61,13 @@ public class ShipPlacerTests {
         int mastNumber = 3;
         DirectedShip ship = new DirectedShip(mastNumber, Direction.EAST);
 
-        ShipPlacer.tryToPlaceShip(board, ship, new Coordinates(5, 5));
+        ShipPlacer.tryToPlaceShip(board, ship, Coordinates.createCoordinates(5, 5));
 
         int[][] coordsThatShouldBeOccupied = {{5, 5}, {6, 5}, {7, 5}};
         multipleAssertEqualsIsExpectedFieldState(board, FieldState.OCCUPIED, coordsThatShouldBeOccupied);
 
-        Assert.assertNotEquals(board.getFieldState(new Coordinates(8, 5)), FieldState.OCCUPIED);
-        Assert.assertNotEquals(board.getFieldState(new Coordinates(4, 5)), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(Coordinates.createCoordinates(8, 5)), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(Coordinates.createCoordinates(4, 5)), FieldState.OCCUPIED);
     }
 
     @Test
@@ -75,11 +75,11 @@ public class ShipPlacerTests {
         int mastNumber = 1;
 
         DirectedShip ship = new DirectedShip(mastNumber, Direction.NORTH);
-        ShipPlacer.tryToPlaceShip(board, ship, new Coordinates(3, 3));
+        ShipPlacer.tryToPlaceShip(board, ship, Coordinates.createCoordinates(3, 3));
 
         // (3, 3) is not a buffer, but a ship
-        Assert.assertNotEquals(board.getFieldState(new Coordinates(3, 3)), FieldState.BUFFER);
-        Assert.assertEquals(board.getFieldState(new Coordinates(3, 3)), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(Coordinates.createCoordinates(3, 3)), FieldState.BUFFER);
+        Assert.assertEquals(board.getFieldState(Coordinates.createCoordinates(3, 3)), FieldState.OCCUPIED);
 
         // 8 surrounding fields are supposed to be buffers now
         int[][] coordsThatShouldBeBuffer = {{2, 3}, {4, 3}, {2, 2}, {3, 2}, {4, 2}, {2, 4}, {3, 4}, {4, 4}};
@@ -96,10 +96,10 @@ public class ShipPlacerTests {
     public void givenEmptyBoard_WhenShipIsPlacedInCorner_ThenSurroundingFieldsAreBuffers() {
 
         DirectedShip ship = new DirectedShip(1, Direction.NORTH);
-        ShipPlacer.tryToPlaceShip(board, ship, new Coordinates(0, 0));
+        ShipPlacer.tryToPlaceShip(board, ship, Coordinates.createCoordinates(0, 0));
 
         // (0,0) is not a buffer, but a ship
-        Assert.assertEquals(board.getFieldState(new Coordinates(0, 0)), FieldState.OCCUPIED);
+        Assert.assertEquals(board.getFieldState(Coordinates.createCoordinates(0, 0)), FieldState.OCCUPIED);
 
         // 3 surrounding fields are supposed to be buffers now
         int[][] coordsThatShouldBeBuffer = {{0, 1}, {1, 0}, {1, 1}};
@@ -114,7 +114,7 @@ public class ShipPlacerTests {
     public void givenEmptyBoard_WhenTwoMastShipIsPlaced_ThenSurroundingFieldsAreBuffers() {
 
         DirectedShip ship = new DirectedShip(2, Direction.NORTH);
-        ShipPlacer.tryToPlaceShip(board, ship, new Coordinates(3, 3));
+        ShipPlacer.tryToPlaceShip(board, ship, Coordinates.createCoordinates(3, 3));
 
         // (3, 3),(3,2) is not a buffer, but a ship
         //ship is placed
@@ -137,7 +137,7 @@ public class ShipPlacerTests {
 
         DirectedShip ship = new DirectedShip(3, Direction.SOUTH);
 
-        ShipPlacer.tryToPlaceShip(board, ship, new Coordinates(9, 0));
+        ShipPlacer.tryToPlaceShip(board, ship, Coordinates.createCoordinates(9, 0));
 
         //ship is placed
         int[][] coordsThatShouldBeOccupied = {{9, 0}, {9, 1}, {9, 2}};
@@ -153,12 +153,12 @@ public class ShipPlacerTests {
     public void givenEmptyBoard_WhenPLacingTwoShipsFarApart_ThenEverythingOK() {
 
         DirectedShip ship1 = new DirectedShip(1, Direction.NORTH);
-        ShipPlacer.tryToPlaceShip(board, ship1, new Coordinates(3, 3));
+        ShipPlacer.tryToPlaceShip(board, ship1, Coordinates.createCoordinates(3, 3));
         DirectedShip ship2 = new DirectedShip(3, Direction.SOUTH);
-        ShipPlacer.tryToPlaceShip(board, ship2, new Coordinates(6, 5));
+        ShipPlacer.tryToPlaceShip(board, ship2, Coordinates.createCoordinates(6, 5));
 
         // (3, 3) is not a buffer, but a ship
-        Assert.assertEquals(board.getFieldState(new Coordinates(3, 3)), FieldState.OCCUPIED);
+        Assert.assertEquals(board.getFieldState(Coordinates.createCoordinates(3, 3)), FieldState.OCCUPIED);
 
         // 8 surrounding fields are supposed to be buffers now
         int[][] coordsThatShouldBeBufferForShip1 = {{2, 3}, {4, 3}, {2, 2}, {3, 2}, {4, 2}, {2, 4}, {3, 4}, {4, 4}};
@@ -185,8 +185,8 @@ public class ShipPlacerTests {
         DirectedShip ship1 = new DirectedShip(3, Direction.EAST);
         DirectedShip ship2 = new DirectedShip(2, Direction.SOUTH);
 
-        ShipPlacer.tryToPlaceShip(board, ship2, new Coordinates(3, 7));
-        ShipPlacer.tryToPlaceShip(board, ship1, new Coordinates(3, 5));
+        ShipPlacer.tryToPlaceShip(board, ship2, Coordinates.createCoordinates(3, 7));
+        ShipPlacer.tryToPlaceShip(board, ship1, Coordinates.createCoordinates(3, 5));
 
         //surrounding fields are buffer
         int[][] coordsThatShouldBeBuffer = {
@@ -216,9 +216,9 @@ public class ShipPlacerTests {
         DirectedShip ship2 = new DirectedShip(2, Direction.SOUTH);
         DirectedShip ship3 = new DirectedShip(4, Direction.NORTH);
 
-        ShipPlacer.tryToPlaceShip(board, ship1, new Coordinates(3, 9));
-        ShipPlacer.tryToPlaceShip(board, ship2, new Coordinates(0, 7));
-        ShipPlacer.tryToPlaceShip(board, ship3, new Coordinates(9, 9));
+        ShipPlacer.tryToPlaceShip(board, ship1, Coordinates.createCoordinates(3, 9));
+        ShipPlacer.tryToPlaceShip(board, ship2, Coordinates.createCoordinates(0, 7));
+        ShipPlacer.tryToPlaceShip(board, ship3, Coordinates.createCoordinates(9, 9));
 
 
         //ship1 is placed
@@ -241,9 +241,9 @@ public class ShipPlacerTests {
     public void board_shipPlacedOutOfBoard_ShipIsNotPlaced() {
 
         DirectedShip ship = new DirectedShip(3, Direction.EAST);
-        ShipPlacer.tryToPlaceShip(board, ship, new Coordinates(9, 0));
+        ShipPlacer.tryToPlaceShip(board, ship, Coordinates.createCoordinates(9, 0));
 
-        Assert.assertNotEquals(board.getFieldState(new Coordinates(9, 0)), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(Coordinates.createCoordinates(9, 0)), FieldState.OCCUPIED);
     }
 
     @Test
@@ -251,13 +251,13 @@ public class ShipPlacerTests {
 
         DirectedShip firstShip = new DirectedShip(3, Direction.EAST);
         DirectedShip shipPlacedOnFirstShip = new DirectedShip(3, Direction.SOUTH);
-        ShipPlacer.tryToPlaceShip(board, firstShip, new Coordinates(1, 1));
-        ShipPlacer.tryToPlaceShip(board, shipPlacedOnFirstShip, new Coordinates(1, 1));
+        ShipPlacer.tryToPlaceShip(board, firstShip, Coordinates.createCoordinates(1, 1));
+        ShipPlacer.tryToPlaceShip(board, shipPlacedOnFirstShip, Coordinates.createCoordinates(1, 1));
 
         //second ship is not placed
-        System.out.println(board.getFieldState(new Coordinates(1, 3)));
-        Assert.assertNotEquals(board.getFieldState(new Coordinates(1, 2)), FieldState.OCCUPIED);
-        Assert.assertNotEquals(board.getFieldState(new Coordinates(1, 3)), FieldState.OCCUPIED);
+        System.out.println(board.getFieldState(Coordinates.createCoordinates(1, 3)));
+        Assert.assertNotEquals(board.getFieldState(Coordinates.createCoordinates(1, 2)), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(Coordinates.createCoordinates(1, 3)), FieldState.OCCUPIED);
 
         //fist ship is placed
         int[][] coordsThatShouldBeOccupied = {{1, 1}, {2, 1}, {3, 1}};
@@ -270,22 +270,22 @@ public class ShipPlacerTests {
 
         DirectedShip ship1 = new DirectedShip(3, Direction.EAST);
         DirectedShip ship2 = new DirectedShip(3, Direction.SOUTH);
-        ShipPlacer.tryToPlaceShip(board, ship1, new Coordinates(1, 1));
-        ShipPlacer.tryToPlaceShip(board, ship2, new Coordinates(1, 2));
+        ShipPlacer.tryToPlaceShip(board, ship1, Coordinates.createCoordinates(1, 1));
+        ShipPlacer.tryToPlaceShip(board, ship2, Coordinates.createCoordinates(1, 2));
 
         //ship1 is placed
         int[][] coordsThatShouldBeOccupiedByShip1 = {{1, 1}, {2, 1}, {3, 1}};
         multipleAssertEqualsIsExpectedFieldState(board, FieldState.OCCUPIED, coordsThatShouldBeOccupiedByShip1);
 
         //ship2 is not placed
-        Assert.assertNotEquals(board.getFieldState(new Coordinates(1, 2)), FieldState.OCCUPIED);
-        Assert.assertNotEquals(board.getFieldState(new Coordinates(1, 3)), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(Coordinates.createCoordinates(1, 2)), FieldState.OCCUPIED);
+        Assert.assertNotEquals(board.getFieldState(Coordinates.createCoordinates(1, 3)), FieldState.OCCUPIED);
 
     }
 
     private void multipleAssertEqualsIsExpectedFieldState(Board board, FieldState expectedFieldState, int[][] coordinates) {
         for (int[] coord : coordinates) {
-            Assert.assertEquals(board.getFieldState(new Coordinates(coord[0], coord[1])), expectedFieldState);
+            Assert.assertEquals(board.getFieldState(Coordinates.createCoordinates(coord[0], coord[1])), expectedFieldState);
         }
     }
 

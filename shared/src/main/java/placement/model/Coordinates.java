@@ -18,7 +18,7 @@ public class Coordinates {
     }
 
     public static Coordinates createCoordinates(int coordinateX, int coordinateY) {
-        return new Coordinates(coordinateX,coordinateY);
+        return new Coordinates(coordinateX, coordinateY);
     }
 
     public final int getX() {

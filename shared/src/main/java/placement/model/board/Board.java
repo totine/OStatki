@@ -96,7 +96,7 @@ public final class Board {
         HashSet<Coordinates> neighbours = new HashSet<>();
         for (int toAddToX = -1; toAddToX <= 1; toAddToX++) {
             for (int toAddToY = -1; toAddToY <= 1; toAddToY++) {
-                Coordinates toAdd = new Coordinates(toAddToX, toAddToY);
+                Coordinates toAdd = Coordinates.createCoordinates(toAddToX, toAddToY);
                 Coordinates neighbour = coordinatesToSurroundWithBuffer.add(toAdd);
                 neighbours.add(neighbour);
             }
@@ -126,7 +126,7 @@ public final class Board {
                     sb.append(i);
                     sb.append("\t");
                 } else {
-                    Coordinates coordinates = new Coordinates(j, i);
+                    Coordinates coordinates = Coordinates.createCoordinates(j, i);
                     Field field = boardFields.getField(coordinates);
                     sb.append(field.getMark());
                     sb.append("\t");
