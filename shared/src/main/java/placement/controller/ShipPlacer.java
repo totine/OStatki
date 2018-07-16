@@ -15,13 +15,17 @@ public final class ShipPlacer {
 
     public static boolean tryToPlaceShip(Board board, DirectedShip ship, Coordinates headCoordinates) {
         List<Coordinates> mastCoordinates = ship.getTempCoordinates(headCoordinates);
-        if (mastCoordinates
-                .stream()
-                .allMatch(board::isMastPlaceable)) {
+        if (canBePlaced(board,mastCoordinates)) {
             mastCoordinates.forEach(board::placeMast);
             return true;
         }
         return false;
+    }
+
+    private static boolean canBePlaced(Board board, List<Coordinates> mastCoordinates) {
+        return mastCoordinates
+                .stream()
+                .allMatch(board::mastCanBePlaced);
     }
 
 }

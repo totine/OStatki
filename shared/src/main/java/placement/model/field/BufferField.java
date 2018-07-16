@@ -15,7 +15,7 @@ public class BufferField implements Field {
     }
 
     @Override
-    public final boolean isPlaceable() {
+    public final boolean isFreeToPlace() {
         return false;
     }
 }

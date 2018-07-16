@@ -15,7 +15,7 @@ public class OccupiedField implements Field {
     }
 
     @Override
-    public final boolean isPlaceable() {
+    public final boolean isFreeToPlace() {
         return false;
     }
 }

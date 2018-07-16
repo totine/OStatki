@@ -105,7 +105,7 @@
                 </configuration>
                 <executions>
                     <!--
-                            Ensures that FindBugs inspects source code when project is compiled.
+                    Ensures that FindBugs inspects source code when project is compiled.
                     -->
                     <execution>
                         <id>analyze-compile</id>

@@ -69,9 +69,9 @@ public final class Board {
         return field.getState();
     }
 
-    public boolean isMastPlaceable(Coordinates mastCoordinates) {
+    public boolean mastCanBePlaced(Coordinates mastCoordinates) {
         Field field = boardFields.getField(mastCoordinates);
-        return field.isPlaceable();
+        return field.isFreeToPlace();
     }
 
     public void placeMast(Coordinates coordinates) {
