@@ -8,5 +8,5 @@ public interface Field {
 
     String getMark();
 
-    boolean isPlaceable();
+    boolean isFreeToPlace();
 }

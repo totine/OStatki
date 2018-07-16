@@ -5,20 +5,53 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>server</artifactId>
-    <version>0.2.0.1</version>
+    <version>0.2.1</version>
 
     <parent>
         <artifactId>battleships</artifactId>
         <groupId>com.ostatki</groupId>
-        <version>0.2.0.1</version>
+        <version>0.2.1</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>com.ostatki</groupId>
             <artifactId>shared</artifactId>
-            <version>0.2.0.1</version>
+            <version>0.2.1</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <!-- JarPlugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
 
+            <!-- package:shade -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

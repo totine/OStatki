@@ -14,8 +14,12 @@ public final class PlacedShip implements Ship {
         this.mastCoordinates = mastCoordinates;
     }
 
-    public PlacedShip(DirectedShip directedShip, Coordinates headCoordinates) {
+    private PlacedShip(DirectedShip directedShip, Coordinates headCoordinates) {
         mastCoordinates = directedShip.getTempCoordinates(headCoordinates);
+    }
+
+    public static PlacedShip createFromDirectedShip(DirectedShip directedShip, Coordinates headCoordinates) {
+        return new PlacedShip(directedShip, headCoordinates);
     }
 
     @Override

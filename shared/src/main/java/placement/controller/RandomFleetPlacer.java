@@ -1,10 +1,10 @@
 package placement.controller;
 
+import placement.model.Coordinates;
 import placement.model.Fleet;
 import placement.model.board.Board;
-import placement.model.Coordinates;
-import placement.model.ship.DirectedShip;
 import placement.model.ship.Direction;
+import placement.model.ship.DirectedShip;
 import placement.model.ship.PlacedShip;
 import placement.model.ship.Ship;
 import placement.model.ship.UndirectedShip;
@@ -22,12 +22,15 @@ class RandomFleetPlacer {
     private final Random random;
 
 
-    RandomFleetPlacer(Fleet<UndirectedShip> fleet, Board board) {
+    private RandomFleetPlacer(Fleet<UndirectedShip> fleet, Board board, Random random) {
         this.fleet = fleet;
         this.board = board;
-        this.random = new Random();
+        this.random = random;
     }
 
+    static RandomFleetPlacer createPlacer(Fleet<UndirectedShip> fleet, Board board) {
+        return new RandomFleetPlacer(fleet, board, new Random());
+    }
 
     Fleet<PlacedShip> placeFleet() {
         Fleet<PlacedShip> fleetToSend = new Fleet<>();
@@ -46,12 +49,11 @@ class RandomFleetPlacer {
     }
 
     private Ship getShipAfterTryToPlace(Ship ship) {
-        Direction direction = getRandomDirection();
-        Coordinates randomHeadCoordinates = getRandomCoordinates(board.rows(), board.cols());
-        DirectedShip directedShip = ship.direct(direction);
+        Coordinates randomHeadCoordinates = getRandomCoordinates(board);
+        DirectedShip directedShip = ship.direct(getRandomDirection());
         boolean isShipPlaced = ShipPlacer.tryToPlaceShip(board, directedShip, randomHeadCoordinates);
         if (isShipPlaced) {
-            ship = new PlacedShip(directedShip, randomHeadCoordinates);
+            ship = PlacedShip.createFromDirectedShip(directedShip, randomHeadCoordinates);
         } else {
             ship = directedShip;
         }
@@ -64,10 +66,10 @@ class RandomFleetPlacer {
         return directions[index];
     }
 
-    private Coordinates getRandomCoordinates(int rows, int cols) {
-        int x = random.nextInt(rows);
-        int y = random.nextInt(cols);
-        return new Coordinates(x, y);
+    private Coordinates getRandomCoordinates(Board board) {
+        int x = random.nextInt(board.rows());
+        int y = random.nextInt(board.cols());
+        return Coordinates.createCoordinates(x, y);
     }
 
 }

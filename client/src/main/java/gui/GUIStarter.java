@@ -23,11 +23,4 @@ public class GUIStarter extends Application {
 
     }
 
-    /**
-     * main method - actual entry point of the application
-     * @param args - console arguments used by FX
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

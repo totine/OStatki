@@ -15,7 +15,7 @@ public final class FleetController {
     public static Fleet<PlacedShip> generatePlacedStandardFleet() {
         Fleet<UndirectedShip> fleet = Fleet.createDefaultFleet();
         Board board = Board.createDefaultBoard();
-        RandomFleetPlacer randomFleetPlacer = new RandomFleetPlacer(fleet, board);
+        RandomFleetPlacer randomFleetPlacer = RandomFleetPlacer.createPlacer(fleet, board);
         return randomFleetPlacer.placeFleet();
     }
 }

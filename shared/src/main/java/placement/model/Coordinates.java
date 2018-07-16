@@ -12,12 +12,14 @@ public class Coordinates {
     private final int x;
     private final int y;
 
-    public Coordinates(int coordinateX, int coordinateY) {
+    private Coordinates(int coordinateX, int coordinateY) {
         this.x = coordinateX;
         this.y = coordinateY;
     }
 
-
+    public static Coordinates createCoordinates(int coordinateX, int coordinateY) {
+        return new Coordinates(coordinateX, coordinateY);
+    }
 
     public final int getX() {
         return this.x;
