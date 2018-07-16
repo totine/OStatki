@@ -17,8 +17,9 @@ class ClientIO {
 
     private ClientIO(Socket socket) throws IOException {
         OutputStream outputStream = socket.getOutputStream();
-        OutputStreamWriter outputStreamWriterUTF8 = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
-        this.out = new PrintWriter(outputStreamWriterUTF8, true);
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
+        boolean autoFlush = true;
+        this.out = new PrintWriter(outputStreamWriter, autoFlush);
         this.in = new Scanner(socket.getInputStream(), String.valueOf(StandardCharsets.UTF_8));
     }
 

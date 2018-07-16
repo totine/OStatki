@@ -21,15 +21,14 @@ class RandomFleetPlacer {
     private final Board board;
     private final Random random;
 
-
-    private RandomFleetPlacer(Fleet<UndirectedShip> fleet, Board board) {
+    private RandomFleetPlacer(Fleet<UndirectedShip> fleet, Board board, Random random) {
         this.fleet = fleet;
         this.board = board;
-        this.random = new Random();
+        this.random = random;
     }
 
     static RandomFleetPlacer createPlacer(Fleet<UndirectedShip> fleet, Board board) {
-        return new RandomFleetPlacer(fleet, board);
+        return new RandomFleetPlacer(fleet, board, new Random());
     }
 
     Fleet<PlacedShip> placeFleet() {

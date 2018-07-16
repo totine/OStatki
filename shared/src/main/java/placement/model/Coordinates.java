@@ -31,12 +31,7 @@ public class Coordinates {
         return new Coordinates(coordinateX, coordinateY);
     }
 
-    /**
-     * this is simple getter for x coordinate.
-     * @return
-     * returns int type value which indicates horizontal coordinate.
-     */
-    public final int getX() {
+   public final int getX() {
         return this.x;
     }
 

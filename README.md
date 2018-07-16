@@ -3,11 +3,11 @@ Instructions for Linux to run only GUI:
 chmod +x run.sh
 ./run.sh
 
-To run server and client:
+To run connection and client:
 
 `mvn clean install`
 
-`java -jar server/target/server-0.2.1.jar`
+`java -jar connection/target/connection-0.2.1.jar`
 
 `java -jar client/target/client-0.2.1.jar`
 

@@ -19,16 +19,5 @@ public class GUIStarter extends Application {
         primaryStage.setScene(new Scene(root, SCENE_WIDTH, SCENE_HEIGHT));
         primaryStage.resizableProperty().setValue(false);
         primaryStage.show();
-
-
-    }
-
-    /**
-     * chat method - actual entry point of the application
-     * @param args - console arguments used by FX
-     */
-    public static void main(String[] args) {
-
-
     }
 }

@@ -1,3 +1,5 @@
+import connection.Server;
+
 /**
  * Entry point of client module.
  */
