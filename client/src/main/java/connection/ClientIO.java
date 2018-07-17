@@ -33,9 +33,9 @@ class ClientIO {
     }
 
     String getMessage() {
-        if (in.hasNextLine()) {
-            return in.nextLine();
+        if (!in.hasNextLine()) {
+            out.println("Domyślna");
         }
-        return "";
+        return in.nextLine();
     }
 }

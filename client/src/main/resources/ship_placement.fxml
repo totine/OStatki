@@ -50,8 +50,8 @@
                 <Button fx:id="startButton" layoutX="1022.0" layoutY="140.0" mnemonicParsing="false" onMouseClicked="#startTheGame" prefHeight="46.0" prefWidth="164.0" text="Start" />
                 <Button layoutX="518.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#placeRandom" prefHeight="46.0" prefWidth="164.0" text="Losuj" />
          <TextField fx:id="connectionTextBox" layoutX="515.0" layoutY="100.0" />
-         <Button layoutX="518.0" layoutY="126.0" mnemonicParsing="false" onAction="#sendMessageToServer" onMouseClicked="#placeRandom" prefHeight="46.0" prefWidth="164.0" text="Wyślij" />
-         <Button layoutX="686.0" layoutY="126.0" mnemonicParsing="false" onAction="#takeMessageFromServer" onMouseClicked="#placeRandom" prefHeight="46.0" prefWidth="164.0" text="Odbierz" />
+         <Button layoutX="518.0" layoutY="126.0" mnemonicParsing="false" onAction="#sendMessageToServer" prefHeight="46.0" prefWidth="164.0" text="Wyślij" />
+         <Button layoutX="686.0" layoutY="126.0" mnemonicParsing="false" onAction="#takeMessageFromServer" prefHeight="46.0" prefWidth="164.0" text="Odbierz" />
          <TextArea fx:id="outputFromServer" layoutX="686.0" layoutY="15.0" prefHeight="111.0" prefWidth="163.0" />
         </AnchorPane>
     </bottom>
