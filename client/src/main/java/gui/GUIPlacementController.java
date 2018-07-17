@@ -87,7 +87,8 @@ public class GUIPlacementController {
     @FXML
     private void sendMessageToServer() {
         String message = connectionTextBox.getText();
-        new Thread(() -> serverConnection.sendMessage(message)).start();
+        serverConnection.sendMessage(message);
+        connectionTextBox.clear();
     }
 
     @FXML
