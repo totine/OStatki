@@ -1,8 +1,11 @@
 package gui;
 
 
+import connection.GUIServerConnection;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -17,14 +20,25 @@ public class GUIPlacementController {
 
     private static final int FIELD_WIDTH = 50;
     private static final int FIELD_HEIGHT = 50;
+    private static final String HOST = "localhost";
+    private static final int PORT = 7777;
+
+    private GUIServerConnection serverConnection;
 
     @FXML
     private GridPane guiBoard;
     @FXML
     private Button startButton;
+    @FXML
+    private TextField connectionTextBox;
+    @FXML
+    private TextArea outputFromServer;
+
 
     public void initialize() {
         startButton.setDisable(true);
+        serverConnection = GUIServerConnection.initializeConnection(PORT, HOST);
+        serverConnection.createServer();
     }
 
 
@@ -56,6 +70,7 @@ public class GUIPlacementController {
 
 
     }
+
     @FXML
     private void startTheGame() throws Exception {
         Window currentWindow = startButton.getScene().getWindow();
@@ -65,4 +80,18 @@ public class GUIPlacementController {
             guiGameScreen.start(currentStage);
         }
     }
+
+    @FXML
+    private void sendMessageToServer() {
+        String message = connectionTextBox.getText();
+        new Thread(() -> serverConnection.sendMessage(message)).start();
+    }
+
+    @FXML
+    private void takeMessageFromServer() {
+        String message = serverConnection.getMessage();
+        new Thread(() -> outputFromServer.setText(message)).start();
+    }
+
+
 }
