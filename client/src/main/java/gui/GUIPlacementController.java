@@ -67,13 +67,10 @@ public class GUIPlacementController {
     }
 
     private void printShip(GUIShip ship) {
-
         for (Coordinates coord : ship.getPositionCoordinates()) {
             Shape next = createMastRepresentation();
             guiBoard.add(next, coord.getX(), coord.getY());
         }
-
-
     }
 
     @FXML
@@ -126,8 +123,6 @@ public class GUIPlacementController {
     private Runnable addToTextArea(String message) {
         return () -> outputFromServer.appendText(message + NEW_LINE);
     }
-
-
 
 
 }
