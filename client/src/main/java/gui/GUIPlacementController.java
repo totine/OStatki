@@ -13,6 +13,14 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import placement.model.Coordinates;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Future;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+
 /**
  * JavaFX standard application controller class
  */
@@ -22,6 +30,9 @@ public class GUIPlacementController {
     private static final int FIELD_HEIGHT = 50;
     private static final String HOST = "localhost";
     private static final int PORT = 7777;
+    private static final int NUMBER_OF_THREADS = 8;
+    private static final int MAX_ITERATION_COUNT = 100;
+    private ExecutorService executorService;
 
     private GUIServerConnection serverConnection;
 
@@ -39,6 +50,7 @@ public class GUIPlacementController {
         startButton.setDisable(true);
         serverConnection = GUIServerConnection.initializeConnection(PORT, HOST);
         serverConnection.createServer();
+        executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     }
 
 
@@ -88,9 +100,38 @@ public class GUIPlacementController {
     }
 
     @FXML
-    private void takeMessageFromServer() {
-        String message = serverConnection.getMessage();
-        new Thread(() -> outputFromServer.setText(message)).start();
+    private void processMessagesFromServer() throws InterruptedException, ExecutionException {
+        Callable<String> takeMessage = createServerCall();
+        List<Future<String>> messagesFromServer = createFutureMessagesList();
+        retrieveListOfMessages(takeMessage, messagesFromServer);
+        addToTextArea(messagesFromServer);
+        executorService.shutdown();
+    }
+
+    private Future<String> callServer(Callable<String> taskToCallServer) {
+        return executorService.submit(taskToCallServer);
+    }
+
+    private void addToTextArea(List<Future<String>> listOfMessages) throws InterruptedException, ExecutionException {
+        for (Future<String> futureMessage : listOfMessages) {
+            String message = futureMessage.get();
+            outputFromServer.appendText(message);
+        }
+    }
+
+    private Callable<String> createServerCall() {
+        return () -> serverConnection.getMessage();
+    }
+
+    private void retrieveListOfMessages(Callable<String> takeMessage, List<Future<String>> messagesFromServer) {
+        for (int i = 0; i < MAX_ITERATION_COUNT; i++) {
+            Future<String> resultOfCalling = callServer(takeMessage);
+            messagesFromServer.add(resultOfCalling);
+        }
+    }
+
+    private List<Future<String>> createFutureMessagesList() {
+        return new ArrayList<>();
     }
 
 
