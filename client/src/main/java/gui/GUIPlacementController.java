@@ -2,6 +2,8 @@ package gui;
 
 
 import connection.GUIServerConnection;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -13,14 +15,6 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import placement.model.Coordinates;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Future;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ExecutorService;
-
 /**
  * JavaFX standard application controller class
  */
@@ -30,9 +24,7 @@ public class GUIPlacementController {
     private static final int FIELD_HEIGHT = 50;
     private static final String HOST = "localhost";
     private static final int PORT = 7777;
-    private static final int NUMBER_OF_THREADS = 8;
-    private static final int MAX_ITERATION_COUNT = 100;
-    private ExecutorService executorService;
+    private static final String NEW_LINE = "\n";
 
     private GUIServerConnection serverConnection;
 
@@ -50,7 +42,6 @@ public class GUIPlacementController {
         startButton.setDisable(true);
         serverConnection = GUIServerConnection.initializeConnection(PORT, HOST);
         serverConnection.createServer();
-        executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     }
 
 
@@ -100,38 +91,24 @@ public class GUIPlacementController {
     }
 
     @FXML
-    private void processMessagesFromServer() throws InterruptedException, ExecutionException {
-        Callable<String> takeMessage = createServerCall();
-        List<Future<String>> messagesFromServer = createFutureMessagesList();
-        retrieveListOfMessages(takeMessage, messagesFromServer);
-        addToTextArea(messagesFromServer);
-        executorService.shutdown();
+    private void processMessagesFromServer() {
+        Task<String> messageTask = createMessageTask();
+        new Thread(messageTask).start();
     }
 
-    private Future<String> callServer(Callable<String> taskToCallServer) {
-        return executorService.submit(taskToCallServer);
+    private Task<String> createMessageTask() {
+        return new Task<String>() {
+            @Override
+            protected String call() {
+                String serverMessage = serverConnection.getMessage();
+                Platform.runLater(addToTextArea(serverMessage));
+                return serverMessage;
+            }
+        };
     }
 
-    private void addToTextArea(List<Future<String>> listOfMessages) throws InterruptedException, ExecutionException {
-        for (Future<String> futureMessage : listOfMessages) {
-            String message = futureMessage.get();
-            outputFromServer.appendText(message);
-        }
-    }
-
-    private Callable<String> createServerCall() {
-        return () -> serverConnection.getMessage();
-    }
-
-    private void retrieveListOfMessages(Callable<String> takeMessage, List<Future<String>> messagesFromServer) {
-        for (int i = 0; i < MAX_ITERATION_COUNT; i++) {
-            Future<String> resultOfCalling = callServer(takeMessage);
-            messagesFromServer.add(resultOfCalling);
-        }
-    }
-
-    private List<Future<String>> createFutureMessagesList() {
-        return new ArrayList<>();
+    private Runnable addToTextArea(String message) {
+        return () -> outputFromServer.appendText(message + NEW_LINE);
     }
 
 
