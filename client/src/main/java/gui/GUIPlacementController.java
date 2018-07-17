@@ -8,12 +8,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import placement.model.Coordinates;
+import javafx.scene.input.KeyEvent;
 
 /**
  * JavaFX standard application controller class
@@ -85,10 +87,23 @@ public class GUIPlacementController {
     }
 
     @FXML
+    private void submitMessageEnter(KeyEvent pressedKey) {
+        boolean enterIsPressed = pressedKey.getCode().equals(KeyCode.ENTER);
+        if (enterIsPressed) {
+            sendMessageToServer();
+        }
+    }
+
+    @FXML
+    private void submitMessageClick() {
+        sendMessageToServer();
+    }
+
     private void sendMessageToServer() {
         String message = connectionTextBox.getText();
         serverConnection.sendMessage(message);
         connectionTextBox.clear();
+        connectionTextBox.requestFocus();
     }
 
     @FXML
@@ -111,6 +126,8 @@ public class GUIPlacementController {
     private Runnable addToTextArea(String message) {
         return () -> outputFromServer.appendText(message + NEW_LINE);
     }
+
+
 
 
 }
