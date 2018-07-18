@@ -10,14 +10,14 @@
     <parent>
         <artifactId>battleships</artifactId>
         <groupId>com.ostatki</groupId>
-        <version>0.2.1</version>
+        <version>0.2.2</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>com.ostatki</groupId>
             <artifactId>shared</artifactId>
-            <version>0.2.1</version>
+            <version>0.2.2</version>
         </dependency>
     </dependencies>
     <build>

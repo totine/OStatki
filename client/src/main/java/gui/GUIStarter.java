@@ -19,8 +19,5 @@ public class GUIStarter extends Application {
         primaryStage.setScene(new Scene(root, SCENE_WIDTH, SCENE_HEIGHT));
         primaryStage.resizableProperty().setValue(false);
         primaryStage.show();
-
-
     }
-
 }

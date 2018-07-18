@@ -32,9 +32,7 @@ class ClientIO {
         out.println(message);
     }
 
-    void getMessage() {
-        while (in.hasNextLine()) {
-            System.out.println(in.nextLine());
-        }
+    String getMessage() {
+        return in.nextLine();
     }
 }

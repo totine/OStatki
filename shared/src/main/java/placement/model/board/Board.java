@@ -63,17 +63,39 @@ public final class Board {
         return cols;
     }
 
-
+    /**
+     * this method returns state of the field which has coordinates as in passed parameter.
+     * @param coordinates
+     * coordinates parameters is used to check if that place on board is taken,
+     * or if ship can be placed on that spot
+     * @return
+     * returns state of the field which can be OCCUPIED, BUFFER, EMPTY, OUT_OF_BOUND
+     */
     public FieldState getFieldState(Coordinates coordinates) {
         Field field = boardFields.getField(coordinates);
         return field.getState();
     }
 
+    /**
+     * this method returns true or false whether or not mast
+     * can be placed on the board.
+     * @param mastCoordinates
+     * this parameter is there to check
+     * if mast on that coordinates on board can be placed
+     * @return
+     * method returns true if mast can be place on that
+     * coordinates or false if not
+     */
     public boolean mastCanBePlaced(Coordinates mastCoordinates) {
         Field field = boardFields.getField(mastCoordinates);
         return field.isFreeToPlace();
     }
 
+    /**
+     * method simply places mast on certain place on board.
+     * @param coordinates
+     * this parameter is there to place on mast on that certain position on board.
+     */
     public void placeMast(Coordinates coordinates) {
         boardFields.markAsOccupied(coordinates);
         surroundWithBuffer(coordinates);
@@ -106,7 +128,7 @@ public final class Board {
     }
 
     private boolean isOutOfBound(Coordinates coordinates) {
-        return getFieldState(coordinates).equals(FieldState.OUTOFBOUND);
+        return getFieldState(coordinates).equals(FieldState.OUT_OF_BOUND);
     }
 
     private boolean isFieldOccupied(Coordinates coordinates) {
