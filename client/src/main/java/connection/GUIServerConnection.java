@@ -3,7 +3,7 @@ package connection;
 import java.io.IOException;
 
 /**
- * something
+ * this class is prototype for checking connection with server from GUI of client.
  */
 public class GUIServerConnection {
     private final int portNumber;
@@ -16,9 +16,13 @@ public class GUIServerConnection {
     }
 
     /**
+     * This is a fabricating method.
      * @param portNumber
+     * number of port of the server
      * @param host
+     * ip address of the server.
      * @return
+     * returns instance of GUIServerConnection
      */
     public static GUIServerConnection initializeConnection(int portNumber, String host) {
         return new GUIServerConnection(portNumber, host);
