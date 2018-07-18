@@ -6,18 +6,18 @@ import java.util.List;
 /**
  * GUI representation of fleet object
  */
-class GUIFleet {
-    private final List<GUIShip> ships;
+class FleetView {
+    private final List<ShipView> ships;
 
-    GUIFleet() {
+    FleetView() {
         this.ships = new ArrayList<>();
     }
 
-    void add(GUIShip guiShip) {
-        ships.add(guiShip);
+    void add(ShipView shipView) {
+        ships.add(shipView);
     }
 
-    List<GUIShip> getShipList() {
+    List<ShipView> getShipList() {
         return ships;
     }
 }

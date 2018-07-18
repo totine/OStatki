@@ -20,7 +20,7 @@ import javafx.scene.input.KeyEvent;
 /**
  * JavaFX standard application controller class
  */
-public class GUIPlacementController {
+public class MainStageController {
 
     private static final int FIELD_WIDTH = 50;
     private static final int FIELD_HEIGHT = 50;
@@ -50,9 +50,9 @@ public class GUIPlacementController {
     @FXML
     private void placeRandom() {
         guiBoard.getChildren().removeIf(node -> node instanceof Shape);
-        FleetDAO fleetDAO = new FleetFromRandomGenerator();
-        GUIFleet fleet = fleetDAO.getGUIFleet();
-        for (GUIShip ship : fleet.getShipList()) {
+        FleetDAO fleetDAO = new RandomFleet();
+        FleetView fleet = fleetDAO.getGUIFleet();
+        for (ShipView ship : fleet.getShipList()) {
             printShip(ship);
         }
         startButton.setDisable(false);
@@ -66,7 +66,7 @@ public class GUIPlacementController {
         return mast;
     }
 
-    private void printShip(GUIShip ship) {
+    private void printShip(ShipView ship) {
         for (Coordinates coord : ship.getPositionCoordinates()) {
             Shape next = createMastRepresentation();
             guiBoard.add(next, coord.getX(), coord.getY());
@@ -78,8 +78,8 @@ public class GUIPlacementController {
         Window currentWindow = startButton.getScene().getWindow();
         if (currentWindow instanceof Stage) {
             Stage currentStage = (Stage) currentWindow;
-            GUIGameScreen guiGameScreen = new GUIGameScreen();
-            guiGameScreen.start(currentStage);
+            GameStage gameStage = new GameStage();
+            gameStage.start(currentStage);
         }
     }
 

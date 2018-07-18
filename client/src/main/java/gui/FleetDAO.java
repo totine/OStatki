@@ -5,5 +5,5 @@ package gui;
  * De facto functional interface.
  */
 public interface FleetDAO {
-    GUIFleet getGUIFleet();
+    FleetView getGUIFleet();
 }

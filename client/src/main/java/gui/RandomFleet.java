@@ -8,15 +8,15 @@ import placement.model.ship.PlacedShip;
 /**
  * GUI-side fleet randomizer
  */
-public class FleetFromRandomGenerator implements FleetDAO {
+public class RandomFleet implements FleetDAO {
     @Override
-    public final GUIFleet getGUIFleet() {
+    public final FleetView getGUIFleet() {
         Fleet<PlacedShip> fleetFromRandom = FleetController.generatePlacedStandardFleet();
-        GUIFleet guiFleet = new GUIFleet();
+        FleetView fleetView = new FleetView();
         for (PlacedShip ship : fleetFromRandom.getShipList()) {
-            GUIShip guiShip = new GUIShip(ship.getMastCoordinates());
-            guiFleet.add(guiShip);
+            ShipView shipView = new ShipView(ship.getMastCoordinates());
+            fleetView.add(shipView);
         }
-        return guiFleet;
+        return fleetView;
     }
 }
