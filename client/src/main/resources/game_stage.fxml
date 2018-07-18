@@ -1,10 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GameStageController">
+   <center>
+      <AnchorPane prefHeight="582.0" prefWidth="800.0">
+         <GridPane fx:id="guiBoard" gridLinesVisible="true" layoutX="200.0" layoutY="50.0" style="-fx-background-color: lightblue;">
+            <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints maxHeight="50.0" minHeight="50.0" percentHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="50.0" minHeight="50.0" percentHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="50.0" minHeight="50.0" percentHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="50.0" minHeight="50.0" percentHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="50.0" minHeight="50.0" percentHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="50.0" minHeight="50.0" percentHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="50.0" minHeight="50.0" percentHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="50.0" minHeight="50.0" percentHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="50.0" minHeight="50.0" percentHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="50.0" minHeight="50.0" percentHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+         </GridPane>
+         <BorderPane.margin>
+            <Insets bottom="150.0" left="150.0" right="150.0" top="150.0" />
+         </BorderPane.margin>
+      </AnchorPane>
+   </center>
+   <bottom>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <Button layoutX="14.0" layoutY="140.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="164.0" text="Wstecz" />
+         <Button fx:id="startButton" layoutX="1022.0" layoutY="140.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="164.0" text="Start" />
+         <Button layoutX="518.0" layoutY="14.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="164.0" text="Losuj" />
+         <TextField fx:id="connectionTextBox" layoutX="515.0" layoutY="100.0" />
+         <Button layoutX="518.0" layoutY="126.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="164.0" text="Wyślij" />
+         <Button layoutX="686.0" layoutY="126.0" mnemonicParsing="false"  prefHeight="46.0" prefWidth="164.0" text="Odbierz" />
+         <TextArea fx:id="outputFromServer" layoutX="686.0" layoutY="15.0" prefHeight="111.0" prefWidth="163.0" />
+      </AnchorPane>
+   </bottom>
 
-<AnchorPane prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GameStageController">
-   <children>
-      <fx:include source="main_stage.fxml" />
-   </children>
-</AnchorPane>
+</BorderPane>

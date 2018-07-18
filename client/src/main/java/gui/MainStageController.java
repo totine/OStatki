@@ -27,6 +27,7 @@ public class MainStageController {
     private static final String HOST = "localhost";
     private static final int PORT = 7777;
     private static final String NEW_LINE = "\n";
+    private FleetView fleet;
 
     private GUIServerConnection serverConnection;
 
@@ -51,7 +52,7 @@ public class MainStageController {
     private void placeRandom() {
         guiBoard.getChildren().removeIf(node -> node instanceof Shape);
         FleetDAO fleetDAO = new RandomFleet();
-        FleetView fleet = fleetDAO.getGUIFleet();
+        fleet = fleetDAO.getGUIFleet();
         for (ShipView ship : fleet.getShipList()) {
             printShip(ship);
         }
@@ -67,9 +68,9 @@ public class MainStageController {
     }
 
     private void printShip(ShipView ship) {
-        for (Coordinates coord : ship.getPositionCoordinates()) {
+        for (Coordinates coordinates : ship.getPositionCoordinates()) {
             Shape next = createMastRepresentation();
-            guiBoard.add(next, coord.getX(), coord.getY());
+            guiBoard.add(next, coordinates.getX(), coordinates.getY());
         }
     }
 
@@ -78,7 +79,8 @@ public class MainStageController {
         Window currentWindow = startButton.getScene().getWindow();
         if (currentWindow instanceof Stage) {
             Stage currentStage = (Stage) currentWindow;
-            GameStage gameStage = new GameStage();
+            GameStageController gameStageController = GameStageController.createController(fleet);
+            GameStage gameStage = GameStage.createGameStage(gameStageController);
             gameStage.start(currentStage);
         }
     }
@@ -113,9 +115,9 @@ public class MainStageController {
         return new Task<String>() {
             @Override
             protected String call() {
-                String serverMessage = serverConnection.getMessage();
-                Platform.runLater(addToTextArea(serverMessage));
-                return serverMessage;
+            String serverMessage = serverConnection.getMessage();
+            Platform.runLater(addToTextArea(serverMessage));
+            return serverMessage;
             }
         };
     }
