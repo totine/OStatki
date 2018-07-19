@@ -42,7 +42,7 @@ class ClientAppRunner {
 
     private void connectToServer() {
         serverConnection = GUIServerConnection.initializeConnection(PORT, HOST);
-        serverConnection.createServer();
+        serverConnection.createServerConnection();
     }
 
     GUIServerConnection getServerConnection() {
