@@ -4,22 +4,24 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>server</artifactId>
-    <version>0.3.1</version>
+    <artifactId>client</artifactId>
+    <version>0.2.2</version>
+
 
     <parent>
         <artifactId>battleships</artifactId>
         <groupId>com.ostatki</groupId>
-        <version>0.3.1</version>
+        <version>0.2.2</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>com.ostatki</groupId>
             <artifactId>shared</artifactId>
-            <version>0.3.1</version>
+            <version>0.2.2</version>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <!-- JarPlugin -->
@@ -30,12 +32,11 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>Ships</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
-
             <!-- package:shade -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
