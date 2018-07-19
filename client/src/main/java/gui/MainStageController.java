@@ -111,8 +111,9 @@ public class MainStageController {
         boolean fleetDoesNotExist = (fleet == null);
         if (fleetDoesNotExist) {
             startButton.setDisable(true);
-        } else
+        } else {
             startButton.setDisable(false);
+        }
     }
 
 }

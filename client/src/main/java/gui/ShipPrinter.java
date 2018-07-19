@@ -5,6 +5,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import placement.model.Coordinates;
 
+/**
+ * This class is made to help with printing ship representation on friendly board.
+ */
 class ShipPrinter {
 
     private static final int FIELD_WIDTH = 50;
@@ -37,5 +40,6 @@ class ShipPrinter {
         return mast;
     }
 
-    private ShipPrinter(){}
+    private ShipPrinter() {
+    }
 }

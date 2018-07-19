@@ -3,16 +3,22 @@ package gui;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
+/**
+ * This class is made to help with printing fields as buttons on enemy board.
+ */
 class FieldPrinter {
 
     private static final int FIELD_WIDTH = 50;
     private static final int FIELD_HEIGHT = 50;
     private static final String MISS_MARK = "•";
 
+    private FieldPrinter() {
+    }
+
     static void insertFields(GridPane printingBoard) {
         int numberOfRows = printingBoard.getRowConstraints().size();
         int numberOfColumns = printingBoard.getColumnConstraints().size();
-        addToEachSpace(numberOfRows,numberOfColumns,printingBoard);
+        addToEachSpace(numberOfRows, numberOfColumns, printingBoard);
     }
 
     private static Button createField() {

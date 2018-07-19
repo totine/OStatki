@@ -29,17 +29,13 @@ public class GameStageController {
     }
 
     @FXML
-    private void returnToShipPlacement() throws Exception{
+    private void returnToShipPlacement() throws Exception {
         Window currentWindow = backToPlacement.getScene().getWindow();
         if (currentWindow instanceof Stage) {
             Stage currentStage = (Stage) currentWindow;
             MainStage mainStage = MainStage.createMainStage();
             mainStage.start(currentStage);
         }
-    }
-
-    private void fillEnemyBoard() {
-
     }
 
 }
