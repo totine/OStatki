@@ -13,7 +13,7 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainStageController">
     <center>
         <AnchorPane prefHeight="582.0" prefWidth="800.0">
-            <GridPane fx:id="guiBoard" gridLinesVisible="true" layoutX="200.0" layoutY="50.0" style="-fx-background-color: lightblue;">
+            <GridPane fx:id="printingBoard" gridLinesVisible="true" layoutX="200.0" layoutY="50.0" style="-fx-background-color: lightblue;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />

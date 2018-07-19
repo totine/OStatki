@@ -11,21 +11,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import placement.model.Coordinates;
 
 /**
  * JavaFX standard application controller class
  */
 public class MainStageController {
 
-    private static final int FIELD_WIDTH = 50;
-    private static final int FIELD_HEIGHT = 50;
-    private static final String HOST = "localhost";
-    private static final int PORT = 7777;
     private static final String NEW_LINE = "\n";
 
     private FleetView fleet;
@@ -33,7 +27,7 @@ public class MainStageController {
     private ClientAppRunner appInstance;
 
     @FXML
-    private GridPane guiBoard;
+    private GridPane printingBoard;
     @FXML
     private Button startButton;
     @FXML
@@ -44,36 +38,21 @@ public class MainStageController {
 
     public void initialize() {
         appInstance = ClientAppRunner.getInstance();
-        startButton.setDisable(true);
-        serverConnection = GUIServerConnection.initializeConnection(PORT, HOST);
-        serverConnection.createServer();
+        appInstance.initializeServerConnection();
+        serverConnection = appInstance.getServerConnection();
+        fleet = appInstance.getFleet();
+        disableStartWhenNoFleet();
+        ShipPrinter.placeShips(fleet, printingBoard);
     }
 
 
     @FXML
     private void placeRandom() {
-        guiBoard.getChildren().removeIf(node -> node instanceof Shape);
+        printingBoard.getChildren().removeIf(node -> node instanceof Shape);
         FleetDAO fleetDAO = new RandomFleet();
         fleet = fleetDAO.getGUIFleet();
-        for (ShipView ship : fleet.getShipList()) {
-            printShip(ship);
-        }
+        ShipPrinter.placeShips(fleet, printingBoard);
         startButton.setDisable(false);
-    }
-
-    private Rectangle createMastRepresentation() {
-        Rectangle mast = new Rectangle();
-        mast.setHeight(FIELD_HEIGHT);
-        mast.setWidth(FIELD_WIDTH);
-
-        return mast;
-    }
-
-    private void printShip(ShipView ship) {
-        for (Coordinates coordinates : ship.getPositionCoordinates()) {
-            Shape next = createMastRepresentation();
-            guiBoard.add(next, coordinates.getX(), coordinates.getY());
-        }
     }
 
     @FXML
@@ -128,5 +107,12 @@ public class MainStageController {
         return () -> outputFromServer.appendText(message + NEW_LINE);
     }
 
+    private void disableStartWhenNoFleet() {
+        boolean fleetDoesNotExist = (fleet == null);
+        if (fleetDoesNotExist) {
+            startButton.setDisable(true);
+        } else
+            startButton.setDisable(false);
+    }
 
 }

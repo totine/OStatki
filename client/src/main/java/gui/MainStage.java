@@ -20,4 +20,7 @@ public class MainStage extends Application {
         primaryStage.resizableProperty().setValue(false);
         primaryStage.show();
     }
+    static MainStage createMainStage() {
+        return new MainStage();
+    }
 }

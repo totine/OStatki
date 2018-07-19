@@ -1,5 +1,7 @@
 package gui;
 
+import connection.GUIServerConnection;
+
 /**
  * This is the singleton class. It's purpose is to
  * provide information flow between controller instances.
@@ -7,6 +9,9 @@ package gui;
 class ClientAppRunner {
 
     private FleetView fleet;
+    private GUIServerConnection serverConnection;
+    private static final String HOST = "localhost";
+    private static final int PORT = 7777;
 
     private static ClientAppRunner ourInstance = new ClientAppRunner();
 
@@ -23,6 +28,25 @@ class ClientAppRunner {
 
     FleetView getFleet() {
         return fleet;
+    }
+
+    void initializeServerConnection() {
+        if (checkIfConnected()) {
+            connectToServer();
+        }
+    }
+
+    private boolean checkIfConnected() {
+        return null != serverConnection;
+    }
+
+    private void connectToServer() {
+        serverConnection = GUIServerConnection.initializeConnection(PORT, HOST);
+        serverConnection.createServer();
+    }
+
+    GUIServerConnection getServerConnection() {
+        return serverConnection;
     }
 
 }
