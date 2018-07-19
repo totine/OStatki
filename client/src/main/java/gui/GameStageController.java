@@ -15,7 +15,4 @@ public class GameStageController {
         return new GameStageController(fleet);
     }
 
-    public void initialize() {
-        System.out.println(fleet);
-    }
 }
