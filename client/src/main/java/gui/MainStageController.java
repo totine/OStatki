@@ -9,13 +9,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import placement.model.Coordinates;
-import javafx.scene.input.KeyEvent;
 
 /**
  * JavaFX standard application controller class
@@ -27,9 +27,10 @@ public class MainStageController {
     private static final String HOST = "localhost";
     private static final int PORT = 7777;
     private static final String NEW_LINE = "\n";
-    private FleetView fleet;
 
+    private FleetView fleet;
     private GUIServerConnection serverConnection;
+    private ClientAppRunner appInstance;
 
     @FXML
     private GridPane guiBoard;
@@ -42,6 +43,7 @@ public class MainStageController {
 
 
     public void initialize() {
+        appInstance = ClientAppRunner.getInstance();
         startButton.setDisable(true);
         serverConnection = GUIServerConnection.initializeConnection(PORT, HOST);
         serverConnection.createServer();
@@ -78,9 +80,9 @@ public class MainStageController {
     private void startTheGame() throws Exception {
         Window currentWindow = startButton.getScene().getWindow();
         if (currentWindow instanceof Stage) {
+            appInstance.setFleet(fleet);
             Stage currentStage = (Stage) currentWindow;
-            GameStageController gameStageController = GameStageController.createController(fleet);
-            GameStage gameStage = GameStage.createGameStage(gameStageController);
+            GameStage gameStage = GameStage.createGameStage();
             gameStage.start(currentStage);
         }
     }
@@ -115,9 +117,9 @@ public class MainStageController {
         return new Task<String>() {
             @Override
             protected String call() {
-            String serverMessage = serverConnection.getMessage();
-            Platform.runLater(addToTextArea(serverMessage));
-            return serverMessage;
+                String serverMessage = serverConnection.getMessage();
+                Platform.runLater(addToTextArea(serverMessage));
+                return serverMessage;
             }
         };
     }

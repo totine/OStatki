@@ -6,7 +6,7 @@ import placement.model.ship.PlacedShip;
 
 
 /**
- * GUI-side fleet randomizer
+ * GUI-side fleet random generator
  */
 public class RandomFleet implements FleetDAO {
     @Override

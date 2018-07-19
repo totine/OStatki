@@ -2,8 +2,8 @@ package gui;
 
 /**
  * Layer of abstraction over fleet generation.
- * De facto functional interface.
+ * In fact functional interface.
  */
-public interface FleetDAO {
+interface FleetDAO {
     FleetView getGUIFleet();
 }
