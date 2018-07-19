@@ -13,8 +13,8 @@
     -fx-text-alignment: center;
     -fx-cursor: hand;
 }
-.water-button:selected {
-    -fx-background-color: #9C7D5;
+.water-button:pressed {
+    -fx-background-color: #9DD8E6;
     -fx-background-radius: 5,5,4;
     -fx-background-insets: 0 0 -1 0,0,1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
