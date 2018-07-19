@@ -25,6 +25,7 @@ public class GameStageController {
         appInstance = ClientAppRunner.getInstance();
         fleet = appInstance.getFleet();
         ShipPrinter.placeShips(fleet, friendlyBoard);
+        FieldPrinter.insertFields(enemyBoard);
     }
 
     @FXML
@@ -35,6 +36,10 @@ public class GameStageController {
             MainStage mainStage = MainStage.createMainStage();
             mainStage.start(currentStage);
         }
+    }
+
+    private void fillEnemyBoard() {
+
     }
 
 }

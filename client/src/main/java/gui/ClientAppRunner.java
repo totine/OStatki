@@ -31,12 +31,12 @@ class ClientAppRunner {
     }
 
     void initializeServerConnection() {
-        if (checkIfConnected()) {
+        if (checkIfDisconnected()) {
             connectToServer();
         }
     }
 
-    private boolean checkIfConnected() {
+    private boolean checkIfDisconnected() {
         return null != serverConnection;
     }
 
