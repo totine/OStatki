@@ -37,7 +37,7 @@ class ClientAppRunner {
     }
 
     private boolean checkIfDisconnected() {
-        return null != serverConnection;
+        return null == serverConnection;
     }
 
     private void connectToServer() {
