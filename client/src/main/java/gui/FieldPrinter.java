@@ -1,6 +1,5 @@
 package gui;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -8,6 +7,7 @@ class FieldPrinter {
 
     private static final int FIELD_WIDTH = 50;
     private static final int FIELD_HEIGHT = 50;
+    private static final String MISS_MARK = "•";
 
     static void insertFields(GridPane printingBoard) {
         int numberOfRows = printingBoard.getRowConstraints().size();
@@ -32,7 +32,7 @@ class FieldPrinter {
     }
 
     private static void addMissOnClick(Button field) {
-        field.setOnAction(event -> field.setText("X"));
+        field.setOnAction(event -> field.setText(MISS_MARK));
     }
 
     private static void setDimensions(Button field) {
