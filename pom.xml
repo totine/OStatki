@@ -6,7 +6,7 @@
 
     <groupId>com.ostatki</groupId>
     <artifactId>battleships</artifactId>
-    <version>0.2.2</version>
+    <version>0.3.1</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -171,7 +171,7 @@
                                     </message>
                                 </bannedPlugins>
                                 <requireMavenVersion>
-                                    <version>2.0.6</version>
+                                    <version>3.3.9</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
                                     <version>1.8</version>

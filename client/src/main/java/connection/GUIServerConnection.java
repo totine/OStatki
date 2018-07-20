@@ -28,15 +28,15 @@ public class GUIServerConnection {
         return new GUIServerConnection(portNumber, host);
     }
 
-    public void createServer() {
+    public void createServerConnection() {
         try {
-            createServerConnection();
+            connect();
         } catch (IOException e) {
             handleConnectionException(e);
         }
     }
 
-    private void createServerConnection() throws IOException {
+    private void connect() throws IOException {
         server = ClientIO.createClient(host, portNumber);
     }
 

@@ -9,9 +9,17 @@ import javafx.stage.Stage;
 /**
  * The entry point of GUI package. Sets up a window, loads components.
  */
-public class GUIGameScreen extends Application {
+public class GameStage extends Application {
     private static final int SCENE_WIDTH = 1200;
     private static final int SCENE_HEIGHT = 900;
+
+    static GameStage createGameStage() {
+        return new GameStage();
+    }
+
+    private GameStage() {
+    }
+
     @Override
     public final void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/game_stage.fxml"));
@@ -23,6 +31,7 @@ public class GUIGameScreen extends Application {
 
     /**
      * chat method - actual entry point of the application
+     *
      * @param args - console arguments used by FX
      */
     public static void main(String[] args) {

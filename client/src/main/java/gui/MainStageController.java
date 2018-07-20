@@ -9,29 +9,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import placement.model.Coordinates;
-import javafx.scene.input.KeyEvent;
 
 /**
  * JavaFX standard application controller class
  */
-public class GUIPlacementController {
+public class MainStageController {
 
-    private static final int FIELD_WIDTH = 50;
-    private static final int FIELD_HEIGHT = 50;
-    private static final String HOST = "localhost";
-    private static final int PORT = 7777;
     private static final String NEW_LINE = "\n";
 
+    private FleetView fleet;
     private GUIServerConnection serverConnection;
+    private ClientAppRunner appInstance;
 
     @FXML
-    private GridPane guiBoard;
+    private GridPane printingBoard;
     @FXML
     private Button startButton;
     @FXML
@@ -41,45 +37,32 @@ public class GUIPlacementController {
 
 
     public void initialize() {
-        startButton.setDisable(true);
-        serverConnection = GUIServerConnection.initializeConnection(PORT, HOST);
-        serverConnection.createServer();
+        appInstance = ClientAppRunner.getInstance();
+        appInstance.initializeServerConnection();
+        serverConnection = appInstance.getServerConnection();
+        fleet = appInstance.getFleet();
+        disableStartWhenNoFleet();
+        ShipPrinter.placeShips(fleet, printingBoard);
     }
 
 
     @FXML
     private void placeRandom() {
-        guiBoard.getChildren().removeIf(node -> node instanceof Shape);
-        FleetDAO fleetDAO = new FleetFromRandomGenerator();
-        GUIFleet fleet = fleetDAO.getGUIFleet();
-        for (GUIShip ship : fleet.getShipList()) {
-            printShip(ship);
-        }
+        printingBoard.getChildren().removeIf(node -> node instanceof Shape);
+        FleetDAO fleetDAO = new RandomFleet();
+        fleet = fleetDAO.getGUIFleet();
+        ShipPrinter.placeShips(fleet, printingBoard);
         startButton.setDisable(false);
-    }
-
-    private Rectangle createMastRepresentation() {
-        Rectangle mast = new Rectangle();
-        mast.setHeight(FIELD_HEIGHT);
-        mast.setWidth(FIELD_WIDTH);
-
-        return mast;
-    }
-
-    private void printShip(GUIShip ship) {
-        for (Coordinates coord : ship.getPositionCoordinates()) {
-            Shape next = createMastRepresentation();
-            guiBoard.add(next, coord.getX(), coord.getY());
-        }
     }
 
     @FXML
     private void startTheGame() throws Exception {
         Window currentWindow = startButton.getScene().getWindow();
         if (currentWindow instanceof Stage) {
+            appInstance.setFleet(fleet);
             Stage currentStage = (Stage) currentWindow;
-            GUIGameScreen guiGameScreen = new GUIGameScreen();
-            guiGameScreen.start(currentStage);
+            GameStage gameStage = GameStage.createGameStage();
+            gameStage.start(currentStage);
         }
     }
 
@@ -124,5 +107,13 @@ public class GUIPlacementController {
         return () -> outputFromServer.appendText(message + NEW_LINE);
     }
 
+    private void disableStartWhenNoFleet() {
+        boolean fleetDoesNotExist = (fleet == null);
+        if (fleetDoesNotExist) {
+            startButton.setDisable(true);
+        } else {
+            startButton.setDisable(false);
+        }
+    }
 
 }
