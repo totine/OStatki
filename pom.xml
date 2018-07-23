@@ -42,6 +42,8 @@
         <jacoco.version>0.8.1</jacoco.version>
         <checkstyle.version>3.0.0</checkstyle.version>
         <enforcer.version>3.0.0-M2</enforcer.version>
+        <enforcer.required.maven>3.3.9</enforcer.required.maven>
+        <enforcer.required.java>1.8</enforcer.required.java>
         <sonar.version>5.1</sonar.version>
 		
     </properties>
@@ -171,10 +173,10 @@
                                     </message>
                                 </bannedPlugins>
                                 <requireMavenVersion>
-                                    <version>3.3.9</version>
+                                    <version>${enforcer.required.maven}</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <version>1.8</version>
+                                    <version>${enforcer.required.java}</version>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
