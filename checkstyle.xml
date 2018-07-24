@@ -88,7 +88,9 @@
         <!--<module name="JavadocMethod">-->
             <!--<property name="scope" value="public"/>-->
         <!--</module>-->
-        <module name="JavadocType"/>
+        <module name="JavadocType">
+            <property name="severity" value="ignore" />
+        </module>
         <!--<module name="JavadocVariable"/>-->
         <!--<module name="JavadocStyle"/>-->
 

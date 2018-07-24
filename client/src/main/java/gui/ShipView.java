@@ -1,6 +1,7 @@
 package gui;
 
-import placement.model.Coordinates;
+import model.Coordinates;
+
 
 import java.util.List;
 

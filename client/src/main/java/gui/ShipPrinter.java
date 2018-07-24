@@ -3,7 +3,7 @@ package gui;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import placement.model.Coordinates;
+import model.Coordinates;
 
 /**
  * This class is made to help with printing ship representation on friendly board.
@@ -28,7 +28,7 @@ class ShipPrinter {
     private static void printShip(ShipView ship, GridPane printingBoard) {
         for (Coordinates coordinates : ship.getPositionCoordinates()) {
             Shape next = createMastRepresentation();
-            printingBoard.add(next, coordinates.getX(), coordinates.getY());
+            printingBoard.add(next, coordinates.getColumnIndex(), coordinates.getRowIndex());
         }
     }
 
