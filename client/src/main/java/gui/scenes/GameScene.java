@@ -1,4 +1,4 @@
-package gui;
+package gui.scenes;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,22 +7,21 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * The entry point of GUI package. Sets up a window, loads components.
+ * Scene in application which consists of actual game.
  */
-public class GameStage extends Application {
+public class GameScene extends Application {
     private static final int SCENE_WIDTH = 1200;
     private static final int SCENE_HEIGHT = 900;
 
-    static GameStage createGameStage() {
-        return new GameStage();
+    public static GameScene create() {
+        return new GameScene();
     }
-
-    private GameStage() {
+    private GameScene() {
     }
 
     @Override
     public final void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/game_stage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/game_scene.fxml"));
         primaryStage.setTitle("Battleships OStatki");
         primaryStage.setScene(new Scene(root, SCENE_WIDTH, SCENE_HEIGHT));
         primaryStage.resizableProperty().setValue(false);
@@ -34,7 +33,4 @@ public class GameStage extends Application {
      *
      * @param args - console arguments used by FX
      */
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

@@ -1,4 +1,4 @@
-package gui;
+package gui.printers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,14 +6,14 @@ import java.util.List;
 /**
  * GUI representation of fleet object
  */
-class FleetView {
+public class FleetView {
     private final List<ShipView> ships;
 
-    FleetView() {
+    public FleetView() {
         this.ships = new ArrayList<>();
     }
 
-    void add(ShipView shipView) {
+    public void add(ShipView shipView) {
         ships.add(shipView);
     }
 

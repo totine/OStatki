@@ -1,7 +1,14 @@
-package gui;
+package gui.controllers;
 
 
-import connection.GUIServerConnection;
+import connection.ServerConnection;
+import gui.instance.ClientAppRunner;
+import gui.printers.FleetDAO;
+import gui.printers.FleetView;
+import gui.generator.RandomFleet;
+import gui.printers.ShipPrinter;
+import gui.scenes.GameScene;
+import gui.scenes.PlayerScene;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -12,18 +19,19 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 /**
  * JavaFX standard application controller class
  */
-public class MainStageController {
+public class PlacementSceneController {
 
     private static final String NEW_LINE = "\n";
 
     private FleetView fleet;
-    private GUIServerConnection serverConnection;
+    private ServerConnection serverConnection;
     private ClientAppRunner appInstance;
 
     @FXML
@@ -34,11 +42,16 @@ public class MainStageController {
     private TextField connectionTextBox;
     @FXML
     private TextArea outputFromServer;
+    @FXML
+    private Button backToNameChoosing;
+    @FXML
+    private Text playerNameText;
 
 
     public void initialize() {
         appInstance = ClientAppRunner.getInstance();
-        appInstance.initializeServerConnection();
+        String playerName = appInstance.getPlayer().getName();
+        playerNameText.setText(playerName);
         serverConnection = appInstance.getServerConnection();
         fleet = appInstance.getFleet();
         disableStartWhenNoFleet();
@@ -61,8 +74,18 @@ public class MainStageController {
         if (currentWindow instanceof Stage) {
             appInstance.setFleet(fleet);
             Stage currentStage = (Stage) currentWindow;
-            GameStage gameStage = GameStage.createGameStage();
-            gameStage.start(currentStage);
+            GameScene gameScene = GameScene.create();
+            gameScene.start(currentStage);
+        }
+    }
+
+    @FXML
+    private void backToNameChoosing() throws Exception {
+        Window currentWindow = backToNameChoosing.getScene().getWindow();
+        if (currentWindow instanceof Stage) {
+            Stage currentStage = (Stage) currentWindow;
+            PlayerScene playerScene = PlayerScene.create();
+            playerScene.start(currentStage);
         }
     }
 
@@ -108,12 +131,8 @@ public class MainStageController {
     }
 
     private void disableStartWhenNoFleet() {
-        boolean fleetDoesNotExist = (fleet == null);
-        if (fleetDoesNotExist) {
-            startButton.setDisable(true);
-        } else {
-            startButton.setDisable(false);
-        }
+        boolean noFleetInitialized = fleet == null;
+        startButton.setDisable(noFleetInitialized);
     }
 
 }

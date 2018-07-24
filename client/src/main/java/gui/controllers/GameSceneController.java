@@ -1,8 +1,14 @@
-package gui;
+package gui.controllers;
 
 
+import gui.instance.ClientAppRunner;
+import gui.printers.FieldPrinter;
+import gui.printers.FleetView;
+import gui.printers.ShipPrinter;
+import gui.scenes.PlacementScene;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -10,10 +16,12 @@ import javafx.stage.Window;
 /**
  * this Controller has aim to connect user interface with functions of the Battleship game.
  */
-public class GameStageController {
+public class GameSceneController {
     private ClientAppRunner appInstance;
     private FleetView fleet;
 
+    @FXML
+    private Label currentPlayerName;
     @FXML
     private Button backToPlacement;
     @FXML
@@ -23,6 +31,8 @@ public class GameStageController {
 
     public void initialize() {
         appInstance = ClientAppRunner.getInstance();
+        String playerName = appInstance.getPlayer().getName();
+        currentPlayerName.setText(playerName);
         fleet = appInstance.getFleet();
         ShipPrinter.placeShips(fleet, friendlyBoard);
         FieldPrinter.insertFields(enemyBoard);
@@ -33,8 +43,8 @@ public class GameStageController {
         Window currentWindow = backToPlacement.getScene().getWindow();
         if (currentWindow instanceof Stage) {
             Stage currentStage = (Stage) currentWindow;
-            MainStage mainStage = MainStage.createMainStage();
-            mainStage.start(currentStage);
+            PlacementScene placementScene = PlacementScene.create();
+            placementScene.start(currentStage);
         }
     }
 

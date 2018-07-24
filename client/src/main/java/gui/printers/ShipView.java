@@ -1,4 +1,4 @@
-package gui;
+package gui.printers;
 
 import model.Coordinates;
 
@@ -8,10 +8,10 @@ import java.util.List;
 /**
  * GUI representation of ship object
  */
-class ShipView {
+public class ShipView {
     private List<Coordinates> mastCoordinates;
 
-    ShipView(List<Coordinates> structure) {
+    public ShipView(List<Coordinates> structure) {
         this.mastCoordinates = structure;
     }
 

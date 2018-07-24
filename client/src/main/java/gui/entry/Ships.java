@@ -1,4 +1,6 @@
-import gui.MainStage;
+package gui.entry;
+
+import gui.scenes.PlayerScene;
 import javafx.application.Application;
 
 /**
@@ -15,6 +17,6 @@ public final class Ships {
      * @param args arguments from command line
      */
     public static void main(String[] args) {
-        new Thread(() -> Application.launch(MainStage.class)).start();
+        new Thread(() -> Application.launch(PlayerScene.class)).start();
     }
 }

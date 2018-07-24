@@ -1,5 +1,8 @@
-package gui;
+package gui.generator;
 
+
+import gui.printers.FleetDAO;
+import gui.printers.FleetView;
 
 /**
  * GUI-side fleet random generator

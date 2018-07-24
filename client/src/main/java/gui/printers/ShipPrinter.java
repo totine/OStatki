@@ -1,4 +1,4 @@
-package gui;
+package gui.printers;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
@@ -8,12 +8,12 @@ import model.Coordinates;
 /**
  * This class is made to help with printing ship representation on friendly board.
  */
-class ShipPrinter {
+public class ShipPrinter {
 
     private static final int FIELD_WIDTH = 50;
     private static final int FIELD_HEIGHT = 50;
 
-    static void placeShips(FleetView fleet, GridPane printingBoard) {
+    public static void placeShips(FleetView fleet, GridPane printingBoard) {
         if (checkIfFleetExists(fleet)) {
             for (ShipView ship : fleet.getShipList()) {
                 printShip(ship, printingBoard);

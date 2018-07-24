@@ -1,9 +1,9 @@
-package gui;
+package gui.printers;
 
 /**
  * Layer of abstraction over fleet generation.
  * In fact functional interface.
  */
-interface FleetDAO {
+public interface FleetDAO {
     FleetView getGUIFleet();
 }
