@@ -19,10 +19,12 @@ class MessagesFromClientHandler implements Runnable {
 
     @Override
     public void run() {
+        ServiceManager serviceManager = new ServiceManager(server);
         while (in.hasNextLine()) {
             String message = in.nextLine();
             System.out.println(message);
-            server.sendMessageToAll(message);
+            GameCommand currentCommand = serviceManager.getCommand(message);
+            currentCommand.execute(message);
         }
     }
 

@@ -13,7 +13,7 @@ public class ShipPrinter {
     private static final int FIELD_WIDTH = 50;
     private static final int FIELD_HEIGHT = 50;
 
-    public static void placeShips(FleetView fleet, GridPane printingBoard) {
+    public static void printFleet(FleetView fleet, GridPane printingBoard) {
         if (checkIfFleetExists(fleet)) {
             for (ShipView ship : fleet.getShipList()) {
                 printShip(ship, printingBoard);

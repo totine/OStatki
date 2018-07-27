@@ -6,10 +6,14 @@
 
 
     <Match>
-        <Bug pattern="UPM_UNCALLED_PRIVATE_METHOD" />
+        <Bug pattern="UPM_UNCALLED_PRIVATE_METHOD"/>
     </Match>
 
     <Match>
-        <Bug pattern="UI_INHERITANCE_UNSAFE_GETRESOURCE" />
+        <Bug pattern="UI_INHERITANCE_UNSAFE_GETRESOURCE"/>
+    </Match>
+
+    <Match>
+        <Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON"/>
     </Match>
 </FindBugsFilter>

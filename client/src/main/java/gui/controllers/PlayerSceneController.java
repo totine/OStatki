@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import connection.ServerConnection;
 import gui.data.Player;
 import gui.data.ServerInfo;
 import gui.instance.ClientAppRunner;
@@ -36,8 +37,8 @@ public class PlayerSceneController {
     @FXML
     private void startPlacing() throws Exception {
         Window currentWindow = startPlacement.getScene().getWindow();
-        savePlayer();
         tryToConnect();
+        savePlayer();
         if (currentWindow instanceof Stage) {
             initNewScene(currentWindow);
         }
@@ -63,5 +64,7 @@ public class PlayerSceneController {
     private void savePlayer() {
         Player currentPlayer = Player.create(playerNameField.getText());
         appInstance.setPlayer(currentPlayer);
+        ServerConnection serverConnection = appInstance.getServerConnection();
+        serverConnection.sendMessage("ADD_PLAYER:" + playerNameField.getText());
     }
 }

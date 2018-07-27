@@ -7,6 +7,7 @@ import model.placement.ship.UndirectedShip;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static model.placement.ship.ShipType.ONE_MAST;
 import static model.placement.ship.ShipType.TWO_MAST;
@@ -64,5 +65,30 @@ public final class Fleet<T extends Ship> {
      */
     public void add(T ship) {
         shipList.add(ship);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Fleet<?> fleet = (Fleet<?>) o;
+        return Objects.equals(shipList, fleet.shipList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(shipList);
+    }
+
+    @Override
+    public String toString() {
+        return "Fleet{"
+                + "shipList="
+                + shipList.toString()
+                + '}';
     }
 }

@@ -35,4 +35,11 @@ public final class PlacedShip implements Ship {
         return new DirectedShip(mastCoordinates.size(), direction);
     }
 
+    @Override
+    public String toString() {
+        return "PlacedShip{"
+                + "mastCoordinates="
+                + mastCoordinates
+                + '}';
+    }
 }

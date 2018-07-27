@@ -34,7 +34,7 @@ public class GameSceneController {
         String playerName = appInstance.getPlayer().getName();
         currentPlayerName.setText(playerName);
         fleet = appInstance.getFleet();
-        ShipPrinter.placeShips(fleet, friendlyBoard);
+        ShipPrinter.printFleet(fleet, friendlyBoard);
         FieldPrinter.insertFields(enemyBoard);
     }
 

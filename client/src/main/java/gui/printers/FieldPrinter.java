@@ -1,5 +1,7 @@
 package gui.printers;
 
+import connection.ServerConnection;
+import gui.instance.ClientAppRunner;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -10,7 +12,7 @@ public class FieldPrinter {
 
     private static final int FIELD_WIDTH = 50;
     private static final int FIELD_HEIGHT = 50;
-    private static final String MISS_MARK = "•";
+    private static final String SHOT_COMMAND = "SHOT";
 
     private FieldPrinter() {
     }
@@ -38,7 +40,9 @@ public class FieldPrinter {
     }
 
     private static void addMissOnClick(Button field) {
-        field.setOnAction(event -> field.setText(MISS_MARK));
+        ClientAppRunner appInstance = ClientAppRunner.getInstance();
+        ServerConnection serverConnection = appInstance.getServerConnection();
+        field.setOnAction(event -> serverConnection.sendMessage(SHOT_COMMAND));
     }
 
     private static void setDimensions(Button field) {

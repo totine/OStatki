@@ -3,7 +3,6 @@ package gui.controllers;
 
 import connection.ServerConnection;
 import gui.instance.ClientAppRunner;
-import gui.printers.FleetDAO;
 import gui.printers.FleetView;
 import gui.generator.RandomFleet;
 import gui.printers.ShipPrinter;
@@ -29,6 +28,8 @@ import javafx.stage.Window;
 public class PlacementSceneController {
 
     private static final String NEW_LINE = "\n";
+    private static final String ASK_FOR_FLEET = "ASK_FOR_FLEET";
+    private static final String CLIENT_READY = "CLIENT_READY";
 
     private FleetView fleet;
     private ServerConnection serverConnection;
@@ -55,16 +56,20 @@ public class PlacementSceneController {
         serverConnection = appInstance.getServerConnection();
         fleet = appInstance.getFleet();
         disableStartWhenNoFleet();
-        ShipPrinter.placeShips(fleet, printingBoard);
+        ShipPrinter.printFleet(fleet, printingBoard);
     }
 
 
     @FXML
     private void placeRandom() {
+        appInstance.getServerConnection().sendMessage(ASK_FOR_FLEET);
+
+        String message = appInstance.getServerConnection().getMessage();
+
         printingBoard.getChildren().removeIf(node -> node instanceof Shape);
-        FleetDAO fleetDAO = new RandomFleet();
-        fleet = fleetDAO.getGUIFleet();
-        ShipPrinter.placeShips(fleet, printingBoard);
+        RandomFleet generatedFleet = new RandomFleet();
+        fleet = generatedFleet.getGUIFleet(message);
+        ShipPrinter.printFleet(fleet, printingBoard);
         startButton.setDisable(false);
     }
 
@@ -73,6 +78,7 @@ public class PlacementSceneController {
         Window currentWindow = startButton.getScene().getWindow();
         if (currentWindow instanceof Stage) {
             appInstance.setFleet(fleet);
+            appInstance.getServerConnection().sendMessage(CLIENT_READY);
             Stage currentStage = (Stage) currentWindow;
             GameScene gameScene = GameScene.create();
             gameScene.start(currentStage);
