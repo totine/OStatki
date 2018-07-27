@@ -8,7 +8,7 @@ import model.placement.ship.DirectedShip;
 import java.util.List;
 
 /**
- * utility class with one method for placing one ship on the board
+ * gui.utility class with one method for placing one ship on the board
  */
 public final class ShipPlacer {
     private ShipPlacer() {

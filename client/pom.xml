@@ -32,7 +32,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>gui.entry.Ships</mainClass>
+                            <mainClass>gui.entry.ClientRunner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

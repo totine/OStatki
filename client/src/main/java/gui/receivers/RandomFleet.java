@@ -1,12 +1,12 @@
-package gui.generator;
+package gui.receivers;
 
 
-import com.google.gson.Gson;
 import gui.printers.FleetView;
 import gui.printers.ShipView;
+import gui.utility.JSONConverter;
 
 /**
- * GUI-side fleet random generator
+ * GUI-side fleet random receivers
  */
 public class RandomFleet {
 
@@ -16,13 +16,12 @@ public class RandomFleet {
     }
 
     private ShipView[] createArrayOfShipsFromGson(String outputFromServer) {
-        Gson gson = new Gson();
-        return gson.fromJson(outputFromServer, ShipView[].class);
+        return JSONConverter.convertToClass(outputFromServer, ShipView[].class);
     }
 
     private FleetView createFleetViewFromArray(ShipView[] arrayOfShips) {
         FleetView fleetView = new FleetView();
-        for (ShipView ship:arrayOfShips) {
+        for (ShipView ship : arrayOfShips) {
             fleetView.add(ship);
         }
         return fleetView;

@@ -4,7 +4,7 @@ package gui.controllers;
 import connection.ServerConnection;
 import gui.instance.ClientAppRunner;
 import gui.printers.FleetView;
-import gui.generator.RandomFleet;
+import gui.receivers.RandomFleet;
 import gui.printers.ShipPrinter;
 import gui.scenes.GameScene;
 import gui.scenes.PlayerScene;

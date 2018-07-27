@@ -6,8 +6,8 @@ import javafx.application.Application;
 /**
  * Entry point of the application.
  */
-public final class Ships {
-    private Ships() {
+public final class ClientRunner {
+    private ClientRunner() {
     }
 
 
