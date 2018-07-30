@@ -1,9 +1,10 @@
 package model.shooting.board;
 
 import model.Coordinates;
+import model.shooting.field.HitResult;
 
-public interface ObservableBoard {
+interface ObservableBoard {
     void addObserver(BoardObserver observer);
-    void notifyObservers(Coordinates coordinates);
+    void notifyObservers(Coordinates coordinates, HitResult hitResult);
 
 }

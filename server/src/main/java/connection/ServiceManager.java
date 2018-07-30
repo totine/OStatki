@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 class ServiceManager {
-    private Map<String, GameCommand> map;
+    private final Map<String, GameCommand> map;
 
     ServiceManager(Server server) {
         this.map = new HashMap<>();

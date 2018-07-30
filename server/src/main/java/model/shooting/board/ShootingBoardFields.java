@@ -8,23 +8,23 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-public class ShootingBoardFields {
+class ShootingBoardFields {
     private final Map<Coordinates, Field> coordinatesToFieldsMap;
     private final int rows;
     private final int cols;
 
-    public ShootingBoardFields(int rows, int cols) {
+    ShootingBoardFields(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
         coordinatesToFieldsMap = new HashMap<>();
     }
 
 
-    public void addFloatingMastField(Coordinates coordinates) {
+    void addFloatingMastField(Coordinates coordinates) {
         coordinatesToFieldsMap.put(coordinates, Field.withShip());
     }
 
-    public Field get(Coordinates coordinates) {
+    Field get(Coordinates coordinates) {
         if (isCoordinateOutOfBoard(coordinates)) {
             return Field.outOfBoard();
         }
@@ -33,17 +33,17 @@ public class ShootingBoardFields {
         return field;
     }
 
-    public boolean hasNoFloatingMasts() {
+    boolean hasNoFloatingMasts() {
         return coordinatesToFieldsMap.values()
                 .stream()
                 .noneMatch(field -> field.getStateName().equals(FieldStateName.FLOATING));
     }
 
-    public int getRows() {
+    int getRows() {
         return rows;
     }
 
-    public int getCols() {
+    int getCols() {
         return cols;
     }
 
@@ -52,7 +52,7 @@ public class ShootingBoardFields {
                 || coordinates.getRowIndex() < 0 || coordinates.getRowIndex() > cols - 1);
     }
 
-    HashSet<Coordinates> getAllNeighboursCoordinates(Coordinates coordinatesToSurroundWithBuffer) {
+    HashSet<Coordinates> getAllNeighboursField(Coordinates coordinatesToSurroundWithBuffer) {
         HashSet<Coordinates> neighbours = new HashSet<>();
         for (int toAddToX = -1; toAddToX <= 1; toAddToX++) {
             for (int toAddToY = -1; toAddToY <= 1; toAddToY++) {

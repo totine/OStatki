@@ -1,6 +1,6 @@
 package connection;
 
-import controller.FleetController;
+import game.placement.FleetController;
 import model.placement.fleet.Fleet;
 import model.placement.ship.PlacedShip;
 

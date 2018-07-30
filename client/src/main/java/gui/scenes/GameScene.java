@@ -28,9 +28,9 @@ public class GameScene extends Application {
         primaryStage.show();
     }
 
-    /**
-     * chat method - actual entry point of the application
-     *
-     * @param args - console arguments used by FX
+    /*
+      chat method - actual entry point of the application
+
+      @param args - console arguments used by FX
      */
 }

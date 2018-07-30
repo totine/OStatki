@@ -1,5 +1,6 @@
 package model.shooting.board;
 
+import game.shooting.ShotResults;
 import model.shooting.field.HitResult;
 import model.shooting.ship.ShootingShip;
 import model.shooting.field.Field;
@@ -8,19 +9,21 @@ import model.Coordinates;
 import model.placement.fleet.Fleet;
 import model.placement.ship.PlacedShip;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 public class ShootingBoard implements ObservableBoard {
     private static final int COLUMNS_NUMBER = 10;
     private static final int ROWS_NUMBER = 10;
-    private ShootingBoardFields boardFields;
-    private List<BoardObserver> observers;
+    private final ShootingBoardFields boardFields;
+    private final List<BoardObserver> observers;
+    private ShotResults changes;
 
 
     private ShootingBoard(ShootingBoardFields boardFields) {
         this.boardFields = boardFields;
         this.observers = new ArrayList<>();
+        this.changes = new ShotResults();
     }
 
     public static ShootingBoard createEmpty(int rows, int cols) {
@@ -44,18 +47,29 @@ public class ShootingBoard implements ObservableBoard {
     public HitResult hit(Coordinates coordinates) {
         Field field = boardFields.get(coordinates);
         HitResult hitResult = field.hit();
-        notifyObservers(coordinates);
+        changes.put(coordinates, getStateName(coordinates));
+        notifyObservers(coordinates, hitResult);
         return hitResult;
     }
 
-    public void destroyMast(Coordinates coord) {
-        Field field = boardFields.get(coord);
+    public void destroyMast(Coordinates coordinatesToDestroy) {
+        Field field = boardFields.get(coordinatesToDestroy);
         field.markDestroyed();
-        boardFields.getAllNeighboursCoordinates(coord).forEach(this::hit);
+        boardFields.getAllNeighboursField(coordinatesToDestroy).forEach(coordinates -> {
+            boardFields.get(coordinates).hit();
+            changes.put(coordinates, boardFields.get(coordinates).getStateName());
+        });
+
     }
 
     public FieldStateName getStateName(Coordinates coordinates) {
         return boardFields.get(coordinates).getStateName();
+    }
+
+    public ShotResults getChanges() {
+        ShotResults toSend = changes;
+        changes = new ShotResults();
+        return toSend;
     }
 
     @Override
@@ -64,8 +78,8 @@ public class ShootingBoard implements ObservableBoard {
     }
 
     @Override
-    public void notifyObservers(Coordinates coordinates) {
-        observers.forEach(observer -> observer.update(this, coordinates));
+    public void notifyObservers(Coordinates coordinates, HitResult hitResult) {
+        observers.forEach(observer -> observer.update(this, coordinates, hitResult));
     }
 
     public boolean areAllMastsDestroyed() {
@@ -96,4 +110,5 @@ public class ShootingBoard implements ObservableBoard {
         }
         return sb.toString();
     }
+
 }

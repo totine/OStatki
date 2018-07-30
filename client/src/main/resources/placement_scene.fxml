@@ -2,8 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -51,15 +49,10 @@
                 <Button fx:id="backToNameChoosing" layoutX="14.0" layoutY="140.0" mnemonicParsing="false" onMouseClicked="#backToNameChoosing" prefHeight="46.0" prefWidth="164.0" text="Wstecz" />
                 <Button fx:id="startButton" layoutX="1022.0" layoutY="140.0" mnemonicParsing="false" onMouseClicked="#startTheGame" prefHeight="46.0" prefWidth="164.0" text="Start" />
                 <Button layoutX="519.0" layoutY="14.0" mnemonicParsing="false" onKeyPressed="#placeRandom" onMouseClicked="#placeRandom" prefHeight="46.0" prefWidth="164.0" text="Losuj" />
-         <TextField fx:id="connectionTextBox" layoutX="515.0" layoutY="100.0" onKeyPressed="#submitMessageEnter" />
-         <Button layoutX="518.0" layoutY="126.0" mnemonicParsing="false" onKeyPressed="#submitMessageEnter" onMouseClicked="#submitMessageClick" prefHeight="46.0" prefWidth="164.0" text="Wyślij" />
-         <Button layoutX="686.0" layoutY="126.0" mnemonicParsing="false" onAction="#processMessagesFromServer" onKeyPressed="#processMessagesFromServer" prefHeight="46.0" prefWidth="164.0" text="Odbierz" />
-         <TextArea fx:id="outputFromServer" layoutX="686.0" layoutY="15.0" prefHeight="111.0" prefWidth="163.0" />
         </AnchorPane>
     </bottom>
    <top>
       <AnchorPane maxHeight="100.0" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
             <Text layoutX="465.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ustaw swoje statki" textAlignment="CENTER" wrappingWidth="270.291015625">
                <font>
                   <Font size="26.0" />
@@ -70,7 +63,6 @@
                   <Font size="26.0" />
                </font>
             </Text>
-         </children>
       </AnchorPane>
    </top>
 

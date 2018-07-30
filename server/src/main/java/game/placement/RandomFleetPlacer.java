@@ -1,4 +1,4 @@
-package controller;
+package game.placement;
 
 import model.Coordinates;
 import model.placement.board.Board;

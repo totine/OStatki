@@ -4,7 +4,7 @@ import model.Coordinates;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import controller.ShipPlacer;
+import game.placement.ShipPlacer;
 import model.placement.board.Board;
 import model.placement.ship.*;
 

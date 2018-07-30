@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import controller.ShipPlacer;
+import game.placement.ShipPlacer;
 import model.placement.board.Board;
 import model.placement.field.FieldState;
 import model.placement.ship.Direction;

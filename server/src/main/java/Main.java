@@ -1,9 +1,9 @@
 import connection.Server;
 
 /**
- * Entry point of client module.
+ * Entry point of server module.
  */
-public class Main {
+class Main {
     private Main() {
     }
 

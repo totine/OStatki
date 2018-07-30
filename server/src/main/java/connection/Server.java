@@ -19,11 +19,13 @@ import java.util.List;
 public class Server {
     private final ServerSocket serverSocket;
     private static final Logger LOGGER = LogManager.getLogger(Server.class);
-    private List<MessagesToClientHandler> clientSocketList;
+    private final List<MessagesToClientHandler> clientSocketList;
+    private final List<MessagesFromClientHandler> fromClientHandlers;
 
     private Server(ServerSocket serverSocket, List<MessagesToClientHandler> list) {
         this.serverSocket = serverSocket;
         this.clientSocketList = list;
+        this.fromClientHandlers = new ArrayList<>();
     }
 
     public static Server createServer(int serverPort) {
@@ -42,6 +44,8 @@ public class Server {
                 Socket clientSocket = serverSocket.accept();
                 LOGGER.info(clientSocket.toString() + " connected");
                 MessagesFromClientHandler messagesFromClientHandler = new MessagesFromClientHandler(clientSocket, this);
+                fromClientHandlers.add(messagesFromClientHandler);
+                LOGGER.info(fromClientHandlers);
                 boolean autoFlush = true;
                 OutputStreamWriter out = new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8);
                 PrintWriter printWriter = new PrintWriter(out, autoFlush);
@@ -54,7 +58,8 @@ public class Server {
         }
     }
 
-    public void sendMessageToAll(String message) {
+    void sendMessageToAll(String message) {
         clientSocketList.forEach(io -> io.sendMessage(message));
     }
+
 }

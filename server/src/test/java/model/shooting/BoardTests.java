@@ -26,8 +26,8 @@ import static model.placement.ship.ShipType.THREE_MAST;
 import static model.placement.ship.Direction.SOUTH;
 
 public class BoardTests {
-    private int rows = 10;
-    private int cols = 10;
+    private final int rows = 10;
+    private final int cols = 10;
     private ShootingBoard shootingBoard;
 
     @DataProvider
@@ -144,7 +144,7 @@ public class BoardTests {
     }
 
     @Test
-    public void givenBoardWithTwoMastShip_whenShottingBothMasts_firstlyDamaged_thenDestroyed() {
+    public void givenBoardWithTwoMastShip_whenShootingBothMasts_firstlyDamaged_thenDestroyed() {
         // given
         Coordinates coordinates = Coordinates.create(3, 3);
         Fleet<PlacedShip> fleet = FleetBuilder.create().appendShip(coordinates, TWO_MAST, SOUTH)

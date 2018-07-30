@@ -6,8 +6,11 @@ import model.placement.ship.Direction;
 import model.placement.ship.PlacedShip;
 import model.placement.ship.ShipType;
 
+/**
+ * Purpose of this class is to help with creating fleet.
+ */
 public class FleetBuilder {
-    private Fleet<PlacedShip> fleet;
+    private final Fleet<PlacedShip> fleet;
 
     private FleetBuilder() {
         fleet = new Fleet<>();

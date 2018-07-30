@@ -3,7 +3,7 @@ package gui.data;
 import java.util.Objects;
 
 public class Player {
-    private String name;
+    private final String name;
 
     private Player(String name) {
         this.name = name;

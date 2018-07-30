@@ -1,5 +1,5 @@
 package connection;
 
-public interface GameCommand {
+interface GameCommand {
     void execute(String message);
 }

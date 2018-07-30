@@ -1,4 +1,4 @@
-package model;
+package model.preparing;
 
 import java.util.Objects;
 
@@ -28,5 +28,10 @@ public class Player {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return "Player: " + name;
     }
 }

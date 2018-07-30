@@ -5,12 +5,12 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>shared</artifactId>
-    <version>0.5.1</version>
+    <version>0.6.1</version>
 
     <parent>
         <artifactId>battleships</artifactId>
         <groupId>com.ostatki</groupId>
-        <version>0.5.1</version>
+        <version>0.6.1</version>
     </parent>
 
     <dependencies>

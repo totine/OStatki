@@ -15,7 +15,6 @@
             <BorderPane.margin>
                 <Insets bottom="150.0" left="150.0" right="150.0" top="150.0" />
             </BorderPane.margin>
-         <children>
             <TextField fx:id="playerNameField" layoutX="296.0" layoutY="160.0" prefHeight="40.0" prefWidth="309.0" />
             <Label layoutX="296.0" layoutY="123.0" prefHeight="37.0" prefWidth="309.0" text="Imię gracza">
                <font>
@@ -28,7 +27,6 @@
                </font>
             </Label>
             <ComboBox fx:id="serverNameComboBox" layoutX="296.0" layoutY="253.0" prefHeight="38.0" prefWidth="309.0" />
-         </children>
         </AnchorPane>
     </center>
     <bottom>

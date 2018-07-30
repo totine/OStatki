@@ -20,7 +20,7 @@ import static model.placement.ship.ShipType.FOUR_MAST;
  * @param <T> fleet can be generic - it is able to store different types of Ships.
  */
 public final class Fleet<T extends Ship> {
-    private List<T> shipList;
+    private final List<T> shipList;
 
     /**
      * creates Fleet instance.

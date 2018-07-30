@@ -5,7 +5,7 @@ public enum AvailableStyles {
     DAMAGED_STYLE("damaged-button"),
     DESTROYED_STYLE("destroyed-button");
 
-    private String value;
+    private final String value;
 
     AvailableStyles(String value) {
         this.value = value;

@@ -6,7 +6,7 @@ import javafx.application.Application;
 /**
  * Entry point of the application.
  */
-public final class ClientRunner {
+final class ClientRunner {
     private ClientRunner() {
     }
 

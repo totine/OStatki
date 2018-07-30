@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class FieldBus {
-    private Map<Coordinates, FieldState> coordinatesState;
+    private final Map<Coordinates, FieldState> coordinatesState;
 
     private FieldBus(Map<Coordinates, FieldState> coordinatesState) {
         this.coordinatesState = coordinatesState;
