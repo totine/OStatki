@@ -25,7 +25,7 @@ public class ShotResult {
         return JSONConverter.convertToClass(outputFromServer, TYPE);
     }
 
-    public static String takeMessageFromServer(ServerConnection serverConnection) {
+    public static String takeMessageFromServer(ServerConnection serverConnection) throws InterruptedException {
         return serverConnection.getMessage();
     }
 

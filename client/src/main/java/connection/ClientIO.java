@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * Wrapper for client socket input and output
@@ -14,6 +16,8 @@ import java.util.Scanner;
 public class ClientIO implements Runnable {
     private final PrintWriter out;
     private final Scanner in;
+    private BlockingQueue<String> queue = new ArrayBlockingQueue<>(10);
+    private BlockingQueue<String> fleetQueue = new ArrayBlockingQueue<>(10);
 
     private ClientIO(Socket socket) throws IOException {
         OutputStream outputStream = socket.getOutputStream();
@@ -32,19 +36,19 @@ public class ClientIO implements Runnable {
         out.println(message);
     }
 
-    String getMessage() {
-        return in.nextLine();
+    String getMessage() throws InterruptedException {
+        return queue.take();
     }
     public void run() {
-        StringBuilder sb = new StringBuilder();
         while (in.hasNextLine()) {
-            System.out.println("\033[H\033[2J");
-            System.out.flush();
-            while (!in.nextLine().equals("END")) {
-                sb.append(in.nextLine());
-                sb.append("\n\n");
+            try {
+                queue.put(in.nextLine());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            System.out.println(sb.toString());
+            while (!in.nextLine().equals("END")) {
+                
+            }
         }
     }
 }

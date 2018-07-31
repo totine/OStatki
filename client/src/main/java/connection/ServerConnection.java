@@ -50,7 +50,7 @@ public class ServerConnection {
         server.sendMessage(message);
     }
 
-    public String getMessage() {
+    public String getMessage() throws InterruptedException {
         return server.getMessage();
     }
 }
