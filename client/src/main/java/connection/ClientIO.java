@@ -46,9 +46,6 @@ public class ClientIO implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            while (!in.nextLine().equals("END")) {
-                
-            }
         }
     }
 }

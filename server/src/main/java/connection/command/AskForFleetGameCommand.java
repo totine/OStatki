@@ -18,6 +18,7 @@ public class AskForFleetGameCommand implements GameCommand {
     @Override
     public void execute() {
         String serializedFleet = FleetSerializer.from(fleetToSend).serialize();
+
         communicationRun.sendMessage(serializedFleet);
         try {
             communicationRun.addFleetToQueue(fleetToSend);

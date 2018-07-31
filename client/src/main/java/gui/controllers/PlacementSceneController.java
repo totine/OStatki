@@ -4,6 +4,7 @@ import connection.ServerConnection;
 import gui.instance.ClientAppRunner;
 import gui.printers.FleetView;
 import gui.printers.ShipPrinter;
+import gui.receivers.RandomFleet;
 import gui.scenes.GameScene;
 import gui.scenes.PlayerScene;
 import gui.utility.Command;
@@ -12,6 +13,7 @@ import gui.utility.JSONConverter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -53,6 +55,17 @@ public class PlacementSceneController {
     private void placeRandom() {
         serverConnection.sendMessage(prepareAskForFleetCommand());
 
+        String message = null;
+        try {
+            message = appInstance.getServerConnection().getMessage();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        printingBoard.getChildren().removeIf(node -> node instanceof Shape);
+        RandomFleet generatedFleet = new RandomFleet();
+        fleet = generatedFleet.getGUIFleet(message);
+        ShipPrinter.printFleet(fleet, printingBoard);
         startButton.setDisable(false);
     }
 

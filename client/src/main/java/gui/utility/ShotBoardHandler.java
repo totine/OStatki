@@ -5,6 +5,7 @@ import gui.data.FieldBus;
 import gui.data.FieldState;
 import gui.receivers.ShotResult;
 import javafx.collections.ObservableList;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -37,7 +38,7 @@ public class ShotBoardHandler {
     }
 
     private static List<Button> takeGridPaneFields(GridPane pane) {
-        ObservableList<Node> nodes = pane.getChildren();
+        ObservableList<Node> nodes = pane.getChildren().filtered(x -> !x.getClass().equals(Group.class));
         List<Button> buttonList = new ArrayList<>();
         nodes.forEach(node -> buttonList.add((Button) node));
         return buttonList;

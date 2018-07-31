@@ -4,6 +4,7 @@ import connection.ServerConnection;
 import gui.instance.ClientAppRunner;
 import gui.utility.Command;
 import gui.utility.JSONConverter;
+import gui.utility.ShotBoardHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import model.Coordinates;
@@ -32,22 +33,22 @@ public class FieldPrinter {
     private static void addToEachSpace(int numberOfRows, int numberOfColumns, GridPane printingBoard) {
         for (int widthPosition = 0; widthPosition < numberOfRows; widthPosition++) {
             for (int heightPosition = 0; heightPosition < numberOfColumns; heightPosition++) {
-                Button fieldToClick = createField(widthPosition, heightPosition);
+                Button fieldToClick = createField(widthPosition, heightPosition, printingBoard);
                 printingBoard.add(fieldToClick, widthPosition, heightPosition);
             }
         }
     }
 
-    private static Button createField(int widthCoordinates, int heightCoordinates) {
+    private static Button createField(int widthCoordinates, int heightCoordinates, GridPane printingBoard) {
         Button field = new Button();
-        prepareField(field, widthCoordinates, heightCoordinates);
+        prepareField(field, widthCoordinates, heightCoordinates, printingBoard);
         return field;
     }
 
-    private static void prepareField(Button field, int widthCoordinates, int heightCoordinates) {
+    private static void prepareField(Button field, int widthCoordinates, int heightCoordinates, GridPane printingBoard) {
         setDimensions(field);
         addStyle(field);
-        shotAndWaitOnAction(field, widthCoordinates, heightCoordinates);
+        shotAndWaitOnAction(field, widthCoordinates, heightCoordinates, printingBoard);
     }
 
     private static void setDimensions(Button field) {
@@ -59,7 +60,7 @@ public class FieldPrinter {
         field.getStyleClass().add(WATER_STYLE.toString());
     }
 
-    private static void shotAndWaitOnAction(Button field, int x, int y) {
+    private static void shotAndWaitOnAction(Button field, int x, int y, GridPane printingBoard) {
         Command shotCommand = Command.withType(SHOT, Coordinates.create(x, y));
         String coordinatesToPass = JSONConverter.convertToJSON(shotCommand);
 
@@ -67,7 +68,11 @@ public class FieldPrinter {
 
         field.setOnAction(event -> {
             serverConnection.sendMessage(coordinatesToPass);
-            //todo add update board after sending shot
+            try {
+                ShotBoardHandler.takeReactionFromServer(serverConnection, printingBoard);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
     }
 

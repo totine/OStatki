@@ -1,20 +1,19 @@
 package game.shooting.observers;
 
 import connection.communication.QueuesHandler;
+import connection.serializers.JSONConverter;
 import game.shooting.ShotResults;
 import game.shooting.matchers.PlayerBoardMatcher;
 import model.preparing.Player;
 import model.shooting.board.ShootingBoard;
 
-import java.util.Arrays;
-
 public class ShotResultSender implements GameObserver {
-    private final QueuesHandler communicationRun;
+    private final QueuesHandler queuesHandler;
     private final Player player;
     private final PlayerBoardMatcher boards;
 
     public ShotResultSender(QueuesHandler communicationRun, Player player, PlayerBoardMatcher boards) {
-        this.communicationRun = communicationRun;
+        this.queuesHandler = communicationRun;
         this.player = player;
         this.boards = boards;
     }
@@ -30,14 +29,15 @@ public class ShotResultSender implements GameObserver {
 
     @Override
     public void update(ShotResults changes, ShootingBoard board, Player currentPlayer) {
-        String[] toSend = (boardsToSend() + "\n\n"
-                + currentPlayer.getName() + ": " + changes.toString() + "\nEND").split("\n");
-        Arrays.stream(toSend).forEach(communicationRun::sendMessage);
+        String changesJSON = JSONConverter.convertToJSON(changes.getMap());
+        String currentPlayerJSON = JSONConverter.convertToJSON(currentPlayer);
+        String toSend = "{\"player\": " + changesJSON + ", \"changes\": " + currentPlayerJSON + "}";
+        queuesHandler.sendMessage(changesJSON);
     }
 
     @Override
     public void updateEndGame(Player winner) {
-        communicationRun.sendMessage("\nGame is over\n");
-        communicationRun.sendMessage("Winner is: " + winner.getName() + "\nEND");
+        queuesHandler.sendMessage("\nGame is over\n");
+        queuesHandler.sendMessage("Winner is: " + winner.getName() + "\nEND");
     }
 }
