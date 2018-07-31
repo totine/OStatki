@@ -1,7 +1,6 @@
 package gui.data;
 
 import model.Coordinates;
-
 import java.util.Map;
 import java.util.Objects;
 
@@ -16,8 +15,8 @@ public class FieldBus {
         return new FieldBus(coordinatesState);
     }
 
-    public FieldState getCoordinateState(Coordinates coordinates) {
-        return coordinatesState.get(coordinates);
+    public Map<Coordinates, FieldState> getFieldStates() {
+        return coordinatesState;
     }
 
     @Override

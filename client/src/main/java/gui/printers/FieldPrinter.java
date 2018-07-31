@@ -1,25 +1,23 @@
 package gui.printers;
 
 import connection.ServerConnection;
-import gui.data.FieldBus;
-import gui.data.FieldState;
 import gui.instance.ClientAppRunner;
-import gui.receivers.ShotResult;
-import javafx.collections.ObservableList;
+import gui.utility.Command;
+import gui.utility.JSONConverter;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import model.Coordinates;
-import static gui.styles.AvailableStyles.DAMAGED_STYLE;
-import static gui.styles.AvailableStyles.DESTROYED_STYLE;
+
 import static gui.styles.AvailableStyles.WATER_STYLE;
+import static gui.utility.CommandType.SHOT;
+
 /**
  * This class is made to help with printing fields as buttons on enemy board.
  */
 public class FieldPrinter {
     private static final int FIELD_WIDTH = 50;
     private static final int FIELD_HEIGHT = 50;
-
-    private static final String SHOT_COMMAND = "SHOT";
+    private static ServerConnection serverConnection = ClientAppRunner.getInstance().getServerConnection();
 
     private FieldPrinter() {
     }
@@ -27,6 +25,7 @@ public class FieldPrinter {
     public static void insertFields(GridPane printingBoard) {
         int numberOfRows = printingBoard.getRowConstraints().size();
         int numberOfColumns = printingBoard.getColumnConstraints().size();
+
         addToEachSpace(numberOfRows, numberOfColumns, printingBoard);
     }
 
@@ -48,7 +47,7 @@ public class FieldPrinter {
     private static void prepareField(Button field, int widthCoordinates, int heightCoordinates) {
         setDimensions(field);
         addStyle(field);
-        addMockOnAction(field, widthCoordinates, heightCoordinates);
+        shotAndWaitOnAction(field, widthCoordinates, heightCoordinates);
     }
 
     private static void setDimensions(Button field) {
@@ -60,54 +59,17 @@ public class FieldPrinter {
         field.getStyleClass().add(WATER_STYLE.toString());
     }
 
-    private static void addShotOnAction(Button field, int widthCoordinates, int heightCoordinates) {
-        ClientAppRunner appInstance = ClientAppRunner.getInstance();
-        ServerConnection serverConnection = appInstance.getServerConnection();
+    private static void shotAndWaitOnAction(Button field, int x, int y) {
+        Command shotCommand = Command.withType(SHOT, Coordinates.create(x, y));
+        String coordinatesToPass = JSONConverter.convertToJSON(shotCommand);
 
-        String coordinatesToPass = widthCoordinates + "-" + heightCoordinates;
-        field.setOnAction(event -> serverConnection.sendMessage(SHOT_COMMAND + ":" + coordinatesToPass));
+        field.setId(x + ":" + y);
+
+        field.setOnAction(event -> {
+            serverConnection.sendMessage(coordinatesToPass);
+            //todo add update board after sending shot
+        });
     }
 
-    private static void addMockOnAction(Button field, int widthCoordinates, int heightCoordinates) {
-        FieldBus fieldBusToChange = ShotResult.getShotInformation(ShotResult.outputSupplier());
-        Coordinates coordinatesOfField = Coordinates.create(widthCoordinates, heightCoordinates);
 
-        FieldState stateOfField = fieldBusToChange.getCoordinateState(coordinatesOfField);
-        changeColorFromState(stateOfField, field);
-    }
-
-    private static void changeColorFromState(FieldState state, Button button) {
-        if (null == state) {
-            return;
-        }
-        switch (state) {
-            case SEEN:
-                addSeenMark(button);
-                break;
-            case DAMAGED:
-                addDamagedMark(button);
-                break;
-            case DESTROYED:
-                addDestroyedMark(button);
-                break;
-            default:
-                break;
-        }
-    }
-
-    private static void addSeenMark(Button button) {
-        button.setText("O");
-    }
-
-    private static void addDamagedMark(Button button) {
-        ObservableList<String> styles = button.getStyleClass();
-        styles.removeAll(WATER_STYLE.toString());
-        styles.add(DAMAGED_STYLE.toString());
-    }
-
-    private static void addDestroyedMark(Button button) {
-        ObservableList<String> styles = button.getStyleClass();
-        styles.removeAll(WATER_STYLE.toString());
-        styles.add(DESTROYED_STYLE.toString());
-    }
 }

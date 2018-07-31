@@ -11,14 +11,15 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Class for connection object. When calling start(), it starts
  * to listen for client connections.
  */
 public class Server {
-    private final ServerSocket serverSocket;
     private static final Logger LOGGER = LogManager.getLogger(Server.class);
+    private final ServerSocket serverSocket;
     private final List<MessagesToClientHandler> clientSocketList;
     private final List<MessagesFromClientHandler> fromClientHandlers;
 
@@ -29,13 +30,21 @@ public class Server {
     }
 
     public static Server createServer(int serverPort) {
-        ServerSocket serverSocket = null; // TODO: get rid of null
+        Optional<ServerSocket> possibleServerSocket = Optional.empty();
         try {
-            serverSocket = new ServerSocket(serverPort);
+            possibleServerSocket = Optional.of(new ServerSocket(serverPort));
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
-        return new Server(serverSocket, new ArrayList<>());
+        return returnServerOrException(possibleServerSocket);
+    }
+
+    private static Server returnServerOrException(Optional<ServerSocket> possibleServerSocket) {
+        if (possibleServerSocket.isPresent()) {
+            return new Server(possibleServerSocket.get(), new ArrayList<>());
+        } else {
+            throw new IllegalArgumentException("This port is already taken.");
+        }
     }
 
     public void start() {

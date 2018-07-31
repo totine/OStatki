@@ -5,6 +5,8 @@ import gui.data.Player;
 import gui.data.ServerInfo;
 import gui.instance.ClientAppRunner;
 import gui.scenes.PlacementScene;
+import gui.utility.Command;
+import gui.utility.JSONConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,22 +16,25 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import static gui.utility.CommandType.SEND_PLAYER;
+
 public class PlayerSceneController {
 
+    private static final int PORT_NUMBER = 7777;
     @FXML
     private ComboBox<ServerInfo> serverNameComboBox;
     @FXML
     private TextField playerNameField;
     @FXML
     private Button startPlacement;
-
     private ClientAppRunner appInstance;
-    private ObservableList<ServerInfo> listOfServers;
-    private static final int PORT_NUMBER = 7777;
 
     public void initialize() {
         appInstance = ClientAppRunner.getInstance();
-        listOfServers = FXCollections.observableArrayList(ServerInfo.create("localhost", PORT_NUMBER));
+
+        ObservableList<ServerInfo> listOfServers = FXCollections
+                .observableArrayList(ServerInfo.create("localhost", PORT_NUMBER));
+
         serverNameComboBox.setItems(listOfServers);
         serverNameComboBox.getSelectionModel().select(0);
     }
@@ -64,7 +69,12 @@ public class PlayerSceneController {
     private void savePlayer() {
         Player currentPlayer = Player.create(playerNameField.getText());
         appInstance.setPlayer(currentPlayer);
+
+        Command addPlayerCommand = Command.withType(SEND_PLAYER, currentPlayer);
+
+        tryToConnect();
         ServerConnection serverConnection = appInstance.getServerConnection();
-        serverConnection.sendMessage("ADD_PLAYER:" + playerNameField.getText());
+
+        serverConnection.sendMessage(JSONConverter.convertToJSON(addPlayerCommand));
     }
 }

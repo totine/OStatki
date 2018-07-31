@@ -1,10 +1,12 @@
+package entrypoint;
+
 import connection.Server;
 
 /**
  * Entry point of server module.
  */
-class Main {
-    private Main() {
+class ServerRunner {
+    private ServerRunner() {
     }
 
     private static final int SERVER_PORT = 7777;

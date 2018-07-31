@@ -27,10 +27,4 @@ public class GameScene extends Application {
         primaryStage.resizableProperty().setValue(false);
         primaryStage.show();
     }
-
-    /*
-      chat method - actual entry point of the application
-
-      @param args - console arguments used by FX
-     */
 }

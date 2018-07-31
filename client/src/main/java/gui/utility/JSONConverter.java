@@ -13,4 +13,8 @@ public class JSONConverter {
     public static <T> T convertToClass(String input, Type type) {
         return convertHandler.fromJson(input, type);
     }
+
+    public static <T> String convertToJSON(T classToConvert) {
+        return convertHandler.toJson(classToConvert);
+    }
 }

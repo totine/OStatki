@@ -6,7 +6,7 @@
 
     <groupId>com.ostatki</groupId>
     <artifactId>battleships</artifactId>
-    <version>0.6.1</version>
+    <version>0.6.2</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -87,7 +87,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>gui.entry.ClientRunner</mainClass>
+                            <mainClass>entrypoint.ClientRunner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

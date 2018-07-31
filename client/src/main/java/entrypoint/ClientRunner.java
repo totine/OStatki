@@ -1,4 +1,4 @@
-package gui.entry;
+package entrypoint;
 
 import gui.scenes.PlayerScene;
 import javafx.application.Application;
@@ -10,9 +10,8 @@ final class ClientRunner {
     private ClientRunner() {
     }
 
-
     /**
-     * entry point
+     * entrypoint point
      *
      * @param args arguments from command line
      */

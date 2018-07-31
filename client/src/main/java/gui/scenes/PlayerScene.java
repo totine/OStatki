@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * The entry point of GUI package. Provides form to name the player and connect to server.
+ * The entrypoint point of GUI package. Provides form to name the player and connect to server.
  */
 public class PlayerScene extends Application {
     private static final int SCENE_WIDTH = 1200;

@@ -1,11 +1,15 @@
 package gui.controllers;
 
+import connection.ServerConnection;
 import gui.instance.ClientAppRunner;
 import gui.printers.FleetView;
-import gui.receivers.RandomFleet;
 import gui.printers.ShipPrinter;
+import gui.receivers.RandomFleet;
 import gui.scenes.GameScene;
 import gui.scenes.PlayerScene;
+import gui.utility.Command;
+import gui.utility.CommandType;
+import gui.utility.JSONConverter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -19,11 +23,9 @@ import javafx.stage.Window;
  */
 public class PlacementSceneController {
 
-    private static final String ASK_FOR_FLEET = "ASK_FOR_FLEET";
-    private static final String CLIENT_READY = "CLIENT_READY";
-
     private FleetView fleet;
     private ClientAppRunner appInstance;
+    private ServerConnection serverConnection;
 
     @FXML
     private GridPane printingBoard;
@@ -34,27 +36,42 @@ public class PlacementSceneController {
     @FXML
     private Text playerNameText;
 
-
     public void initialize() {
         appInstance = ClientAppRunner.getInstance();
+
         String playerName = appInstance.getPlayer().getName();
         playerNameText.setText(playerName);
+
         fleet = appInstance.getFleet();
+
+        serverConnection = appInstance.getServerConnection();
+
         disableStartWhenNoFleet();
+
         ShipPrinter.printFleet(fleet, printingBoard);
     }
 
     @FXML
     private void placeRandom() {
-        appInstance.getServerConnection().sendMessage(ASK_FOR_FLEET);
+        serverConnection.sendMessage(prepareAskForFleetCommand());
 
-        String message = appInstance.getServerConnection().getMessage();
+        startButton.setDisable(false);
+    }
+
+    private void takeFleetFromServerAndPrint() {
+        String message = serverConnection.getMessage();
 
         printingBoard.getChildren().removeIf(node -> node instanceof Shape);
+
         RandomFleet generatedFleet = new RandomFleet();
         fleet = generatedFleet.getGUIFleet(message);
+
         ShipPrinter.printFleet(fleet, printingBoard);
-        startButton.setDisable(false);
+    }
+
+    private String prepareAskForFleetCommand() {
+        Command askForFleet = Command.empty(CommandType.ASK_FOR_FLEET);
+        return JSONConverter.convertToJSON(askForFleet);
     }
 
     @FXML
@@ -62,7 +79,6 @@ public class PlacementSceneController {
         Window currentWindow = startButton.getScene().getWindow();
         if (currentWindow instanceof Stage) {
             appInstance.setFleet(fleet);
-            appInstance.getServerConnection().sendMessage(CLIENT_READY);
             Stage currentStage = (Stage) currentWindow;
             GameScene gameScene = GameScene.create();
             gameScene.start(currentStage);

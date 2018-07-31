@@ -1,6 +1,7 @@
 package gui.receivers;
 
 import com.google.gson.reflect.TypeToken;
+import connection.ServerConnection;
 import gui.data.FieldBus;
 import gui.data.FieldState;
 import gui.utility.JSONConverter;
@@ -24,15 +25,8 @@ public class ShotResult {
         return JSONConverter.convertToClass(outputFromServer, TYPE);
     }
 
-    public static String outputSupplier() {
-        return "[["
-                + "{\"x\":5,\"y\":4},"
-                + "\"DESTROYED\"],"
-                + "[{\"x\":3,\"y\":7},"
-                + "\"DAMAGED\"],"
-                + "[{\"x\":8,\"y\":5},"
-                + "\"SEEN\""
-                + "]]";
+    public static String takeMessageFromServer(ServerConnection serverConnection) {
+        return serverConnection.getMessage();
     }
 
     private static Type getMapType() {
