@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-class PlayerSwapper {
+public class PlayerSwapper {
     private final List<Player> players;
     private int currentIndex;
 
-    PlayerSwapper() {
+    public PlayerSwapper() {
         players = new ArrayList<>();
         currentIndex = 0;
     }

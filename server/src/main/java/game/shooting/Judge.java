@@ -8,7 +8,7 @@ import model.shooting.field.HitResult;
 
 public class Judge implements BoardObserver {
     private final PlayerSwapper players;
-    private boolean isEnd;
+    private boolean isGameEnd;
 
     public Judge(PlayerSwapper playerSwapper) {
         this.players = playerSwapper;
@@ -16,7 +16,7 @@ public class Judge implements BoardObserver {
 
     @Override
     public void update(ShootingBoard board, Coordinates coordinates, HitResult result) {
-        isEnd = board.areAllMastsDestroyed();
+        isGameEnd = board.areAllMastsDestroyed();
         if (result.equals(HitResult.MISS)) {
             players.swap();
         }
@@ -27,8 +27,8 @@ public class Judge implements BoardObserver {
         return players.getCurrentPlayer();
     }
 
-    boolean isEnd() {
-        return isEnd;
+    boolean isGameEnd() {
+        return isGameEnd;
     }
 
 

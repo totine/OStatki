@@ -32,7 +32,7 @@ public class PlayerBoardMatcher {
         return playerOpponentBoards.get(player);
     }
 
-    ShootingBoard getOwnBoard(Player player) {
+    public ShootingBoard getOwnBoard(Player player) {
         return playerOwnBoards.get(player);
     }
 

@@ -1,4 +1,4 @@
-package connection;
+package connection.serializers;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

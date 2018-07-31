@@ -2,6 +2,8 @@ package game.shooting;
 
 import game.shooting.matchers.PlayerBoardMatcher;
 import game.shooting.matchers.PlayerToShotSupplierMatcher;
+import game.shooting.observers.GameObserver;
+import game.shooting.observers.ObservableGame;
 import model.preparing.Player;
 import model.shooting.board.ShootingBoard;
 
@@ -30,12 +32,18 @@ public class GameShootingPart implements ObservableGame {
     }
 
     public void start() {
-        while (!judge.isEnd()) {
+        while (!judge.isGameEnd()) {
             Player currentPlayer = judge.getCurrentPlayer();
+            System.out.println("currentPlayer: " + currentPlayer);
             ShootingBoard boardToShoot = playerBoardMatcher.getOpponentBoard(currentPlayer);
             boardToShoot.hit(shotSupplier.getCoordinatesToShot(currentPlayer));
             notifyObservers(boardToShoot.getChanges(), boardToShoot, currentPlayer);
         }
+        notifyObserversAboutGameEnd(judge.getCurrentPlayer());
+    }
+
+    private void notifyObserversAboutGameEnd(Player currentPlayer) {
+        observers.forEach(observer -> observer.updateEndGame(currentPlayer));
     }
 
     @Override

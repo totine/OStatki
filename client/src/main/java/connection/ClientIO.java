@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * Wrapper for client socket input and output
  */
-class ClientIO {
+public class ClientIO implements Runnable {
     private final PrintWriter out;
     private final Scanner in;
 
@@ -23,7 +23,7 @@ class ClientIO {
         this.in = new Scanner(socket.getInputStream(), String.valueOf(StandardCharsets.UTF_8));
     }
 
-    static ClientIO createClient(String host, int port) throws IOException {
+    public static ClientIO createClient(String host, int port) throws IOException {
         Socket socket = new Socket(host, port);
         return new ClientIO(socket);
     }
@@ -34,5 +34,17 @@ class ClientIO {
 
     String getMessage() {
         return in.nextLine();
+    }
+    public void run() {
+        StringBuilder sb = new StringBuilder();
+        while (in.hasNextLine()) {
+            System.out.println("\033[H\033[2J");
+            System.out.flush();
+            while (!in.nextLine().equals("END")) {
+                sb.append(in.nextLine());
+                sb.append("\n\n");
+            }
+            System.out.println(sb.toString());
+        }
     }
 }

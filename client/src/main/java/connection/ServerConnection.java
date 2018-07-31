@@ -36,6 +36,10 @@ public class ServerConnection {
 
     private void connect() throws IOException {
         server = ClientIO.createClient(host, portNumber);
+
+        new Thread(server).start();
+
+
     }
 
     private void handleConnectionException(IOException e) {

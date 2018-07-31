@@ -111,4 +111,7 @@ public class ShootingBoard implements ObservableBoard {
         return sb.toString();
     }
 
+    public String toStringOpponent() {
+        return toString().replaceAll("\\[]", ".");
+    }
 }

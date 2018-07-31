@@ -33,7 +33,7 @@ public class PlayerSceneController {
         appInstance = ClientAppRunner.getInstance();
 
         ObservableList<ServerInfo> listOfServers = FXCollections
-                .observableArrayList(ServerInfo.create("localhost", PORT_NUMBER));
+                .observableArrayList(ServerInfo.create("10.30.1.170", PORT_NUMBER));
 
         serverNameComboBox.setItems(listOfServers);
         serverNameComboBox.getSelectionModel().select(0);
@@ -49,10 +49,7 @@ public class PlayerSceneController {
         }
     }
 
-    private void tryToConnect() {
-        appInstance = ClientAppRunner.getInstance();
-        appInstance.initializeServerConnection(getSelectedServerInfo());
-    }
+
 
     private void initNewScene(Window currentWindow) throws Exception {
         if (currentWindow instanceof Stage) {
@@ -71,10 +68,14 @@ public class PlayerSceneController {
         appInstance.setPlayer(currentPlayer);
 
         Command addPlayerCommand = Command.withType(SEND_PLAYER, currentPlayer);
-
-        tryToConnect();
         ServerConnection serverConnection = appInstance.getServerConnection();
 
+
         serverConnection.sendMessage(JSONConverter.convertToJSON(addPlayerCommand));
+    }
+
+    private void tryToConnect() {
+        ClientAppRunner appInstance = ClientAppRunner.getInstance();
+        appInstance.initializeServerConnection(getSelectedServerInfo());
     }
 }

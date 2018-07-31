@@ -1,4 +1,4 @@
-package connection;
+package connection.communication;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 class MessagesToClientHandler {
     private final PrintWriter out;
 
-    MessagesToClientHandler(Socket clientSocket, PrintWriter printWriter) throws IOException {
+    MessagesToClientHandler(Socket clientSocket) throws IOException {
         OutputStream outputStream = clientSocket.getOutputStream();
         OutputStreamWriter outputStreamWriterUTF8 = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
         this.out = new PrintWriter(outputStreamWriterUTF8, true);
@@ -22,5 +22,6 @@ class MessagesToClientHandler {
     void sendMessage(String message) {
         out.println(message);
     }
+
 }
 

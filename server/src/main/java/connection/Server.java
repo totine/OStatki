@@ -1,14 +1,14 @@
 package connection;
 
+import connection.communication.QueuesHandler;
+import connection.communication.ServerClientIO;
+import game.GameRun;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,21 +18,20 @@ import java.util.Optional;
  * to listen for client connections.
  */
 public class Server {
-    private static final Logger LOGGER = LogManager.getLogger(Server.class);
     private final ServerSocket serverSocket;
-    private final List<MessagesToClientHandler> clientSocketList;
-    private final List<MessagesFromClientHandler> fromClientHandlers;
+    private static final Logger LOGGER = LogManager.getLogger(Server.class);
+    private List<QueuesHandler> queuesHandlers;
 
-    private Server(ServerSocket serverSocket, List<MessagesToClientHandler> list) {
+    private Server(ServerSocket serverSocket, List<QueuesHandler> serverClientIOs) {
         this.serverSocket = serverSocket;
-        this.clientSocketList = list;
-        this.fromClientHandlers = new ArrayList<>();
+        this.queuesHandlers = serverClientIOs;
     }
 
     public static Server createServer(int serverPort) {
         Optional<ServerSocket> possibleServerSocket = Optional.empty();
         try {
             possibleServerSocket = Optional.of(new ServerSocket(serverPort));
+            LOGGER.info("Server is working");
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
@@ -52,23 +51,26 @@ public class Server {
             try {
                 Socket clientSocket = serverSocket.accept();
                 LOGGER.info(clientSocket.toString() + " connected");
-                MessagesFromClientHandler messagesFromClientHandler = new MessagesFromClientHandler(clientSocket, this);
-                fromClientHandlers.add(messagesFromClientHandler);
-                LOGGER.info(fromClientHandlers);
-                boolean autoFlush = true;
-                OutputStreamWriter out = new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8);
-                PrintWriter printWriter = new PrintWriter(out, autoFlush);
-                MessagesToClientHandler messagesToClient = new MessagesToClientHandler(clientSocket, printWriter);
-                clientSocketList.add(messagesToClient);
-                new Thread(messagesFromClientHandler).start();
+                ServerClientIO serverClientIO = ServerClientIO.create(clientSocket);
+                QueuesHandler communicationRun = new QueuesHandler(serverClientIO);
+                queuesHandlers.add(communicationRun);
+                new Thread(communicationRun).start();
+                createRoom();
             } catch (IOException e) {
                 LOGGER.error(e.getMessage());
             }
         }
     }
 
-    void sendMessageToAll(String message) {
-        clientSocketList.forEach(io -> io.sendMessage(message));
+    private void createRoom() {
+        if (queuesHandlers.size() % 2 == 0) {
+            int firstPlayerIndex = queuesHandlers.size() - 2;
+            int secondPlayerIndex = firstPlayerIndex + 1;
+            QueuesHandler firstPlayerQueueHandler = queuesHandlers.get(firstPlayerIndex);
+            QueuesHandler secondPlayerQueueHandler = queuesHandlers.get(secondPlayerIndex);
+            GameRun gameRun = GameRun.create(firstPlayerQueueHandler, secondPlayerQueueHandler);
+            new Thread(gameRun).start();
+        }
     }
 
 }
