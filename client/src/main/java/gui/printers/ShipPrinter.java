@@ -15,7 +15,9 @@ public class ShipPrinter {
 
     public static void printFleet(FleetView fleet, GridPane printingBoard) {
         if (checkIfFleetExists(fleet)) {
+            System.out.println("exits");
             for (ShipView ship : fleet.getShipList()) {
+                System.out.println(ship);
                 printShip(ship, printingBoard);
             }
         }

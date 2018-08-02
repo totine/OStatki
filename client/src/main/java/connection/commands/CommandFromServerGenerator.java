@@ -21,6 +21,7 @@ public class CommandFromServerGenerator {
     }
 
     public CommandFromServer createCommandFromMessage(String message) {
+        System.out.println();
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(message, JsonObject.class);
         JsonElement command = jsonObject.get("command");

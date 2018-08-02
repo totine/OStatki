@@ -24,32 +24,32 @@ public class FieldPrinter {
     private FieldPrinter() {
     }
 
-    public static void insertFields(GridPane printingBoard) {
+    public static void insertFields(GridPane printingBoard, GridPane friendlyBoard) {
         int numberOfRows = printingBoard.getRowConstraints().size();
         int numberOfColumns = printingBoard.getColumnConstraints().size();
 
-        addToEachSpace(numberOfRows, numberOfColumns, printingBoard);
+        addToEachSpace(numberOfRows, numberOfColumns, printingBoard, friendlyBoard);
     }
 
-    private static void addToEachSpace(int numberOfRows, int numberOfColumns, GridPane printingBoard) {
+    private static void addToEachSpace(int numberOfRows, int numberOfColumns, GridPane printingBoard, GridPane friendlyBoard) {
         for (int widthPosition = 0; widthPosition < numberOfRows; widthPosition++) {
             for (int heightPosition = 0; heightPosition < numberOfColumns; heightPosition++) {
-                Button fieldToClick = createField(widthPosition, heightPosition, printingBoard);
+                Button fieldToClick = createField(widthPosition, heightPosition, printingBoard, friendlyBoard);
                 printingBoard.add(fieldToClick, widthPosition, heightPosition);
             }
         }
     }
 
-    private static Button createField(int widthCoordinates, int heightCoordinates, GridPane printingBoard) {
+    private static Button createField(int widthCoordinates, int heightCoordinates, GridPane printingBoard, GridPane friendlyBoard) {
         Button field = new Button();
-        prepareField(field, widthCoordinates, heightCoordinates, printingBoard);
+        prepareField(field, widthCoordinates, heightCoordinates, printingBoard, friendlyBoard);
         return field;
     }
 
-    private static void prepareField(Button field, int x, int y, GridPane printingBoard) {
+    private static void prepareField(Button field, int x, int y, GridPane printingBoard, GridPane friendlyBoard) {
         setDimensions(field);
         addStyle(field);
-        shotAndWaitOnAction(field, x, y, printingBoard);
+        shotAndWaitOnAction(field, x, y, printingBoard, friendlyBoard);
     }
 
     private static void setDimensions(Button field) {
@@ -61,7 +61,7 @@ public class FieldPrinter {
         field.getStyleClass().add(WATER_STYLE.toString());
     }
 
-    private static void shotAndWaitOnAction(Button field, int x, int y, GridPane printingBoard) {
+    private static void shotAndWaitOnAction(Button field, int x, int y, GridPane printingBoard, GridPane friendlyBoard) {
         Command shotCommand = Command.withType(SHOT, Coordinates.create(x, y));
         String coordinatesToPass = JSONConverter.convertToJSON(shotCommand);
 
@@ -71,7 +71,7 @@ public class FieldPrinter {
             serverConnection.sendMessage(coordinatesToPass);
             try {
                 Thread.sleep(THREAD_SLEEP_TIME);
-                ShotBoardHandler.takeReactionFromServer(serverConnection, printingBoard);
+                ShotBoardHandler.takeReactionFromServer(serverConnection, printingBoard, friendlyBoard);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

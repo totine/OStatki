@@ -4,10 +4,14 @@ package connection;
 import connection.commands.CommandFromServer;
 import connection.commands.CommandFromServerGenerator;
 import gui.data.FieldBus;
+import gui.data.FieldState;
 import gui.printers.FleetView;
+import model.Coordinates;
 
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -27,6 +31,18 @@ public class ServerConnection  implements Runnable {
         this.portNumber = portNumber;
         this.host = host;
         commandGenerator = new CommandFromServerGenerator(this);
+        Map<Coordinates, FieldState> fieldStateMap1 = new HashMap<>();
+        fieldStateMap1.put(Coordinates.create(1,2), FieldState.DESTROYED);
+        fieldStateMap1.put(Coordinates.create(8,7), FieldState.DESTROYED);
+        Map<Coordinates, FieldState> fieldStateMap2 = new HashMap<>();
+        fieldStateMap2.put(Coordinates.create(1,5), FieldState.DESTROYED);
+        fieldStateMap2.put(Coordinates.create(5,7), FieldState.DESTROYED);
+
+        FieldBus fieldBus1 = FieldBus.create(fieldStateMap1);
+        FieldBus fieldBus2 = FieldBus.create(fieldStateMap2);
+
+        myBoardChanges.add(fieldBus1);
+        opponentBoardChanges.add(fieldBus2);
     }
 
     /**
@@ -54,9 +70,15 @@ public class ServerConnection  implements Runnable {
 
 
     }
-    FieldBus getMyBoardChanges() throws InterruptedException {
+    public FieldBus getMyBoardChanges() throws InterruptedException {
         return myBoardChanges.take();
     }
+
+    public FieldBus getOpponentBoardChanges() throws InterruptedException {
+        return opponentBoardChanges.take();
+    }
+
+
     public void run() {
         while (server.hasNextLine()) {
             String message = server.getMessage();
@@ -71,17 +93,30 @@ public class ServerConnection  implements Runnable {
     }
 
     public void sendMessage(String message) {
+
+        System.out.println(message);
         server.sendMessage(message);
     }
 
-    public String getMessage() {
-        String message = "DEFAULT";
+
+    public void addFleetToQueue(FleetView fleetView) {
+
         try {
-            message = server.getMessage();
+            fleetQueue.put(fleetView);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return message;
     }
 
+    public FleetView getFleetFromQueue() throws InterruptedException {
+        return fleetQueue.take();
+    }
+
+    public void addMyBoardChangesQueue(FieldBus fieldBus) {
+        myBoardChanges.add(fieldBus);
+    }
+
+    public void addOpponentBoardChangesQueue(FieldBus fieldBus) {
+        opponentBoardChanges.add(fieldBus);
+    }
 }

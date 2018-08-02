@@ -1,11 +1,12 @@
 package gui.utility;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.lang.reflect.Type;
 
 public class JSONConverter {
-    private static Gson convertHandler = new Gson();
+    private static Gson convertHandler = new GsonBuilder().enableComplexMapKeySerialization().create();
 
     private JSONConverter() {
     }

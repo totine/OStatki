@@ -4,7 +4,6 @@ import connection.ServerConnection;
 import gui.instance.ClientAppRunner;
 import gui.printers.FleetView;
 import gui.printers.ShipPrinter;
-import gui.receivers.RandomFleet;
 import gui.scenes.GameScene;
 import gui.scenes.PlayerScene;
 import gui.utility.Command;
@@ -54,14 +53,19 @@ public class PlacementSceneController {
     @FXML
     private void placeRandom() {
         serverConnection.sendMessage(prepareAskForFleetCommand());
-        processMessagesFromServer();
+        getFleetFromServer();
     }
 
-    private void processMessagesFromServer() {
-        String serverMessage = serverConnection.getMessage();
+    private void getFleetFromServer() {
+
         printingBoard.getChildren().removeIf(node -> node instanceof Shape);
-        RandomFleet generatedFleet = new RandomFleet();
-        fleet = generatedFleet.getGUIFleet(serverMessage);
+
+        try {
+            fleet = serverConnection.getFleetFromQueue();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(fleet.getShipList());
         ShipPrinter.printFleet(fleet, printingBoard);
         startButton.setDisable(false);
     }
@@ -76,6 +80,8 @@ public class PlacementSceneController {
         Window currentWindow = startButton.getScene().getWindow();
         if (currentWindow instanceof Stage) {
             appInstance.setFleet(fleet);
+            Command sendFleet = Command.withType(CommandType.SEND_FLEET, FleetView.class);
+            serverConnection.sendMessage(JSONConverter.convertToJSON(sendFleet));
             Stage currentStage = (Stage) currentWindow;
             GameScene gameScene = GameScene.create();
             gameScene.start(currentStage);

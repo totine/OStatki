@@ -26,7 +26,7 @@ public class ShotResult {
     }
 
     public static String takeMessageFromServer(ServerConnection serverConnection) {
-        return serverConnection.getMessage();
+        return "";
     }
 
     private static Type getMapType() {

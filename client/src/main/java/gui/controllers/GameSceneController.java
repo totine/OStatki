@@ -35,7 +35,7 @@ public class GameSceneController {
         currentPlayerName.setText(playerName);
         fleet = appInstance.getFleet();
         ShipPrinter.printFleet(fleet, friendlyBoard);
-        FieldPrinter.insertFields(enemyBoard);
+        FieldPrinter.insertFields(enemyBoard, friendlyBoard);
     }
 
     @FXML

@@ -20,8 +20,9 @@ public class AskForFleetGameCommand implements GameCommand {
 
     @Override
     public void execute() {
-        String serializedFleet = FleetSerializer.from(fleetToSend).serialize();
-        communicationRun.sendMessage(serializedFleet);
+        Command command = Command.withType(CommandType.SEND_FLEET, fleetToSend);
+        String s = JSONConverter.convertToJSON(command);
+        communicationRun.sendMessage(s);
     }
 
 
