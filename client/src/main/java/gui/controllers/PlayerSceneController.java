@@ -33,7 +33,9 @@ public class PlayerSceneController {
         appInstance = ClientAppRunner.getInstance();
 
         ObservableList<ServerInfo> listOfServers = FXCollections
-                .observableArrayList(ServerInfo.create("10.30.1.170", PORT_NUMBER));
+                .observableArrayList();
+        listOfServers.add(ServerInfo.create("10.30.1.170", PORT_NUMBER));
+        listOfServers.add(ServerInfo.create("localhost", PORT_NUMBER));
 
         serverNameComboBox.setItems(listOfServers);
         serverNameComboBox.getSelectionModel().select(0);
