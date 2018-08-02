@@ -2,6 +2,8 @@ package game.shooting.observers;
 
 import connection.communication.QueuesHandler;
 import connection.serializers.JSONConverter;
+import connection.utility.Command;
+import connection.utility.CommandType;
 import game.shooting.ShotResults;
 import game.shooting.matchers.PlayerBoardMatcher;
 import model.preparing.Player;
@@ -29,10 +31,15 @@ public class ShotResultSender implements GameObserver {
 
     @Override
     public void update(ShotResults changes, ShootingBoard board, Player currentPlayer) {
-        String changesJSON = JSONConverter.convertToJSON(changes.getMap());
-        String currentPlayerJSON = JSONConverter.convertToJSON(currentPlayer);
-        String toSend = "{\"player\": " + changesJSON + ", \"changes\": " + currentPlayerJSON + "}";
-        queuesHandler.sendMessage(changesJSON);
+        Command command;
+        if (currentPlayer.equals(player)) {
+            command = Command.withType(CommandType.SEND_CHANGES, changes);
+        } else {
+            command = Command.withType(CommandType.SEND_OPPONENT_CHANGES, changes);
+        }
+        String serializedMessage = JSONConverter.convertToJSON(command);
+        System.out.println(serializedMessage);
+        queuesHandler.sendMessage(serializedMessage);
     }
 
     @Override
