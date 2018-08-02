@@ -24,7 +24,7 @@ public class ShotBoardHandler {
     private ShotBoardHandler() {
     }
 
-    public static void takeReactionFromServer(ServerConnection serverConnection, GridPane gridPane) throws InterruptedException {
+    public static void takeReactionFromServer(ServerConnection serverConnection, GridPane gridPane) {
         FieldBus fieldBusToChange = ShotResult.getShotInformation(ShotResult.takeMessageFromServer(serverConnection));
         Map<Coordinates, FieldState> fieldStateMap = fieldBusToChange.getFieldStates();
         takeGridPaneFields(gridPane).forEach(field -> changeFieldsAsInFieldBus(fieldStateMap, field));

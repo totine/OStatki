@@ -16,8 +16,9 @@ import static gui.utility.CommandType.SHOT;
  * This class is made to help with printing fields as buttons on enemy board.
  */
 public class FieldPrinter {
-    private static final int FIELD_WIDTH = 50;
-    private static final int FIELD_HEIGHT = 50;
+    private static final int FIELD_WIDTH = 30;
+    private static final int FIELD_HEIGHT = 30;
+    private static final long THREAD_SLEEP_TIME = 10L;
     private static ServerConnection serverConnection = ClientAppRunner.getInstance().getServerConnection();
 
     private FieldPrinter() {
@@ -45,10 +46,10 @@ public class FieldPrinter {
         return field;
     }
 
-    private static void prepareField(Button field, int widthCoordinates, int heightCoordinates, GridPane printingBoard) {
+    private static void prepareField(Button field, int x, int y, GridPane printingBoard) {
         setDimensions(field);
         addStyle(field);
-        shotAndWaitOnAction(field, widthCoordinates, heightCoordinates, printingBoard);
+        shotAndWaitOnAction(field, x, y, printingBoard);
     }
 
     private static void setDimensions(Button field) {
@@ -69,6 +70,7 @@ public class FieldPrinter {
         field.setOnAction(event -> {
             serverConnection.sendMessage(coordinatesToPass);
             try {
+                Thread.sleep(THREAD_SLEEP_TIME);
                 ShotBoardHandler.takeReactionFromServer(serverConnection, printingBoard);
             } catch (InterruptedException e) {
                 e.printStackTrace();

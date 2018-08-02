@@ -1,5 +1,6 @@
 package connection;
 
+
 import java.io.IOException;
 
 /**
@@ -50,7 +51,14 @@ public class ServerConnection {
         server.sendMessage(message);
     }
 
-    public String getMessage() throws InterruptedException {
-        return server.getMessage();
+    public String getMessage() {
+        String message = "DEFAULT";
+        try {
+            message = server.getMessage();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return message;
     }
+
 }

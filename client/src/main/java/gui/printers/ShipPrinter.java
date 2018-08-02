@@ -10,8 +10,8 @@ import model.Coordinates;
  */
 public class ShipPrinter {
 
-    private static final int FIELD_WIDTH = 50;
-    private static final int FIELD_HEIGHT = 50;
+    private static final int FIELD_WIDTH = 30;
+    private static final int FIELD_HEIGHT = 30;
 
     public static void printFleet(FleetView fleet, GridPane printingBoard) {
         if (checkIfFleetExists(fleet)) {

@@ -54,17 +54,17 @@ public class PlacementSceneController {
     @FXML
     private void placeRandom() {
         serverConnection.sendMessage(prepareAskForFleetCommand());
+        processMessagesFromServer();
+    }
 
-        String message = null;
-        try {
-            message = appInstance.getServerConnection().getMessage();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
+    @FXML
+
+    private void processMessagesFromServer() {
+        String serverMessage = serverConnection.getMessage();
         printingBoard.getChildren().removeIf(node -> node instanceof Shape);
         RandomFleet generatedFleet = new RandomFleet();
-        fleet = generatedFleet.getGUIFleet(message);
+        fleet = generatedFleet.getGUIFleet(serverMessage);
         ShipPrinter.printFleet(fleet, printingBoard);
         startButton.setDisable(false);
     }

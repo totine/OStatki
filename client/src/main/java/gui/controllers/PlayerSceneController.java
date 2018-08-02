@@ -38,7 +38,7 @@ public class PlayerSceneController {
         listOfServers.add(ServerInfo.create("localhost", PORT_NUMBER));
 
         serverNameComboBox.setItems(listOfServers);
-        serverNameComboBox.getSelectionModel().select(0);
+        serverNameComboBox.getSelectionModel().select(1);
     }
 
     @FXML

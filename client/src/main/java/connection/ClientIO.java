@@ -16,8 +16,8 @@ import java.util.concurrent.BlockingQueue;
 public class ClientIO implements Runnable {
     private final PrintWriter out;
     private final Scanner in;
-    private BlockingQueue<String> queue = new ArrayBlockingQueue<>(10);
-    private BlockingQueue<String> fleetQueue = new ArrayBlockingQueue<>(10);
+    private static final int QUEUE_CAPACITY = 10;
+    private BlockingQueue<String> queue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
 
     private ClientIO(Socket socket) throws IOException {
         OutputStream outputStream = socket.getOutputStream();

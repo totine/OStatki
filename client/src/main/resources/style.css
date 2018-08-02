@@ -1,76 +1,55 @@
 .water-button {
+    -fx-font-size: 3px;
     -fx-background-color: #ADD8E6;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(15, 15, 15, 0.51);
     -fx-text-alignment: center;
-    -fx-font-size: 25px;
 }
 .water-button:hover {
     -fx-background-color: #BEE9F7;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-alignment: center;
     -fx-cursor: hand;
 }
 .water-button:pressed {
     -fx-background-color: #9DD8E6;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-alignment: center;
 }
 
 
 .damaged-button {
+    -fx-font-size: 3px;
     -fx-background-color: #960000;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(15, 15, 15, 0.51);
     -fx-text-alignment: center;
-    -fx-font-size: 25px;
 }
 .damaged-button:hover {
     -fx-background-color: #A71111;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-alignment: center;
     -fx-cursor: hand;
 }
 .damaged-button:pressed {
     -fx-background-color: #850000;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-alignment: center;
+    -fx-cursor: hand;
 }
 
-
-
 .destroyed-button {
+    -fx-font-size: 3px;
     -fx-background-color: #111111;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(15, 15, 15, 0.51);
     -fx-text-alignment: center;
-    -fx-font-size: 25px;
 }
 .destroyed-button:hover {
     -fx-background-color: #222222;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-alignment: center;
     -fx-cursor: hand;
 }
 .destroyed-button:pressed {
     -fx-background-color: #000000;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-alignment: center;
+    -fx-cursor: hand;
 }
 
 
