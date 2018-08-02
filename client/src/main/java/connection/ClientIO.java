@@ -1,5 +1,8 @@
 package connection;
 
+import gui.data.FieldBus;
+import gui.printers.FleetView;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -13,11 +16,9 @@ import java.util.concurrent.BlockingQueue;
 /**
  * Wrapper for client socket input and output
  */
-public class ClientIO implements Runnable {
+public class ClientIO {
     private final PrintWriter out;
     private final Scanner in;
-    private static final int QUEUE_CAPACITY = 10;
-    private BlockingQueue<String> queue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
 
     private ClientIO(Socket socket) throws IOException {
         OutputStream outputStream = socket.getOutputStream();
@@ -36,16 +37,11 @@ public class ClientIO implements Runnable {
         out.println(message);
     }
 
-    String getMessage() throws InterruptedException {
-        return queue.take();
+    public boolean hasNextLine() {
+        return in.hasNextLine();
     }
-    public void run() {
-        while (in.hasNextLine()) {
-            try {
-                queue.put(in.nextLine());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+
+    public String getMessage() {
+        return in.nextLine();
     }
 }

@@ -1,19 +1,32 @@
 package connection;
 
 
+import connection.commands.CommandFromServer;
+import connection.commands.CommandFromServerGenerator;
+import gui.data.FieldBus;
+import gui.printers.FleetView;
+
+
 import java.io.IOException;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * this class is prototype for checking connection with server from GUI of client.
  */
-public class ServerConnection {
+public class ServerConnection  implements Runnable {
     private final int portNumber;
     private final String host;
     private ClientIO server;
+    private BlockingQueue<FieldBus> myBoardChanges = new ArrayBlockingQueue<>(10);
+    private BlockingQueue<FieldBus> opponentBoardChanges = new ArrayBlockingQueue<>(10);
+    private BlockingQueue<FleetView> fleetQueue = new ArrayBlockingQueue<>(10);
+    private CommandFromServerGenerator commandGenerator;
 
     private ServerConnection(int portNumber, String host) {
         this.portNumber = portNumber;
         this.host = host;
+        commandGenerator = new CommandFromServerGenerator(this);
     }
 
     /**
@@ -37,12 +50,22 @@ public class ServerConnection {
 
     private void connect() throws IOException {
         server = ClientIO.createClient(host, portNumber);
-
-        new Thread(server).start();
+        new Thread(this).start();
 
 
     }
+    FieldBus getMyBoardChanges() throws InterruptedException {
+        return myBoardChanges.take();
+    }
+    public void run() {
+        while (server.hasNextLine()) {
+            String message = server.getMessage();
+            System.out.println(message);
+            CommandFromServer currentCommand = commandGenerator.createCommandFromMessage(message);
+            currentCommand.execute();
 
+        }
+    }
     private void handleConnectionException(IOException e) {
         e.printStackTrace();
     }

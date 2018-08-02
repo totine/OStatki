@@ -14,8 +14,8 @@ public class QueuesHandler implements Runnable {
     private final ServerClientIO serverClientIO;
     private final CommandGenerator commandGenerator;
     private final BlockingQueue<Coordinates> coordinatesToShotQueue;
-    private final BlockingQueue<Fleet<PlacedShip>> fleetQueue;
     private final BlockingQueue<Player> playerQueue;
+    private final BlockingQueue<Fleet<PlacedShip>> fleetFromPlayer;
     private boolean isActive;
     private static final int QUEUE_CAPACITY = 10;
 
@@ -23,7 +23,7 @@ public class QueuesHandler implements Runnable {
         this.serverClientIO = serverClientIO;
         this.commandGenerator = new CommandGenerator(this);
         coordinatesToShotQueue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
-        fleetQueue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
+        fleetFromPlayer = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
         playerQueue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
         isActive = true;
     }
@@ -44,8 +44,8 @@ public class QueuesHandler implements Runnable {
         coordinatesToShotQueue.put(coordinates);
     }
 
-    public void addFleetToQueue(Fleet<PlacedShip> fleet) throws InterruptedException {
-        fleetQueue.put(fleet);
+    public void addToFleetQueue(Fleet<PlacedShip> fleet) throws InterruptedException {
+        fleetFromPlayer.put(fleet);
     }
 
     public void sendMessage(String message) {
@@ -56,8 +56,8 @@ public class QueuesHandler implements Runnable {
         return playerQueue.take();
     }
 
-    public Fleet<PlacedShip> getFleet() throws InterruptedException {
-        return fleetQueue.take();
+    public Fleet<PlacedShip> getFleetFromPlayer() throws InterruptedException {
+        return fleetFromPlayer.take();
     }
 
     public Coordinates getCoordinates() throws InterruptedException {

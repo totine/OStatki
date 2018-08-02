@@ -57,9 +57,6 @@ public class PlacementSceneController {
         processMessagesFromServer();
     }
 
-
-    @FXML
-
     private void processMessagesFromServer() {
         String serverMessage = serverConnection.getMessage();
         printingBoard.getChildren().removeIf(node -> node instanceof Shape);

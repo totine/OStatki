@@ -68,7 +68,7 @@ public class GameRun implements Runnable {
     private Fleet<PlacedShip> getPlacedShipFleetFromQueue(QueuesHandler queuesHandler) {
         Fleet<PlacedShip> fleet = null;
         try {
-            fleet = queuesHandler.getFleet();
+            fleet = queuesHandler.getFleetFromPlayer();
             System.out.println("FLOTA GOTOWA");
         } catch (InterruptedException e) {
             e.printStackTrace();
