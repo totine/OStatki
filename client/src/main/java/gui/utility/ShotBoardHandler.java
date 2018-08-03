@@ -35,43 +35,43 @@ public class ShotBoardHandler {
         FieldBus fieldBusToChangeOpponentBoard =serverConnection.getOpponentBoardChanges();
         Map<Coordinates, FieldState> fieldStateMapOpponentBoard = fieldBusToChangeOpponentBoard.getFieldStates();
         takeGridPaneFields(opponentBoard).forEach(field -> changeFieldsAsInFieldBus(fieldStateMapOpponentBoard, field));
-        FieldBus fieldBusToChangeMyBoard = serverConnection.getMyBoardChanges();
-        Map<Coordinates, FieldState> fieldStateMapMyBoard = fieldBusToChangeMyBoard.getFieldStates();
-        fieldStateMapMyBoard.forEach((coord, state) -> printShip(coord, state, myBoard));
+      //  FieldBus fieldBusToChangeMyBoard = serverConnection.getMyBoardChanges();
+       // Map<Coordinates, FieldState> fieldStateMapMyBoard = fieldBusToChangeMyBoard.getFieldStates();
+     //   fieldStateMapMyBoard.forEach((coord, state) -> printShip(coord, state, myBoard));
     }
 
-    private static void printShip(Coordinates coordinates, FieldState state, GridPane printingBoard) {
-            Shape next = createMastRepresentation(state);
-            printingBoard.add(next, coordinates.getColumnIndex(), coordinates.getRowIndex());
-        }
-
-
-    private static Rectangle createMastRepresentation(FieldState state) {
-        Rectangle mast = new Rectangle();
-        mast.setHeight(FIELD_HEIGHT);
-        mast.setWidth(FIELD_WIDTH);
-        changeColorFromState(state, mast);
-        return mast;
-    }
-
-    private static void changeColorFromState(FieldState state, Shape button) {
-        if (null == state) {
-            return;
-        }
-        switch (state) {
-            case SEEN:
-                addSeenMarkRect(button);
-                break;
-            case DAMAGED:
-                addDamagedMarkRect(button);
-                break;
-            case DESTROYED:
-                addDestroyedMarkRect(button);
-                break;
-            default:
-                break;
-        }
-    }
+//    private static void printShip(Coordinates coordinates, FieldState state, GridPane printingBoard) {
+//            Shape next = createMastRepresentation(state);
+//            printingBoard.add(next, coordinates.getColumnIndex(), coordinates.getRowIndex());
+//        }
+//
+//
+//    private static Rectangle createMastRepresentation(FieldState state) {
+//        Rectangle mast = new Rectangle();
+//        mast.setHeight(FIELD_HEIGHT);
+//        mast.setWidth(FIELD_WIDTH);
+//        changeColorFromState(state, mast);
+//        return mast;
+//    }
+//
+//    private static void changeColorFromState(FieldState state, Shape button) {
+//        if (null == state) {
+//            return;
+//        }
+//        switch (state) {
+//            case SEEN:
+//                addSeenMarkRect(button);
+//                break;
+//            case DAMAGED:
+//                addDamagedMarkRect(button);
+//                break;
+//            case DESTROYED:
+//                addDestroyedMarkRect(button);
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     private static void addSeenMarkRect(Shape button) {
         button.setFill(Paint.valueOf("GREY"));

@@ -33,9 +33,9 @@ public class ShotResultSender implements GameObserver {
     public void update(ShotResults changes, ShootingBoard board, Player currentPlayer) {
         Command command;
         if (currentPlayer.equals(player)) {
-            command = Command.withType(CommandType.SEND_MY_CHANGES, changes);
-        } else {
             command = Command.withType(CommandType.SEND_OPPONENT_CHANGES, changes);
+        } else {
+            command = Command.withType(CommandType.SEND_MY_CHANGES, changes);
         }
         String serializedMessage = JSONConverter.convertToJSON(command);
         System.out.println(serializedMessage);

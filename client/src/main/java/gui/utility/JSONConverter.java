@@ -2,6 +2,7 @@ package gui.utility;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import gui.printers.FleetView;
 
 import java.lang.reflect.Type;
 

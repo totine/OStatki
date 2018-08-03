@@ -31,18 +31,6 @@ public class ServerConnection  implements Runnable {
         this.portNumber = portNumber;
         this.host = host;
         commandGenerator = new CommandFromServerGenerator(this);
-        Map<Coordinates, FieldState> fieldStateMap1 = new HashMap<>();
-        fieldStateMap1.put(Coordinates.create(1,2), FieldState.DESTROYED);
-        fieldStateMap1.put(Coordinates.create(8,7), FieldState.DESTROYED);
-        Map<Coordinates, FieldState> fieldStateMap2 = new HashMap<>();
-        fieldStateMap2.put(Coordinates.create(1,5), FieldState.DESTROYED);
-        fieldStateMap2.put(Coordinates.create(5,7), FieldState.DESTROYED);
-
-        FieldBus fieldBus1 = FieldBus.create(fieldStateMap1);
-        FieldBus fieldBus2 = FieldBus.create(fieldStateMap2);
-
-        myBoardChanges.add(fieldBus1);
-        opponentBoardChanges.add(fieldBus2);
     }
 
     /**

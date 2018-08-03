@@ -3,6 +3,7 @@ package connection.commands;
 import com.google.gson.JsonObject;
 import connection.ServerConnection;
 import gui.data.FieldBus;
+import gui.receivers.ShotResult;
 
 public class SendMyBoardChangesCommand implements CommandFromServer {
     private FieldBus fieldBus;
@@ -20,5 +21,7 @@ public class SendMyBoardChangesCommand implements CommandFromServer {
     @Override
     public void setValue(JsonObject value) {
         System.out.println(value);
+
+        fieldBus = ShotResult.getShotInformation(value.get("results").toString());
     }
 }
