@@ -11,12 +11,12 @@ import java.util.Map;
 public class CommandFromServerGenerator {
     private final Map<String, CommandFromServer> commandNameMap;
 
-
     public CommandFromServerGenerator(ServerConnection clientIO) {
         this.commandNameMap = new HashMap<>();
         commandNameMap.put("SEND_MY_CHANGES", new SendMyBoardChangesCommand(clientIO));
         commandNameMap.put("SEND_OPPONENT_CHANGES", new SendOpponentBoardChanges(clientIO));
         commandNameMap.put("SEND_FLEET", new SendFleetCommand(clientIO));
+        commandNameMap.put("END_GAME", new EndGameCommand(clientIO));
 
     }
 

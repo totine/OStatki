@@ -44,7 +44,8 @@ public class ShotResultSender implements GameObserver {
 
     @Override
     public void updateEndGame(Player winner) {
-        queuesHandler.sendMessage("\nGame is over\n");
-        queuesHandler.sendMessage("Winner is: " + winner.getName() + "\nEND");
+        Command command = Command.withType(CommandType.END_GAME, winner);
+        String s = JSONConverter.convertToJSON(command);
+        queuesHandler.sendMessage(s);
     }
 }

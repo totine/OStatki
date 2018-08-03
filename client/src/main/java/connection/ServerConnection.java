@@ -1,9 +1,9 @@
 package connection;
 
-
 import connection.commands.CommandFromServer;
 import connection.commands.CommandFromServerGenerator;
 import gui.data.FieldBus;
+import gui.data.Player;
 import gui.printers.FleetView;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.concurrent.BlockingQueue;
 /**
  * this class is prototype for checking connection with server from GUI of client.
  */
-public class ServerConnection  implements Runnable {
+public class ServerConnection implements Runnable {
     private final int portNumber;
     private final String host;
     private ClientIO server;
@@ -21,6 +21,8 @@ public class ServerConnection  implements Runnable {
     private BlockingQueue<FieldBus> opponentBoardChanges = new ArrayBlockingQueue<>(10);
     private BlockingQueue<FleetView> fleetQueue = new ArrayBlockingQueue<>(10);
     private CommandFromServerGenerator commandGenerator;
+    private boolean isGameEnd;
+    private Player winner;
 
     private ServerConnection(int portNumber, String host) {
         this.portNumber = portNumber;
@@ -51,7 +53,6 @@ public class ServerConnection  implements Runnable {
         server = ClientIO.createClient(host, portNumber);
         new Thread(this).start();
 
-
     }
     public BlockingQueue<FieldBus> getMyBoardChanges() {
         return myBoardChanges;
@@ -60,7 +61,6 @@ public class ServerConnection  implements Runnable {
     public FieldBus getOpponentBoardChanges() throws InterruptedException {
         return opponentBoardChanges.take();
     }
-
 
     public void run() {
         while (server.hasNextLine()) {
@@ -71,6 +71,7 @@ public class ServerConnection  implements Runnable {
 
         }
     }
+
     private void handleConnectionException(IOException e) {
         e.printStackTrace();
     }
@@ -80,7 +81,6 @@ public class ServerConnection  implements Runnable {
         System.out.println(message);
         server.sendMessage(message);
     }
-
 
     public void addFleetToQueue(FleetView fleetView) {
 
@@ -95,11 +95,27 @@ public class ServerConnection  implements Runnable {
         return fleetQueue.take();
     }
 
+    public boolean isGameEnd() {
+        return this.isGameEnd;
+    }
+
     public void addMyBoardChangesQueue(FieldBus fieldBus) {
         myBoardChanges.add(fieldBus);
     }
 
     public void addOpponentBoardChangesQueue(FieldBus fieldBus) {
         opponentBoardChanges.add(fieldBus);
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
+    }
+
+    public void setGameIsEnd() {
+        isGameEnd = true;
+    }
+
+    public Player getWinner() {
+        return winner;
     }
 }

@@ -2,6 +2,10 @@ package connection.communication;
 
 import connection.command.CommandGenerator;
 import connection.command.GameCommand;
+import connection.serializers.JSONConverter;
+import connection.utility.Command;
+import connection.utility.CommandType;
+import game.shooting.ShotResults;
 import model.Coordinates;
 import model.placement.fleet.Fleet;
 import model.placement.ship.PlacedShip;
@@ -36,6 +40,11 @@ public class QueuesHandler implements Runnable {
             if (isActive) {
                 GameCommand currentCommand = commandGenerator.createCommandFromMessage(message);
                 currentCommand.execute();
+            }
+            else {
+                Command command = Command.withType(CommandType.SEND_OPPONENT_CHANGES, new ShotResults());
+                String s = JSONConverter.convertToJSON(command);
+                sendMessage(s);
             }
         }
     }
