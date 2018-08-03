@@ -80,7 +80,7 @@ public class PlacementSceneController {
         Window currentWindow = startButton.getScene().getWindow();
         if (currentWindow instanceof Stage) {
             appInstance.setFleet(fleet);
-            Command sendFleet = Command.withType(CommandType.SEND_FLEET, FleetView.class);
+            Command sendFleet = Command.withType(CommandType.SEND_FLEET, fleet);
             serverConnection.sendMessage(JSONConverter.convertToJSON(sendFleet));
             Stage currentStage = (Stage) currentWindow;
             GameScene gameScene = GameScene.create();

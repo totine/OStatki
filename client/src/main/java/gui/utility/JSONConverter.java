@@ -16,7 +16,7 @@ public class JSONConverter {
         return convertHandler.fromJson(input, type);
     }
 
-    public static <T> String convertToJSON(T classToConvert) {
-        return convertHandler.toJson(classToConvert);
+    public static <T> String convertToJSON(T objectOfSomeClass) {
+        return convertHandler.toJson(objectOfSomeClass);
     }
 }
