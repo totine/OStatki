@@ -51,7 +51,7 @@ public class PlayerSceneController {
     }
 
     @FXML
-    private void startPlacing() throws Exception {
+    private void startPlacing() throws Exception{
         Window currentWindow = startPlacement.getScene().getWindow();
         tryToConnect();
         savePlayer();

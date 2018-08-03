@@ -34,7 +34,7 @@ public class Coordinates {
      *
      * @return returns int type value which indicates horizontal coordinate.
      */
-    public final int getColumnIndex() {
+    public final int getX() {
         return this.x;
     }
 
@@ -43,7 +43,7 @@ public class Coordinates {
      *
      * @return returns int type value which indicates vertical coordinate.
      */
-    public final int getRowIndex() {
+    public final int getY() {
         return this.y;
     }
 

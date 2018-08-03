@@ -4,14 +4,9 @@ package connection;
 import connection.commands.CommandFromServer;
 import connection.commands.CommandFromServerGenerator;
 import gui.data.FieldBus;
-import gui.data.FieldState;
 import gui.printers.FleetView;
-import model.Coordinates;
-
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -58,8 +53,8 @@ public class ServerConnection  implements Runnable {
 
 
     }
-    public FieldBus getMyBoardChanges() throws InterruptedException {
-        return myBoardChanges.take();
+    public BlockingQueue<FieldBus> getMyBoardChanges() {
+        return myBoardChanges;
     }
 
     public FieldBus getOpponentBoardChanges() throws InterruptedException {

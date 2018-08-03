@@ -30,15 +30,14 @@ public class ShipPrinter {
     private static void printShip(ShipView ship, GridPane printingBoard) {
         for (Coordinates coordinates : ship.getPositionCoordinates()) {
             Shape next = createMastRepresentation();
-            printingBoard.add(next, coordinates.getColumnIndex(), coordinates.getRowIndex());
+            printingBoard.add(next, coordinates.getX(), coordinates.getY());
         }
     }
 
-    private static Rectangle createMastRepresentation() {
+    public static Rectangle createMastRepresentation() {
         Rectangle mast = new Rectangle();
         mast.setHeight(FIELD_HEIGHT);
         mast.setWidth(FIELD_WIDTH);
-
         return mast;
     }
 

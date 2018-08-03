@@ -52,4 +52,22 @@
     -fx-cursor: hand;
 }
 
+.missed-button {
+    -fx-font-size: 3px;
+    -fx-background-color: #0004dc;
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(15, 15, 15, 0.51);
+    -fx-text-alignment: center;
+}
+.missed-button:hover {
+    -fx-background-color: #1115ef;
+    -fx-text-alignment: center;
+    -fx-cursor: hand;
+}
+.missed-button:pressed {
+    -fx-background-color: #0003cb;
+    -fx-text-alignment: center;
+    -fx-cursor: hand;
+}
+
 

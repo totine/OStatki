@@ -8,6 +8,7 @@ import gui.printers.FleetView;
 import gui.printers.ShipPrinter;
 import gui.scenes.PlacementScene;
 import gui.utility.ShotBoardHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -45,11 +46,11 @@ public class GameSceneController {
         ShipPrinter.printFleet(fleet, friendlyBoard);
         FieldPrinter.insertFields(enemyBoard);
 
-        //updateFriendlyBoard();
+        Platform.runLater(updateFriendlyBoard());
     }
 
-    private void updateFriendlyBoard() {
-        ShotBoardHandler.friendlyShotReaction(serverConnection, friendlyBoard);
+    private Runnable updateFriendlyBoard() {
+        return () -> ShotBoardHandler.friendlyShotReaction(serverConnection, friendlyBoard);
     }
 
     @FXML
