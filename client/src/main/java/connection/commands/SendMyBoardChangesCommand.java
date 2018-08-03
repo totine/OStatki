@@ -2,16 +2,22 @@ package connection.commands;
 
 import com.google.gson.JsonObject;
 import connection.ServerConnection;
-import gui.controllers.GameSceneController;
 import gui.data.FieldBus;
-import gui.instance.ClientAppRunner;
 import gui.receivers.ShotResult;
-import gui.utility.ShotBoardHandler;
-import javafx.scene.layout.GridPane;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 
 public class SendMyBoardChangesCommand implements CommandFromServer {
     private FieldBus fieldBus;
     private ServerConnection serverConnection;
+    private InvalidationListener listener;
+    private Observable observable;
+
+    SendMyBoardChangesCommand(ServerConnection queuesHandler, InvalidationListener listener, Observable observable) {
+        serverConnection = queuesHandler;
+        this.listener = listener;
+        this.observable = observable;
+    }
 
     SendMyBoardChangesCommand(ServerConnection queuesHandler) {
         serverConnection = queuesHandler;
@@ -19,8 +25,10 @@ public class SendMyBoardChangesCommand implements CommandFromServer {
 
     @Override
     public void execute() {
+        if ((null != listener) && (null != observable)) {
+            listener.invalidated(observable);
+        }
         serverConnection.addMyBoardChangesQueue(fieldBus);
-
     }
 
     @Override

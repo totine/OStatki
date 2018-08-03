@@ -44,14 +44,14 @@ public class PlayerSceneController {
     }
 
     @FXML
-    private void onEnterClickedStart(KeyEvent event) throws Exception{
+    private void onEnterClickedStart(KeyEvent event) throws Exception {
         if (event.getCode().equals(KeyCode.ENTER)) {
             startPlacing();
         }
     }
 
     @FXML
-    private void startPlacing() throws Exception{
+    private void startPlacing() throws Exception {
         Window currentWindow = startPlacement.getScene().getWindow();
         tryToConnect();
         savePlayer();
@@ -59,7 +59,6 @@ public class PlayerSceneController {
             initNewScene(currentWindow);
         }
     }
-
 
 
     private void initNewScene(Window currentWindow) throws Exception {

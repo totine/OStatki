@@ -2,7 +2,6 @@ package gui.printers;
 
 import model.Coordinates;
 
-
 import java.util.List;
 import java.util.Objects;
 
@@ -39,8 +38,9 @@ public class ShipView {
 
     @Override
     public String toString() {
-        return "ShipView{" +
-                "mastCoordinates=" + mastCoordinates +
-                '}';
+        return "ShipView{"
+                + "mastCoordinates="
+                + mastCoordinates
+                + '}';
     }
 }

@@ -1,7 +1,6 @@
 package game;
 
 import connection.communication.QueuesHandler;
-import game.placement.FleetController;
 import game.shooting.GameShootingPart;
 import game.shooting.Judge;
 import game.shooting.PlayerSwapper;
@@ -33,18 +32,14 @@ public class GameRun implements Runnable {
         Player playerA = getPlayerFromQueue(queuesHandlerA);
         Player playerB = getPlayerFromQueue(queuesHandlerB);
         PlayerSwapper playerSwapper = createPlayerSwapper(playerA, playerB);
- //       Fleet<PlacedShip> fleetA = getPlacedShipFleetFromQueue(queuesHandlerA);
         Fleet<PlacedShip> fleetA = getPlacedShipFleetFromQueue(queuesHandlerA);
-     //   queuesHandlerA.deactivate();
-  //      Fleet<PlacedShip> fleetB = getPlacedShipFleetFromQueue(queuesHandlerB);
+
         Fleet<PlacedShip> fleetB = getPlacedShipFleetFromQueue(queuesHandlerB);
-     //   queuesHandlerB.deactivate();
         PlayerBoardMatcher playerBoardMatcher = createPlayerBoardMatcher(playerA, playerB, fleetA, fleetB);
         PlayerToShotSupplierMatcher playerToShotSupplierMatcher = createPlayerToShotSupplierMatcher(playerA, playerB);
         Judge judge = new Judge(playerSwapper);
         GameShootingPart game = GameShootingPart.create(judge, playerBoardMatcher, playerToShotSupplierMatcher);
         addObserversToGame(playerA, playerB, playerBoardMatcher, game);
-      //  queuesHandlerA.activate();
         game.start();
 
     }
@@ -70,17 +65,12 @@ public class GameRun implements Runnable {
 
     private Fleet<PlacedShip> getPlacedShipFleetFromQueue(QueuesHandler queuesHandler) {
         Fleet<PlacedShip> fleet = null;
-//        try {
         try {
-            fleet = queuesHandler.getFleetFromPlayer();//
+            fleet = queuesHandler.getFleetFromPlayer();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//            fleet = FleetController.generatePlacedStandardFleet();
-            System.out.println("FLOTA GOTOWA");
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        System.out.println("FLOTA GOTOWA");
         return fleet;
     }
 

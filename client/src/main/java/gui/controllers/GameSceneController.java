@@ -7,8 +7,10 @@ import gui.printers.FieldPrinter;
 import gui.printers.FleetView;
 import gui.printers.ShipPrinter;
 import gui.scenes.PlacementScene;
+import gui.utility.ObservableQueue;
 import gui.utility.ShotBoardHandler;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,6 +25,8 @@ public class GameSceneController {
     private ClientAppRunner appInstance;
     private FleetView fleet;
     private ServerConnection serverConnection;
+    private ObservableQueue observableQueue;
+    private InvalidationListener listener = observable -> Platform.runLater(updateFriendlyBoard());
 
     @FXML
     private Label currentPlayerName;
@@ -32,6 +36,7 @@ public class GameSceneController {
     private GridPane friendlyBoard;
     @FXML
     private GridPane enemyBoard;
+
 
     public void initialize() {
         appInstance = ClientAppRunner.getInstance();
@@ -45,8 +50,9 @@ public class GameSceneController {
 
         ShipPrinter.printFleet(fleet, friendlyBoard);
         FieldPrinter.insertFields(enemyBoard);
+        observableQueue = new ObservableQueue(listener);
 
-        Platform.runLater(updateFriendlyBoard());
+        serverConnection.updateCommandGenerator(listener, observableQueue);
     }
 
     private Runnable updateFriendlyBoard() {

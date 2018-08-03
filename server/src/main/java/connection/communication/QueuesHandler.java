@@ -15,13 +15,13 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class QueuesHandler implements Runnable {
+    private static final int QUEUE_CAPACITY = 10;
     private final ServerClientIO serverClientIO;
     private final CommandGenerator commandGenerator;
     private final BlockingQueue<Coordinates> coordinatesToShotQueue;
     private final BlockingQueue<Player> playerQueue;
     private final BlockingQueue<Fleet<PlacedShip>> fleetFromPlayer;
     private boolean isActive;
-    private static final int QUEUE_CAPACITY = 10;
 
     public QueuesHandler(ServerClientIO serverClientIO) {
         this.serverClientIO = serverClientIO;
@@ -40,8 +40,7 @@ public class QueuesHandler implements Runnable {
             if (isActive) {
                 GameCommand currentCommand = commandGenerator.createCommandFromMessage(message);
                 currentCommand.execute();
-            }
-            else {
+            } else {
                 Command command = Command.withType(CommandType.SEND_OPPONENT_CHANGES, new ShotResults());
                 String s = JSONConverter.convertToJSON(command);
                 sendMessage(s);

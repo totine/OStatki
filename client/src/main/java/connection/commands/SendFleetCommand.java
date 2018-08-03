@@ -3,7 +3,6 @@ package connection.commands;
 import com.google.gson.JsonObject;
 import connection.ServerConnection;
 import gui.printers.FleetView;
-import gui.receivers.RandomFleet;
 import gui.utility.JSONConverter;
 
 public class SendFleetCommand implements CommandFromServer {

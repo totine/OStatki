@@ -8,8 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-  <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.PlacementSceneController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.PlacementSceneController">
       <Text fx:id="playerNameText" layoutX="265.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="270.291015625">
          <font>
             <Font size="26.0" />
@@ -46,7 +45,7 @@
             <Font size="26.0" />
          </font>
       </Text>
-          <Button layoutX="357.0" layoutY="473.0" mnemonicParsing="false" onKeyPressed="#placeRandom" onMouseClicked="#placeRandom" prefHeight="24.0" prefWidth="86.0" text="Losuj" />
+          <Button layoutX="357.0" layoutY="473.0" mnemonicParsing="false" onMouseClicked="#placeRandom" prefHeight="24.0" prefWidth="86.0" text="Losuj" />
           <Button fx:id="backToNameChoosing" layoutX="14.0" layoutY="545.0" mnemonicParsing="false" onMouseClicked="#backToNameChoosing" prefHeight="25.0" prefWidth="86.0" text="Wstecz" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="15.0" />
           <Button fx:id="startButton" layoutX="700.0" layoutY="545.0" mnemonicParsing="false" onMouseClicked="#startTheGame" prefHeight="25.0" prefWidth="86.0" text="Start" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="15.0" />
   </AnchorPane>

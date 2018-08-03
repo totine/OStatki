@@ -57,5 +57,6 @@ public class ClientAppRunner {
         String host = serverInfo.getHost();
         serverConnection = ServerConnection.initializeConnection(host, port);
         serverConnection.createServerConnection();
+
     }
 }

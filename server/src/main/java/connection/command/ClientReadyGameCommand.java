@@ -1,14 +1,9 @@
 package connection.command;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import connection.communication.QueuesHandler;
 import connection.serializers.JSONConverter;
-import connection.utility.Command;
-import connection.utility.CommandType;
-import game.placement.FleetController;
 import model.placement.fleet.Fleet;
 import model.placement.ship.PlacedShip;
 
@@ -35,7 +30,8 @@ public class ClientReadyGameCommand implements GameCommand {
     public void setValue(JsonObject value) {
 
 
-        Type type = new TypeToken<Fleet<PlacedShip>>() {}.getType();
+        Type type = new TypeToken<Fleet<PlacedShip>>() {
+        }.getType();
 
         Fleet<PlacedShip> shipFleet = JSONConverter.convertToClass(value.toString(), type, new Fleet<>());
         shipFleet.getShipList().forEach(x -> System.out.println(x));

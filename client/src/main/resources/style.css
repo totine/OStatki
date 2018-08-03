@@ -1,3 +1,4 @@
+/*noinspection CssUnusedSymbol*/
 .water-button {
     -fx-font-size: 3px;
     -fx-background-color: #ADD8E6;
@@ -5,17 +6,21 @@
     -fx-border-color: rgba(15, 15, 15, 0.51);
     -fx-text-alignment: center;
 }
+
+/*noinspection CssUnusedSymbol*/
 .water-button:hover {
     -fx-background-color: #BEE9F7;
     -fx-text-alignment: center;
     -fx-cursor: hand;
 }
+
+/*noinspection CssUnusedSymbol*/
 .water-button:pressed {
     -fx-background-color: #9DD8E6;
     -fx-text-alignment: center;
 }
 
-
+/*noinspection CssUnusedSymbol*/
 .damaged-button {
     -fx-font-size: 3px;
     -fx-background-color: #960000;
@@ -23,17 +28,22 @@
     -fx-border-color: rgba(15, 15, 15, 0.51);
     -fx-text-alignment: center;
 }
+
+/*noinspection CssUnusedSymbol*/
 .damaged-button:hover {
     -fx-background-color: #A71111;
     -fx-text-alignment: center;
     -fx-cursor: hand;
 }
+
+/*noinspection CssUnusedSymbol*/
 .damaged-button:pressed {
     -fx-background-color: #850000;
     -fx-text-alignment: center;
     -fx-cursor: hand;
 }
 
+/*noinspection CssUnusedSymbol*/
 .destroyed-button {
     -fx-font-size: 3px;
     -fx-background-color: #111111;
@@ -41,17 +51,22 @@
     -fx-border-color: rgba(15, 15, 15, 0.51);
     -fx-text-alignment: center;
 }
+
+/*noinspection CssUnusedSymbol*/
 .destroyed-button:hover {
     -fx-background-color: #222222;
     -fx-text-alignment: center;
     -fx-cursor: hand;
 }
+
+/*noinspection CssUnusedSymbol*/
 .destroyed-button:pressed {
     -fx-background-color: #000000;
     -fx-text-alignment: center;
     -fx-cursor: hand;
 }
 
+/*noinspection CssUnusedSymbol*/
 .missed-button {
     -fx-font-size: 3px;
     -fx-background-color: #0004dc;
@@ -59,11 +74,15 @@
     -fx-border-color: rgba(15, 15, 15, 0.51);
     -fx-text-alignment: center;
 }
+
+/*noinspection CssUnusedSymbol*/
 .missed-button:hover {
     -fx-background-color: #1115ef;
     -fx-text-alignment: center;
     -fx-cursor: hand;
 }
+
+/*noinspection CssUnusedSymbol*/
 .missed-button:pressed {
     -fx-background-color: #0003cb;
     -fx-text-alignment: center;

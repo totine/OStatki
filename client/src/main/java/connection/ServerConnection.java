@@ -17,9 +17,12 @@ public class ServerConnection implements Runnable {
     private final int portNumber;
     private final String host;
     private ClientIO server;
-    private BlockingQueue<FieldBus> myBoardChanges = new ArrayBlockingQueue<>(10);
-    private BlockingQueue<FieldBus> opponentBoardChanges = new ArrayBlockingQueue<>(10);
-    private BlockingQueue<FleetView> fleetQueue = new ArrayBlockingQueue<>(10);
+
+    private static final int QUEUE_CAPACITY = 10;
+    private BlockingQueue<FieldBus> myBoardChanges = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
+    private BlockingQueue<FieldBus> opponentBoardChanges = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
+    private BlockingQueue<FleetView> fleetQueue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
+
     private CommandFromServerGenerator commandGenerator;
     private boolean isGameEnd;
     private Player winner;

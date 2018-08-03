@@ -9,7 +9,6 @@ import model.Coordinates;
 
 import java.lang.reflect.Type;
 import java.util.Map;
-import java.util.concurrent.BlockingQueue;
 
 public class ShotResult {
     private static final Type TYPE = getMapType();
@@ -26,10 +25,8 @@ public class ShotResult {
         return JSONConverter.convertToClass(outputFromServer, TYPE);
     }
 
-    public static BlockingQueue<FieldBus> takeFriendlyBoardChanges(ServerConnection serverConnection) {
-        BlockingQueue<FieldBus> changes;
-        changes = serverConnection.getMyBoardChanges();
-        return changes;
+    public static FieldBus takeFriendlyBoardChanges(ServerConnection serverConnection) {
+        return serverConnection.getMyBoardChanges();
     }
 
     public static FieldBus takeEnemyBoardChanges(ServerConnection serverConnection) {

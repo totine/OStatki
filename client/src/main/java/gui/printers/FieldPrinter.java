@@ -45,10 +45,10 @@ public class FieldPrinter {
         return field;
     }
 
-    private static void prepareField(Button field, int widthCoordinates, int heightCoordinates, GridPane printingBoard) {
+    private static void prepareField(Button field, int x, int y, GridPane printingBoard) {
         setDimensions(field);
         addStyle(field);
-        shotAndWaitOnAction(field, widthCoordinates, heightCoordinates, printingBoard);
+        shotAndWaitOnAction(field, x, y, printingBoard);
     }
 
     private static void setDimensions(Button field) {
