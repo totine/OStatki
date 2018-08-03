@@ -1,11 +1,13 @@
 package gui.controllers;
 
 
+import connection.ServerConnection;
 import gui.instance.ClientAppRunner;
 import gui.printers.FieldPrinter;
 import gui.printers.FleetView;
 import gui.printers.ShipPrinter;
 import gui.scenes.PlacementScene;
+import gui.utility.ShotBoardHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +21,7 @@ import javafx.stage.Window;
 public class GameSceneController {
     private ClientAppRunner appInstance;
     private FleetView fleet;
+    private ServerConnection serverConnection;
 
     @FXML
     private Label currentPlayerName;
@@ -31,11 +34,22 @@ public class GameSceneController {
 
     public void initialize() {
         appInstance = ClientAppRunner.getInstance();
+
+        serverConnection = appInstance.getServerConnection();
+
+        fleet = appInstance.getFleet();
+
         String playerName = appInstance.getPlayer().getName();
         currentPlayerName.setText(playerName);
-        fleet = appInstance.getFleet();
+
         ShipPrinter.printFleet(fleet, friendlyBoard);
-        FieldPrinter.insertFields(enemyBoard, friendlyBoard);
+        FieldPrinter.insertFields(enemyBoard);
+
+        //updateFriendlyBoard();
+    }
+
+    private void updateFriendlyBoard() {
+        ShotBoardHandler.friendlyShotReaction(serverConnection, friendlyBoard);
     }
 
     @FXML

@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.PlayerSceneController">
    <children>
       <Label alignment="CENTER" layoutX="249.0" layoutY="14.0" prefHeight="82.0" prefWidth="503.0" text="Battleships" textAlignment="CENTER" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="248.0" AnchorPane.topAnchor="14.0">
@@ -23,7 +22,7 @@
                      <Font size="20.0" />
                   </font>
                </Label>
-               <TextField fx:id="playerNameField" prefHeight="28.0" prefWidth="265.0" />
+               <TextField fx:id="playerNameField" onKeyPressed="#onEnterClickedStart" prefHeight="28.0" prefWidth="265.0" />
                <Label prefHeight="37.0" prefWidth="309.0" text="Adres serwera">
                   <font>
                      <Font size="20.0" />

@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -39,6 +41,13 @@ public class PlayerSceneController {
 
         serverNameComboBox.setItems(listOfServers);
         serverNameComboBox.getSelectionModel().select(1);
+    }
+
+    @FXML
+    private void onEnterClickedStart(KeyEvent event) throws Exception{
+        if (event.getCode().equals(KeyCode.ENTER)) {
+            startPlacing();
+        }
     }
 
     @FXML
