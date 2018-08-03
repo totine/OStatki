@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -8,22 +9,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.PlayerSceneController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.PlayerSceneController">
    <children>
-      <Label alignment="CENTER" layoutX="249.0" layoutY="14.0" prefHeight="82.0" prefWidth="503.0" text="Battleships" textAlignment="CENTER" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="248.0" AnchorPane.topAnchor="14.0">
+      <Label alignment="CENTER" layoutX="249.0" layoutY="14.0" prefHeight="82.0" prefWidth="503.0" styleClass="title" text="Battleships" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="248.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font name="Calibri" size="46.0" />
          </font>
       </Label>
       <VBox layoutX="296.0" layoutY="225.0" prefHeight="150.0" prefWidth="210.0" AnchorPane.bottomAnchor="225.0" AnchorPane.leftAnchor="296.0" AnchorPane.rightAnchor="294.0" AnchorPane.topAnchor="225.0">
          <children>
-               <Label prefHeight="37.0" prefWidth="309.0" text="Imię gracza">
+               <Label prefHeight="37.0" prefWidth="309.0" styleClass="custom-text" text="Imie gracza">
                   <font>
                      <Font size="20.0" />
                   </font>
                </Label>
                <TextField fx:id="playerNameField" onKeyPressed="#onEnterClickedStart" prefHeight="28.0" prefWidth="265.0" />
-               <Label prefHeight="37.0" prefWidth="309.0" text="Adres serwera">
+               <Label prefHeight="37.0" prefWidth="309.0" styleClass="custom-text" text="Adres serwera">
                   <font>
                      <Font size="20.0" />
                   </font>
@@ -31,6 +32,10 @@
                <ComboBox fx:id="serverNameComboBox" prefHeight="24.0" prefWidth="208.0" />
          </children>
       </VBox>
-         <Button fx:id="startPlacement" layoutX="702.0" layoutY="556.0" mnemonicParsing="false" onMouseClicked="#startPlacing" prefHeight="30.0" prefWidth="84.0" text="Dalej" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+         <Button fx:id="startPlacement" layoutX="702.0" layoutY="556.0" mnemonicParsing="false" onMouseClicked="#startPlacing" prefHeight="30.0" prefWidth="84.0" text="Dalej" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
+         <styleClass>
+            <String fx:value="dark-blue-button" />
+            <String fx:value="small-text" />
+         </styleClass></Button>
    </children>
 </AnchorPane>

@@ -21,6 +21,7 @@ public class PlayerScene extends Application {
     public final void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/player_scene.fxml"));
         primaryStage.setTitle("Battleships OStatki");
+        root.getStylesheets().add("https://fonts.googleapis.com/css?family=Pirata+One&amp;subset=latin-ext");
         primaryStage.setScene(new Scene(root, SCENE_WIDTH, SCENE_HEIGHT));
         primaryStage.show();
     }

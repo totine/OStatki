@@ -5,6 +5,8 @@ import connection.commands.CommandFromServerGenerator;
 import gui.data.FieldBus;
 import gui.data.Player;
 import gui.printers.FleetView;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 
 import java.io.IOException;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -33,6 +35,10 @@ public class ServerConnection implements Runnable {
         commandGenerator = new CommandFromServerGenerator(this);
     }
 
+    public void updateCommandGenerator(InvalidationListener listener, Observable observable) {
+        commandGenerator = new CommandFromServerGenerator(this, listener, observable);
+    }
+
     /**
      * This is a fabricating method.
      *
@@ -57,8 +63,8 @@ public class ServerConnection implements Runnable {
         new Thread(this).start();
 
     }
-    public BlockingQueue<FieldBus> getMyBoardChanges() {
-        return myBoardChanges;
+    public FieldBus getMyBoardChanges() {
+        return myBoardChanges.poll();
     }
 
     public FieldBus getOpponentBoardChanges() throws InterruptedException {
