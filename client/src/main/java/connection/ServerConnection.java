@@ -29,6 +29,9 @@ public class ServerConnection implements Runnable {
     private boolean isGameEnd;
     private Player winner;
 
+
+    private Player currentPlayer;
+
     private ServerConnection(int portNumber, String host) {
         this.portNumber = portNumber;
         this.host = host;
@@ -126,4 +129,13 @@ public class ServerConnection implements Runnable {
     public Player getWinner() {
         return winner;
     }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
 }

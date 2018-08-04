@@ -21,6 +21,7 @@ public class CommandFromServerGenerator {
         commandNameMap.put("SEND_OPPONENT_CHANGES", new SendOpponentBoardChanges(clientIO));
         commandNameMap.put("SEND_FLEET", new SendFleetCommand(clientIO));
         commandNameMap.put("END_GAME", new EndGameCommand(clientIO));
+        commandNameMap.put("CURRENT_PLAYER", new CurrentPlayerCommand(clientIO));
 
     }
 
@@ -31,6 +32,7 @@ public class CommandFromServerGenerator {
         commandNameMap.put("SEND_OPPONENT_CHANGES", new SendOpponentBoardChanges(clientIO));
         commandNameMap.put("SEND_FLEET", new SendFleetCommand(clientIO));
         commandNameMap.put("END_GAME", new EndGameCommand(clientIO));
+        commandNameMap.put("CURRENT_PLAYER", new CurrentPlayerCommand(clientIO));
 
     }
 
