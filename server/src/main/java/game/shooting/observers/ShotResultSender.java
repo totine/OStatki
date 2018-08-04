@@ -40,12 +40,24 @@ public class ShotResultSender implements GameObserver {
         String serializedMessage = JSONConverter.convertToJSON(command);
         System.out.println(serializedMessage);
         queuesHandler.sendMessage(serializedMessage);
+
     }
 
     @Override
     public void updateEndGame(Player winner) {
         Command command = Command.withType(CommandType.END_GAME, winner);
         String s = JSONConverter.convertToJSON(command);
+        queuesHandler.sendMessage(s);
+    }
+
+    @Override
+    public void updateWhosNext(Player currentPlayer) {
+        // notifying about current player on each action:
+
+        Command whosNext = Command.withType(CommandType.CURRENT_PLAYER, currentPlayer);
+
+        String s = JSONConverter.convertToJSON(whosNext);
+        System.out.println(s);
         queuesHandler.sendMessage(s);
     }
 }

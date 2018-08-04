@@ -70,7 +70,6 @@ public class ServerConnection implements Runnable {
     public FieldBus getOpponentBoardChanges() throws InterruptedException {
         return opponentBoardChanges.take();
     }
-
     public void run() {
         while (server.hasNextLine()) {
             String message = server.getMessage();
