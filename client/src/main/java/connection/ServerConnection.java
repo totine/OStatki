@@ -16,11 +16,10 @@ import java.util.concurrent.BlockingQueue;
  * this class is for connection with server from GUI of client.
  */
 public class ServerConnection implements Runnable {
+    private static final int QUEUE_CAPACITY = 10;
     private final int portNumber;
     private final String host;
     private ClientIO server;
-
-    private static final int QUEUE_CAPACITY = 10;
     private BlockingQueue<FieldBus> myBoardChanges = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
     private BlockingQueue<FieldBus> opponentBoardChanges = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
     private BlockingQueue<FleetView> fleetQueue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
@@ -38,10 +37,6 @@ public class ServerConnection implements Runnable {
         commandGenerator = new CommandFromServerGenerator(this);
     }
 
-    public void updateCommandGenerator(InvalidationListener listener, Observable observable) {
-        commandGenerator = new CommandFromServerGenerator(this, listener, observable);
-    }
-
     /**
      * This is a fabricating method.
      *
@@ -51,6 +46,10 @@ public class ServerConnection implements Runnable {
      */
     public static ServerConnection initializeConnection(String host, int portNumber) {
         return new ServerConnection(portNumber, host);
+    }
+
+    public void updateCommandGenerator(InvalidationListener listener, Observable observable) {
+        commandGenerator = new CommandFromServerGenerator(this, listener, observable);
     }
 
     public void createServerConnection() {
@@ -66,6 +65,11 @@ public class ServerConnection implements Runnable {
         new Thread(this).start();
 
     }
+
+    private void handleConnectionException(IOException e) {
+        e.printStackTrace();
+    }
+
     public FieldBus getMyBoardChanges() {
         return myBoardChanges.poll();
     }
@@ -73,6 +77,7 @@ public class ServerConnection implements Runnable {
     public FieldBus getOpponentBoardChanges() throws InterruptedException {
         return opponentBoardChanges.take();
     }
+
     public void run() {
         while (server.hasNextLine()) {
             String message = server.getMessage();
@@ -83,10 +88,6 @@ public class ServerConnection implements Runnable {
         }
     }
 
-    private void handleConnectionException(IOException e) {
-        e.printStackTrace();
-    }
-
     public void sendMessage(String message) {
 
         System.out.println(message);
@@ -94,7 +95,6 @@ public class ServerConnection implements Runnable {
     }
 
     public void addFleetToQueue(FleetView fleetView) {
-
         try {
             fleetQueue.put(fleetView);
         } catch (InterruptedException e) {
@@ -118,16 +118,16 @@ public class ServerConnection implements Runnable {
         opponentBoardChanges.add(fieldBus);
     }
 
-    public void setWinner(Player winner) {
-        this.winner = winner;
-    }
-
     public void setGameIsEnd() {
         isGameEnd = true;
     }
 
     public Player getWinner() {
         return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
     }
 
     public Player getCurrentPlayer() {
