@@ -19,14 +19,15 @@ public class FieldPrinter {
     private static final int FIELD_WIDTH = 30;
     private static final int FIELD_HEIGHT = 30;
     private static ServerConnection serverConnection = ClientAppRunner.getInstance().getServerConnection();
+    private static Runnable endGameScenario;
 
     private FieldPrinter() {
     }
 
-    public static void insertFields(GridPane printingBoard) {
+    public static void insertFields(GridPane printingBoard, Runnable endGameMethod) {
         int numberOfRows = printingBoard.getRowConstraints().size();
         int numberOfColumns = printingBoard.getColumnConstraints().size();
-
+        endGameScenario = endGameMethod;
         addToEachSpace(numberOfRows, numberOfColumns, printingBoard);
     }
 
@@ -69,6 +70,7 @@ public class FieldPrinter {
         field.setOnAction(event -> {
             serverConnection.sendMessage(coordinatesToPass);
             ShotBoardHandler.enemyShotReaction(serverConnection, printingBoard);
+            endGameScenario.run();
         });
     }
 

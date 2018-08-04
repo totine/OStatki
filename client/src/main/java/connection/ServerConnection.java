@@ -13,7 +13,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * this class is prototype for checking connection with server from GUI of client.
+ * this class is for connection with server from GUI of client.
  */
 public class ServerConnection implements Runnable {
     private final int portNumber;
