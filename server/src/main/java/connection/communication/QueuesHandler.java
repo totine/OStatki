@@ -22,6 +22,7 @@ public class QueuesHandler implements Runnable {
     private final BlockingQueue<Player> playerQueue;
     private final BlockingQueue<Fleet<PlacedShip>> fleetFromPlayer;
     private boolean isActive;
+    private final BlockingQueue<Player> readynessQueue;
 
     public QueuesHandler(ServerClientIO serverClientIO) {
         this.serverClientIO = serverClientIO;
@@ -30,6 +31,7 @@ public class QueuesHandler implements Runnable {
         fleetFromPlayer = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
         playerQueue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
         isActive = true;
+        readynessQueue = new ArrayBlockingQueue<>(1);
     }
 
     @Override
@@ -54,6 +56,10 @@ public class QueuesHandler implements Runnable {
 
     public void addToFleetQueue(Fleet<PlacedShip> fleet) throws InterruptedException {
         fleetFromPlayer.put(fleet);
+    }
+
+    public void setReady(Player player) {
+        readynessQueue.add(player);
     }
 
     public void sendMessage(String message) {
@@ -82,5 +88,15 @@ public class QueuesHandler implements Runnable {
 
     public void deactivate() {
         isActive = false;
+    }
+
+    public boolean isReady() {
+        try {
+            readynessQueue.take();
+            return true;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

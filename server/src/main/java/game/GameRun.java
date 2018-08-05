@@ -29,8 +29,18 @@ public class GameRun implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("gamerun run method started");
         Player playerA = getPlayerFromQueue(queuesHandlerA);
+        System.out.println("took player A");
         Player playerB = getPlayerFromQueue(queuesHandlerB);
+        System.out.println("took playerB");
+
+        while (!(queuesHandlerA.isReady() && queuesHandlerB.isReady())) {
+            System.out.println("waiting for both players to be ready");
+        } // to change
+
+        System.out.println("both are ready, processing further...");
+
         PlayerSwapper playerSwapper = createPlayerSwapper(playerA, playerB);
         Fleet<PlacedShip> fleetA = getPlacedShipFleetFromQueue(queuesHandlerA);
 

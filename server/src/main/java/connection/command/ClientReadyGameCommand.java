@@ -1,40 +1,29 @@
 package connection.command;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import connection.communication.QueuesHandler;
 import connection.serializers.JSONConverter;
-import model.placement.fleet.Fleet;
-import model.placement.ship.PlacedShip;
+import model.preparing.Player;
 
 import java.lang.reflect.Type;
 
 public class ClientReadyGameCommand implements GameCommand {
-    private final QueuesHandler communicationRun;
-    private Fleet<PlacedShip> fleetFromPlayer;
+    private final QueuesHandler queuesHandler;
+    Player player;
 
-    ClientReadyGameCommand(QueuesHandler communicationRun) {
-        this.communicationRun = communicationRun;
+    public ClientReadyGameCommand(QueuesHandler queuesHandler) {
+        this.queuesHandler = queuesHandler;
     }
 
     @Override
     public void execute() {
-        try {
-            communicationRun.addToFleetQueue(fleetFromPlayer);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        queuesHandler.setReady(player);
     }
 
     @Override
     public void setValue(JsonObject value) {
-
-
-        Type type = new TypeToken<Fleet<PlacedShip>>() {
-        }.getType();
-
-        Fleet<PlacedShip> shipFleet = JSONConverter.convertToClass(value.toString(), type, new Fleet<>());
-        shipFleet.getShipList().forEach(x -> System.out.println(x));
-        fleetFromPlayer = shipFleet;
+        Gson gson = new Gson();
+        this.player = gson.fromJson(value, Player.class);
     }
 }

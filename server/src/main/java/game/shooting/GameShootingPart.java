@@ -44,6 +44,7 @@ public class GameShootingPart implements ObservableGame {
         notifyObserversAboutGameEnd(judge.getCurrentPlayer());
     }
 
+
     private void notifyObserversAboutWhosNext(Player currentPlayer) {
         observers.forEach(observer -> observer.updateWhosNext(currentPlayer));
     }
