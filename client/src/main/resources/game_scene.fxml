@@ -82,17 +82,17 @@
          </GridPane>
       </children>
    </VBox>
-   <Button fx:id="backToPlacement" layoutX="50.0" layoutY="556.0" mnemonicParsing="false" onAction="#returnToShipPlacement" prefHeight="30.0" prefWidth="100.0" styleClass="dark-blue-button" text="Rezygnuj" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="50.0" />
+   <Button fx:id="playerReadyButton" layoutX="50.0" layoutY="556.0" mnemonicParsing="false" onAction="#sendPlayerReadyCommand" prefHeight="30.0" prefWidth="100.0" styleClass="dark-blue-button" text="Gotowy" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="50.0" />
    <VBox layoutX="643.0" layoutY="472.0" prefHeight="114.0" prefWidth="107.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="50.0">
       <children>
-         <Label fx:id="currentPlayerName1" alignment="BOTTOM_LEFT" prefHeight="30.0" prefWidth="300.0" styleClass="custom-text-small" text="Legenda">
+         <Label alignment="BOTTOM_LEFT" prefHeight="30.0" prefWidth="300.0" styleClass="custom-text-small" text="Legenda">
             <font>
                <Font size="20.0" />
             </font>
          </Label>
          <HBox>
             <children>
-               <Label fx:id="currentPlayerName11" alignment="TOP_LEFT" prefHeight="24.0" prefWidth="259.0" styleClass="custom-text-very-small" text="plansza">
+               <Label alignment="TOP_LEFT" prefHeight="24.0" prefWidth="259.0" styleClass="custom-text-very-small" text="plansza">
                   <font>
                      <Font size="20.0" />
                   </font>
@@ -102,7 +102,7 @@
          </HBox>
          <HBox>
             <children>
-               <Label fx:id="currentPlayerName111" alignment="TOP_LEFT" prefHeight="24.0" prefWidth="259.0" styleClass="custom-text-very-small" text="pudło">
+               <Label alignment="TOP_LEFT" prefHeight="24.0" prefWidth="259.0" styleClass="custom-text-very-small" text="pudło">
                   <font>
                      <Font size="20.0" />
                   </font>
@@ -112,7 +112,7 @@
          </HBox>
          <HBox>
             <children>
-               <Label fx:id="currentPlayerName1111" alignment="TOP_LEFT" prefHeight="24.0" prefWidth="259.0" styleClass="custom-text-very-small" text="trafiony">
+               <Label alignment="TOP_LEFT" prefHeight="24.0" prefWidth="259.0" styleClass="custom-text-very-small" text="trafiony">
                   <font>
                      <Font size="20.0" />
                   </font>
@@ -122,7 +122,7 @@
          </HBox>
          <HBox>
             <children>
-               <Label fx:id="currentPlayerName11111" alignment="TOP_LEFT" prefHeight="24.0" prefWidth="259.0" styleClass="custom-text-very-small" text="statek">
+               <Label alignment="TOP_LEFT" prefHeight="24.0" prefWidth="259.0" styleClass="custom-text-very-small" text="statek">
                   <font>
                      <Font size="20.0" />
                   </font>

@@ -37,7 +37,7 @@ public class GameSceneController {
     @FXML
     private Label currentPlayerName;
     @FXML
-    private Button backToPlacement;
+    private Button playerReadyButton;
     @FXML
     private GridPane friendlyBoard;
     private InvalidationListener friendlyBoardEventListener = observable -> Platform.runLater(updateFriendlyBoard());
@@ -115,13 +115,8 @@ public class GameSceneController {
     }
 
     @FXML
-    private void returnToShipPlacement() throws Exception {
-        Window currentWindow = backToPlacement.getScene().getWindow();
-        if (currentWindow instanceof Stage) {
-            Stage currentStage = (Stage) currentWindow;
-            PlacementScene placementScene = PlacementScene.create();
-            placementScene.start(currentStage);
-        }
+    private void sendPlayerReadyCommand() {
+        
     }
 
 }
