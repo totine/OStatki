@@ -17,6 +17,7 @@ import java.util.concurrent.BlockingQueue;
  */
 public class ServerConnection implements Runnable {
     private static final int QUEUE_CAPACITY = 10;
+    public static final int EXPECTED_LISTENERS = 3;
     private final int portNumber;
     private final String host;
     private ClientIO server;
@@ -47,7 +48,7 @@ public class ServerConnection implements Runnable {
     }
 
     public void updateCommandGenerator(Observable observable, InvalidationListener... listener) {
-        if (listener.length == 3) {
+        if (listener.length == EXPECTED_LISTENERS) {
             commandGenerator = new CommandFromServerGenerator(this, observable, listener[0], listener[1], listener[2]);
         }
     }

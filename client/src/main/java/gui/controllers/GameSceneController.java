@@ -69,7 +69,8 @@ public class GameSceneController {
         observer.addListener(informAboutRoundListener);
         observer.addListener(gameEndListener);
 
-        serverConnection.updateCommandGenerator(observer, friendlyBoardEventListener, informAboutRoundListener, gameEndListener);
+        serverConnection.updateCommandGenerator(observer, friendlyBoardEventListener,
+                informAboutRoundListener, gameEndListener);
         enemyBoard.setDisable(true);
     }
 
