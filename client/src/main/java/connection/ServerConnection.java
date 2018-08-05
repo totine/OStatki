@@ -27,8 +27,6 @@ public class ServerConnection implements Runnable {
     private CommandFromServerGenerator commandGenerator;
     private boolean isGameEnd;
     private Player winner;
-
-
     private Player currentPlayer;
 
     private ServerConnection(int portNumber, String host) {
@@ -48,8 +46,10 @@ public class ServerConnection implements Runnable {
         return new ServerConnection(portNumber, host);
     }
 
-    public void updateCommandGenerator(InvalidationListener listener, Observable observable) {
-        commandGenerator = new CommandFromServerGenerator(this, listener, observable);
+    public void updateCommandGenerator(Observable observable, InvalidationListener... listener) {
+        if (listener.length == 2) {
+            commandGenerator = new CommandFromServerGenerator(this, observable, listener[0], listener[1]);
+        }
     }
 
     public void createServerConnection() {
