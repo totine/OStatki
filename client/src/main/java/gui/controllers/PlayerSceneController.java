@@ -48,13 +48,10 @@ public class PlayerSceneController {
 
     public void initialize() {
         appInstance = ClientAppRunner.getInstance();
-
-        appInstance.addNewServer(ServerInfo.create("10.30.1.170", PORT_NUMBER));
         appInstance.addNewServer(ServerInfo.create("localhost", PORT_NUMBER));
 
         serverNameComboBox.setItems(appInstance.getServerInfoList());
-        serverNameComboBox.getSelectionModel().select(1);
-
+        serverNameComboBox.getSelectionModel().select(0);
     }
 
     @FXML
@@ -93,7 +90,7 @@ public class PlayerSceneController {
 
         Command addPlayerCommand = Command.withType(SEND_PLAYER, currentPlayer);
         ServerConnection serverConnection = appInstance.getServerConnection();
-        
+
         serverConnection.sendMessage(JSONConverter.convertToJSON(addPlayerCommand));
     }
 
