@@ -52,11 +52,11 @@ public class ServerConnection implements Runnable {
         }
     }
 
-    public void createServerConnection() throws Exception {
+    public void createServerConnection() throws IOException{
         connect();
     }
 
-    private void connect() throws Exception {
+    private void connect() throws IOException {
         server = ClientIO.createClient(host, portNumber);
         new Thread(this).start();
     }

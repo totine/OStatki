@@ -7,6 +7,8 @@ import gui.printers.FleetView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
+
 /**
  * This is the singleton class. It's purpose is to
  * provide information flow between controller instances.
@@ -51,26 +53,30 @@ public class ClientAppRunner {
     }
 
     public boolean initializeServerConnection(ServerInfo serverInfo) {
+        if (initiateServerObject(serverInfo)) {
+            return tryToConnect();
+        }
+        return false;
+    }
+
+
+    private boolean initiateServerObject(ServerInfo serverInfo) {
+        if (null != serverInfo) {
+            int port = serverInfo.getPort();
+            String host = serverInfo.getHost();
+            serverConnection = ServerConnection.initializeConnection(host, port);
+            return true;
+        }
+        return false;
+    }
+    
+    private boolean tryToConnect() {
         try {
-            if (checkIfDisconnected()) {
-                connectToServer(serverInfo);
-            }
-        } catch (Exception e) {
+            serverConnection.createServerConnection();
+        } catch (IOException e) {
             return false;
         }
         return true;
-    }
-
-    private boolean checkIfDisconnected() {
-        return null == serverConnection;
-    }
-
-    private void connectToServer(ServerInfo serverInfo) throws Exception {
-        int port = serverInfo.getPort();
-        String host = serverInfo.getHost();
-        serverConnection = ServerConnection.initializeConnection(host, port);
-        serverConnection.createServerConnection();
-
     }
 
     public void addNewServer(ServerInfo serverInfo) {

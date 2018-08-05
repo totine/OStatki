@@ -152,7 +152,7 @@ public class PlayerSceneController {
         Alert alert = new Alert(ERROR);
         alert.setTitle("Cannot connect to the server");
         alert.setHeaderText(null);
-        alert.setContentText("Selected server is unreachable for now,"
+        alert.setContentText("Selected server is unreachable for now, "
                 + "try again later or choose other host and port.");
         alert.showAndWait();
     }
