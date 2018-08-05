@@ -52,22 +52,13 @@ public class ServerConnection implements Runnable {
         }
     }
 
-    public void createServerConnection() {
-        try {
-            connect();
-        } catch (IOException e) {
-            handleConnectionException(e);
-        }
+    public void createServerConnection() throws Exception {
+        connect();
     }
 
-    private void connect() throws IOException {
+    private void connect() throws Exception {
         server = ClientIO.createClient(host, portNumber);
         new Thread(this).start();
-
-    }
-
-    private void handleConnectionException(IOException e) {
-        e.printStackTrace();
     }
 
     public FieldBus getMyBoardChanges() {

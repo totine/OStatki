@@ -6,10 +6,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.PlayerSceneController">
+<AnchorPane fx:id="mainPane" prefHeight="600.0" prefWidth="800.0" styleClass="background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.PlayerSceneController">
    <children>
       <Label alignment="CENTER" layoutX="249.0" layoutY="14.0" prefHeight="82.0" prefWidth="503.0" styleClass="title" text="Battleships" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="248.0" AnchorPane.topAnchor="14.0">
          <font>
@@ -29,7 +30,12 @@
                      <Font size="20.0" />
                   </font>
                </Label>
-               <ComboBox fx:id="serverNameComboBox" prefHeight="24.0" prefWidth="208.0" />
+            <HBox>
+               <children>
+                     <ComboBox fx:id="serverNameComboBox" prefHeight="25.0" prefWidth="179.0" />
+                  <Button mnemonicParsing="false" onAction="#addServerAddress" text="+" />
+               </children>
+            </HBox>
          </children>
       </VBox>
          <Button fx:id="startPlacement" layoutX="702.0" layoutY="556.0" mnemonicParsing="false" onMouseClicked="#startPlacing" prefHeight="30.0" prefWidth="84.0" text="Dalej" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
