@@ -15,7 +15,6 @@ public class ShipTests {
 
     @Test
     public void givenNewlyCreatedShip_WhenCheckingItsStatus_ThenItIsNotPlaced() {
-        Board board = Board.createDefaultBoard();
 
         DirectedShip ship = new DirectedShip(2, Direction.WEST);
 

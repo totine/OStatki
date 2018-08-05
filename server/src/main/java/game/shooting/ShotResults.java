@@ -23,4 +23,8 @@ public class ShotResults {
                 + "results=" + results
                 + '}';
     }
+
+    public Map<Coordinates, FieldStateName> getMap() {
+        return results;
+    }
 }

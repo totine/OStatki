@@ -25,8 +25,18 @@ public class ShotResult {
         return JSONConverter.convertToClass(outputFromServer, TYPE);
     }
 
-    public static String takeMessageFromServer(ServerConnection serverConnection) {
-        return serverConnection.getMessage();
+    public static FieldBus takeFriendlyBoardChanges(ServerConnection serverConnection) {
+        return serverConnection.getMyBoardChanges();
+    }
+
+    public static FieldBus takeEnemyBoardChanges(ServerConnection serverConnection) {
+        FieldBus changes = null;
+        try {
+            changes = serverConnection.getOpponentBoardChanges();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return changes;
     }
 
     private static Type getMapType() {

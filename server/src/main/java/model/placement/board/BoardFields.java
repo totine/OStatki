@@ -37,8 +37,8 @@ class BoardFields {
     }
 
     private boolean isCoordOutOfBound(Coordinates coordinates) {
-        return coordinates.getRowIndex() < 0 || coordinates.getRowIndex() >= rows
-                || coordinates.getColumnIndex() < 0 || coordinates.getColumnIndex() >= cols;
+        return coordinates.getY() < 0 || coordinates.getY() >= rows
+                || coordinates.getX() < 0 || coordinates.getX() >= cols;
     }
 
     void markAsBuffer(Coordinates coordinates) {

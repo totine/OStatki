@@ -1,76 +1,156 @@
-.water-button {
-    -fx-background-color: #ADD8E6;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-    -fx-text-alignment: center;
-    -fx-font-size: 25px;
+.background {
+    -fx-background-image: url("background.jpg");
 }
+
+.small-text {
+    -fx-font-family: "Courier New";
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 0,0,0,4 );
+}
+
+.custom-text {
+    -fx-font-smoothing-type: lcd;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 0,0,0,4 );
+    -fx-font-family: 'Pirata One', cursive;
+    -fx-font-size: 32px;
+}
+
+.custom-text-small {
+    -fx-font-smoothing-type: lcd;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 0,0,0,4 );
+    -fx-font-family: 'Pirata One', cursive;
+    -fx-font-size: 20px;
+}
+
+.custom-text-very-small {
+    -fx-font-smoothing-type: lcd;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 0,0,0,4 );
+    -fx-font-family: 'Pirata One', cursive;
+    -fx-font-size: 15px;
+}
+
+.title {
+    -fx-font-smoothing-type: lcd;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 0,0,0,4 );
+    -fx-font-family: 'Pirata One', cursive;
+    -fx-font-size: 70px;
+}
+
+.dark-blue-button {
+    -fx-background-color:
+            #090a0c,
+            linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+            linear-gradient(#20262b, #191d22),
+            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-family: "Courier New";
+    -fx-font-size: 12px;
+    -fx-padding: 10 20 10 20;
+}
+
+.dark-blue-button:hover {
+    -fx-background-color:
+            #1a1b1d,
+            linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+            linear-gradient(#20262b, #191d22),
+            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-cursor: hand;
+}
+
+.dark-blue-button:pressed {
+    -fx-background-color:
+            #08090b,
+            linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+            linear-gradient(#20262b, #191d22),
+            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-cursor: hand;
+}
+
+.water-button {
+    -fx-font-size: 3px;
+    -fx-background-color: #ADD8E6;
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(15, 15, 15, 0.51);
+    -fx-text-alignment: center;
+}
+
 .water-button:hover {
     -fx-background-color: #BEE9F7;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-alignment: center;
     -fx-cursor: hand;
 }
+
 .water-button:pressed {
     -fx-background-color: #9DD8E6;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-alignment: center;
 }
-
 
 .damaged-button {
+    -fx-font-size: 3px;
     -fx-background-color: #960000;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(15, 15, 15, 0.51);
     -fx-text-alignment: center;
-    -fx-font-size: 25px;
 }
+
 .damaged-button:hover {
     -fx-background-color: #A71111;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-alignment: center;
     -fx-cursor: hand;
 }
+
 .damaged-button:pressed {
     -fx-background-color: #850000;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-    -fx-text-alignment: center;
-}
-
-
-
-.destroyed-button {
-    -fx-background-color: #111111;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-    -fx-text-alignment: center;
-    -fx-font-size: 25px;
-}
-.destroyed-button:hover {
-    -fx-background-color: #222222;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-alignment: center;
     -fx-cursor: hand;
 }
+
+.destroyed-button {
+    -fx-font-size: 3px;
+    -fx-background-color: #111111;
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(15, 15, 15, 0.51);
+    -fx-text-alignment: center;
+}
+
+.destroyed-button:hover {
+    -fx-background-color: #222222;
+    -fx-text-alignment: center;
+    -fx-cursor: hand;
+}
+
 .destroyed-button:pressed {
     -fx-background-color: #000000;
-    -fx-background-radius: 5,5,4;
-    -fx-background-insets: 0 0 -1 0,0,1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-alignment: center;
+    -fx-cursor: hand;
+}
+
+.missed-button {
+    -fx-font-size: 3px;
+    -fx-background-color: #0004dc;
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(15, 15, 15, 0.51);
+    -fx-text-alignment: center;
+}
+
+.missed-button:hover {
+    -fx-background-color: #1115ef;
+    -fx-text-alignment: center;
+    -fx-cursor: hand;
+}
+
+.missed-button:pressed {
+    -fx-background-color: #0003cb;
+    -fx-text-alignment: center;
+    -fx-cursor: hand;
 }
 
 

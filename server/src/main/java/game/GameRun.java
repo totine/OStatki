@@ -29,19 +29,27 @@ public class GameRun implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("gamerun run method started");
         Player playerA = getPlayerFromQueue(queuesHandlerA);
+        System.out.println("took player A");
         Player playerB = getPlayerFromQueue(queuesHandlerB);
+        System.out.println("took playerB");
+
+        while (!(queuesHandlerA.isReady() && queuesHandlerB.isReady())) {
+            System.out.println("waiting for both players to be ready");
+        } // to change
+
+        System.out.println("both are ready, processing further...");
+
         PlayerSwapper playerSwapper = createPlayerSwapper(playerA, playerB);
         Fleet<PlacedShip> fleetA = getPlacedShipFleetFromQueue(queuesHandlerA);
-        queuesHandlerA.deactivate();
+
         Fleet<PlacedShip> fleetB = getPlacedShipFleetFromQueue(queuesHandlerB);
-        queuesHandlerB.deactivate();
         PlayerBoardMatcher playerBoardMatcher = createPlayerBoardMatcher(playerA, playerB, fleetA, fleetB);
         PlayerToShotSupplierMatcher playerToShotSupplierMatcher = createPlayerToShotSupplierMatcher(playerA, playerB);
         Judge judge = new Judge(playerSwapper);
         GameShootingPart game = GameShootingPart.create(judge, playerBoardMatcher, playerToShotSupplierMatcher);
         addObserversToGame(playerA, playerB, playerBoardMatcher, game);
-        queuesHandlerA.activate();
         game.start();
 
     }
@@ -68,11 +76,11 @@ public class GameRun implements Runnable {
     private Fleet<PlacedShip> getPlacedShipFleetFromQueue(QueuesHandler queuesHandler) {
         Fleet<PlacedShip> fleet = null;
         try {
-            fleet = queuesHandler.getFleet();
-            System.out.println("FLOTA GOTOWA");
+            fleet = queuesHandler.getFleetFromPlayer();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("FLOTA GOTOWA");
         return fleet;
     }
 

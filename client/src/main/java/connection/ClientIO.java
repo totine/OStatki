@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * Wrapper for client socket input and output
  */
-public class ClientIO implements Runnable {
+public class ClientIO {
     private final PrintWriter out;
     private final Scanner in;
 
@@ -32,19 +32,11 @@ public class ClientIO implements Runnable {
         out.println(message);
     }
 
-    String getMessage() {
-        return in.nextLine();
+    public boolean hasNextLine() {
+        return in.hasNextLine();
     }
-    public void run() {
-        StringBuilder sb = new StringBuilder();
-        while (in.hasNextLine()) {
-            System.out.println("\033[H\033[2J");
-            System.out.flush();
-            while (!in.nextLine().equals("END")) {
-                sb.append(in.nextLine());
-                sb.append("\n\n");
-            }
-            System.out.println(sb.toString());
-        }
+
+    public String getMessage() {
+        return in.nextLine();
     }
 }

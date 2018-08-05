@@ -17,9 +17,10 @@ public class CommandGenerator {
         this.commandNameMap = new HashMap<>();
         commandNameMap.put("SEND_PLAYER", new SendPlayerGameCommand(queuesHandler));
         commandNameMap.put("ASK_FOR_FLEET", new AskForFleetGameCommand(queuesHandler));
-        commandNameMap.put("CLIENT_READY", new ClientReadyGameCommand());
+        commandNameMap.put("SEND_FLEET", new SendBackFleetCommand(queuesHandler));
         commandNameMap.put("SHOT", new ShotCommand(queuesHandler));
         commandNameMap.put("UNKNOWN", new UnknownCommand(queuesHandler));
+        commandNameMap.put("IM_READY", new ClientReadyGameCommand(queuesHandler));
     }
 
     public GameCommand createCommandFromMessage(String message) {

@@ -2,6 +2,10 @@ package connection.communication;
 
 import connection.command.CommandGenerator;
 import connection.command.GameCommand;
+import connection.serializers.JSONConverter;
+import connection.utility.Command;
+import connection.utility.CommandType;
+import game.shooting.ShotResults;
 import model.Coordinates;
 import model.placement.fleet.Fleet;
 import model.placement.ship.PlacedShip;
@@ -11,21 +15,23 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class QueuesHandler implements Runnable {
+    private static final int QUEUE_CAPACITY = 10;
     private final ServerClientIO serverClientIO;
     private final CommandGenerator commandGenerator;
     private final BlockingQueue<Coordinates> coordinatesToShotQueue;
-    private final BlockingQueue<Fleet<PlacedShip>> fleetQueue;
     private final BlockingQueue<Player> playerQueue;
+    private final BlockingQueue<Fleet<PlacedShip>> fleetFromPlayer;
     private boolean isActive;
-    private static final int QUEUE_CAPACITY = 10;
+    private final BlockingQueue<Player> readynessQueue;
 
     public QueuesHandler(ServerClientIO serverClientIO) {
         this.serverClientIO = serverClientIO;
         this.commandGenerator = new CommandGenerator(this);
         coordinatesToShotQueue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
-        fleetQueue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
+        fleetFromPlayer = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
         playerQueue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
         isActive = true;
+        readynessQueue = new ArrayBlockingQueue<>(1);
     }
 
     @Override
@@ -36,6 +42,10 @@ public class QueuesHandler implements Runnable {
             if (isActive) {
                 GameCommand currentCommand = commandGenerator.createCommandFromMessage(message);
                 currentCommand.execute();
+            } else {
+                Command command = Command.withType(CommandType.SEND_OPPONENT_CHANGES, new ShotResults());
+                String s = JSONConverter.convertToJSON(command);
+                sendMessage(s);
             }
         }
     }
@@ -44,8 +54,12 @@ public class QueuesHandler implements Runnable {
         coordinatesToShotQueue.put(coordinates);
     }
 
-    public void addFleetToQueue(Fleet<PlacedShip> fleet) throws InterruptedException {
-        fleetQueue.put(fleet);
+    public void addToFleetQueue(Fleet<PlacedShip> fleet) throws InterruptedException {
+        fleetFromPlayer.put(fleet);
+    }
+
+    public void setReady(Player player) {
+        readynessQueue.add(player);
     }
 
     public void sendMessage(String message) {
@@ -56,8 +70,8 @@ public class QueuesHandler implements Runnable {
         return playerQueue.take();
     }
 
-    public Fleet<PlacedShip> getFleet() throws InterruptedException {
-        return fleetQueue.take();
+    public Fleet<PlacedShip> getFleetFromPlayer() throws InterruptedException {
+        return fleetFromPlayer.take();
     }
 
     public Coordinates getCoordinates() throws InterruptedException {
@@ -74,5 +88,15 @@ public class QueuesHandler implements Runnable {
 
     public void deactivate() {
         isActive = false;
+    }
+
+    public boolean isReady() {
+        try {
+            readynessQueue.take();
+            return true;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -26,8 +26,8 @@ import static model.placement.ship.ShipType.THREE_MAST;
 import static model.placement.ship.Direction.SOUTH;
 
 public class BoardTests {
-    private final int rows = 10;
-    private final int cols = 10;
+    private static final int ROWS = 10;
+    private static final int COLS = 10;
     private ShootingBoard shootingBoard;
 
     @DataProvider
@@ -37,14 +37,14 @@ public class BoardTests {
 
     @BeforeMethod
     private void setUp() {
-        shootingBoard = ShootingBoard.createEmpty(rows, cols);
+        shootingBoard = ShootingBoard.createEmpty(ROWS, COLS);
     }
 
 
     @Test(dataProvider = "emptyBoardMisses")
     public void givenNewBoard_whenShooting_thenMiss(int coordX, int coordY) {
         // given
-        ShootingBoard shootingBoard = ShootingBoard.createEmpty(rows, cols);
+        ShootingBoard shootingBoard = ShootingBoard.createEmpty(ROWS, COLS);
         // when
         HitResult hitResult = shootingBoard.hit(Coordinates.create(coordX, coordY));
         // then
@@ -54,7 +54,7 @@ public class BoardTests {
     @Test(dataProvider = "emptyBoardMisses")
     public void givenNewBoard_whenShootingTwice_thenMissAgain(int coordX, int coordY) {
         // given
-        ShootingBoard shootingBoard = ShootingBoard.createEmpty(rows, cols);
+        ShootingBoard shootingBoard = ShootingBoard.createEmpty(ROWS, COLS);
         // when
         shootingBoard.hit(Coordinates.create(coordX, coordY));
         HitResult hitResult = shootingBoard.hit(Coordinates.create(coordX, coordY));
@@ -123,7 +123,7 @@ public class BoardTests {
         Fleet<PlacedShip> fleet = FleetBuilder.create().appendShip(coordinates, ONE_MAST, SOUTH).build();
         shootingBoard = ShootingBoard.fromFleet(fleet);
         // when
-        HitResult hitResult = shootingBoard.hit(Coordinates.create(1, 1));
+        shootingBoard.hit(Coordinates.create(1, 1));
         // then
         Assert.assertEquals(shootingBoard.getStateName(Coordinates.create(1, 1)), DESTROYED);
     }

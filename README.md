@@ -1,15 +1,15 @@
 # Battleship
-Instructions for Linux to run only GUI:
-chmod +x run.sh
-./run.sh
+Instructions for Linux to run only client version:
+chmod +x run_client.sh
+./run_client.sh
 
-To run connection and client:
+To run server and client:
 
 `mvn clean install`
 
-`java -jar connection/target/connection-0.2.1.jar`
+`./run_client.sh`
 
-`java -jar client/target/client-0.2.1.jar`
+`./run_server.sh`
 
 If you encounter problems with running this script with success, make sure
 you are using Java 8.

@@ -1,20 +1,21 @@
 package game.shooting.observers;
 
 import connection.communication.QueuesHandler;
+import connection.serializers.JSONConverter;
+import connection.utility.Command;
+import connection.utility.CommandType;
 import game.shooting.ShotResults;
 import game.shooting.matchers.PlayerBoardMatcher;
 import model.preparing.Player;
 import model.shooting.board.ShootingBoard;
 
-import java.util.Arrays;
-
 public class ShotResultSender implements GameObserver {
-    private final QueuesHandler communicationRun;
+    private final QueuesHandler queuesHandler;
     private final Player player;
     private final PlayerBoardMatcher boards;
 
     public ShotResultSender(QueuesHandler communicationRun, Player player, PlayerBoardMatcher boards) {
-        this.communicationRun = communicationRun;
+        this.queuesHandler = communicationRun;
         this.player = player;
         this.boards = boards;
     }
@@ -30,14 +31,33 @@ public class ShotResultSender implements GameObserver {
 
     @Override
     public void update(ShotResults changes, ShootingBoard board, Player currentPlayer) {
-        String[] toSend = (boardsToSend() + "\n\n"
-                + currentPlayer.getName() + ": " + changes.toString() + "\nEND").split("\n");
-        Arrays.stream(toSend).forEach(communicationRun::sendMessage);
+        Command command;
+        if (currentPlayer.equals(player)) {
+            command = Command.withType(CommandType.SEND_OPPONENT_CHANGES, changes);
+        } else {
+            command = Command.withType(CommandType.SEND_MY_CHANGES, changes);
+        }
+        String serializedMessage = JSONConverter.convertToJSON(command);
+        System.out.println(serializedMessage);
+        queuesHandler.sendMessage(serializedMessage);
+
     }
 
     @Override
     public void updateEndGame(Player winner) {
-        communicationRun.sendMessage("\nGame is over\n");
-        communicationRun.sendMessage("Winner is: " + winner.getName() + "\nEND");
+        Command command = Command.withType(CommandType.END_GAME, winner);
+        String s = JSONConverter.convertToJSON(command);
+        queuesHandler.sendMessage(s);
+    }
+
+    @Override
+    public void updateWhosNext(Player currentPlayer) {
+        // notifying about current player on each action:
+
+        Command whosNext = Command.withType(CommandType.CURRENT_PLAYER, currentPlayer);
+
+        String s = JSONConverter.convertToJSON(whosNext);
+        System.out.println(s);
+        queuesHandler.sendMessage(s);
     }
 }

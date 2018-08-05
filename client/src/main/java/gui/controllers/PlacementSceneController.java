@@ -12,6 +12,7 @@ import gui.utility.JSONConverter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -52,7 +53,20 @@ public class PlacementSceneController {
     @FXML
     private void placeRandom() {
         serverConnection.sendMessage(prepareAskForFleetCommand());
+        getFleetFromServer();
+    }
 
+    private void getFleetFromServer() {
+
+        printingBoard.getChildren().removeIf(node -> node instanceof Shape);
+
+        try {
+            fleet = serverConnection.getFleetFromQueue();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(fleet.getShipList());
+        ShipPrinter.printFleet(fleet, printingBoard);
         startButton.setDisable(false);
     }
 
@@ -66,6 +80,8 @@ public class PlacementSceneController {
         Window currentWindow = startButton.getScene().getWindow();
         if (currentWindow instanceof Stage) {
             appInstance.setFleet(fleet);
+            Command sendFleet = Command.withType(CommandType.SEND_FLEET, fleet);
+            serverConnection.sendMessage(JSONConverter.convertToJSON(sendFleet));
             Stage currentStage = (Stage) currentWindow;
             GameScene gameScene = GameScene.create();
             gameScene.start(currentStage);

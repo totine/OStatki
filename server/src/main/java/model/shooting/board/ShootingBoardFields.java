@@ -48,8 +48,8 @@ class ShootingBoardFields {
     }
 
     private boolean isCoordinateOutOfBoard(Coordinates coordinates) {
-        return (coordinates.getColumnIndex() < 0 || coordinates.getColumnIndex() > rows - 1
-                || coordinates.getRowIndex() < 0 || coordinates.getRowIndex() > cols - 1);
+        return (coordinates.getX() < 0 || coordinates.getX() > rows - 1
+                || coordinates.getY() < 0 || coordinates.getY() > cols - 1);
     }
 
     HashSet<Coordinates> getAllNeighboursField(Coordinates coordinatesToSurroundWithBuffer) {

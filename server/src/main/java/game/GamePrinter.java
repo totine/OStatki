@@ -16,4 +16,9 @@ public class GamePrinter implements GameObserver {
         System.out.println("Game is over");
         System.out.println("The winner is " + winner);
     }
+
+    @Override
+    public void updateWhosNext(Player currentPlayer) {
+        System.out.println("now: " + currentPlayer);
+    }
 }

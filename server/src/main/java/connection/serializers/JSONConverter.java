@@ -1,4 +1,4 @@
-package gui.utility;
+package connection.serializers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,11 +11,11 @@ public class JSONConverter {
     private JSONConverter() {
     }
 
-    public static <T> T convertToClass(String input, Type type) {
-        return convertHandler.fromJson(input, type);
+    public static <T> String convertToJSON(T classToConvert) {
+        return convertHandler.toJson(classToConvert);
     }
 
-    public static <T> String convertToJSON(T objectOfSomeClass) {
-        return convertHandler.toJson(objectOfSomeClass);
+    public static <T> T convertToClass(String input, Type type) {
+        return convertHandler.fromJson(input, type);
     }
 }
