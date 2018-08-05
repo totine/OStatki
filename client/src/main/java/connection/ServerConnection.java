@@ -84,12 +84,10 @@ public class ServerConnection implements Runnable {
             System.out.println(message);
             CommandFromServer currentCommand = commandGenerator.createCommandFromMessage(message);
             currentCommand.execute();
-
         }
     }
 
     public void sendMessage(String message) {
-
         System.out.println(message);
         server.sendMessage(message);
     }

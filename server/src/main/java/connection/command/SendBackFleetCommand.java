@@ -33,8 +33,8 @@ public class SendBackFleetCommand implements GameCommand {
         Type type = new TypeToken<Fleet<PlacedShip>>() {
         }.getType();
 
-        Fleet<PlacedShip> shipFleet = JSONConverter.convertToClass(value.toString(), type, new Fleet<>());
-        shipFleet.getShipList().forEach(x -> System.out.println(x));
+        Fleet<PlacedShip> shipFleet = JSONConverter.convertToClass(value.toString(), type);
+        shipFleet.getShipList().forEach(System.out::println);
         fleetFromPlayer = shipFleet;
     }
 }

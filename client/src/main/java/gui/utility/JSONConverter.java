@@ -12,7 +12,6 @@ public class JSONConverter {
     }
 
     public static <T> T convertToClass(String input, Type type) {
-        System.out.println(input);
         return convertHandler.fromJson(input, type);
     }
 

@@ -1,6 +1,7 @@
 .background {
     -fx-background-image: url("background.jpg");
 }
+
 .small-text {
     -fx-font-family: "Courier New";
     -fx-font-size: 12px;

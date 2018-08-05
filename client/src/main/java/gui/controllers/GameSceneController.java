@@ -7,8 +7,9 @@ import gui.instance.ClientAppRunner;
 import gui.printers.FieldPrinter;
 import gui.printers.FleetView;
 import gui.printers.ShipPrinter;
-import gui.scenes.PlacementScene;
 import gui.utility.ChangesObserver;
+import gui.utility.Command;
+import gui.utility.JSONConverter;
 import gui.utility.ShotBoardHandler;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
@@ -18,18 +19,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.util.Optional;
-import java.util.logging.Logger;
 
+import static gui.utility.CommandType.IM_READY;
 import static javafx.scene.control.Alert.AlertType.INFORMATION;
 
 /**
  * this Controller has aim to connect user interface with functions of the Battleship game.
  */
 public class GameSceneController {
+    private static final String YOUR_TURN_INFO = "Twoja tura";
+    private static final String ENEMY_TURN_INFO = "Tura przeciwnika";
+
     private ClientAppRunner appInstance;
     private FleetView fleet;
     private ServerConnection serverConnection;
@@ -43,8 +45,10 @@ public class GameSceneController {
     private InvalidationListener friendlyBoardEventListener = observable -> Platform.runLater(updateFriendlyBoard());
     @FXML
     private GridPane enemyBoard;
-    private InvalidationListener informAboutTurnListener = observable -> Platform.runLater(checkIfYourTurn());
     private Player me;
+    @FXML
+    private Label whichTurnInfo;
+    private InvalidationListener informAboutTurnListener = observable -> Platform.runLater(checkIfYourTurn());
 
     public void initialize() {
         appInstance = ClientAppRunner.getInstance();
@@ -69,6 +73,7 @@ public class GameSceneController {
         observer.addListener(informAboutTurnListener);
 
         serverConnection.updateCommandGenerator(observer, friendlyBoardEventListener, informAboutTurnListener);
+        enemyBoard.setDisable(true);
     }
 
     private void showWinnerInformationDialog() {
@@ -90,33 +95,39 @@ public class GameSceneController {
             }
         };
     }
-    private Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
     private Runnable checkIfYourTurn() {
         return () -> {
-            Player currentPlayer = serverConnection.getCurrentPlayer();
-            logger.warning("Me player is: " + me);
-            logger.warning("Current player is: " + currentPlayer);
-            if (currentPlayer.equals(me)) {
-                logger.warning("UDAŁO SIĘ!!!");
+            String currentPlayerName = processCurrentPlayerName(serverConnection.getCurrentPlayer());
+            String myName = me.getName();
+            if (currentPlayerName.equals(myName)) {
                 enemyBoard.setDisable(false);
-                showYourTurnDialog(currentPlayer);
+                showWhichTurnIsIt(YOUR_TURN_INFO);
             } else {
                 enemyBoard.setDisable(true);
+                showWhichTurnIsIt(ENEMY_TURN_INFO);
             }
         };
     }
 
-    private void showYourTurnDialog(Player currentPlayer) {
-        Alert alert = new Alert(INFORMATION);
-        alert.setTitle("Turn of player");
-        alert.setHeaderText(null);
-        alert.setContentText("This is your turn " + currentPlayer);
-        alert.showAndWait();
+    private static String processCurrentPlayerName(Player currentPlayer) {
+        String beforeChanges = currentPlayer.getName();
+
+        int firstLetterOfName = beforeChanges.indexOf(":") + 2;
+        int lastLetterOfName = beforeChanges.lastIndexOf("\"");
+
+        return beforeChanges.substring(firstLetterOfName, lastLetterOfName);
+    }
+
+    private void showWhichTurnIsIt(String whichTurn) {
+        whichTurnInfo.setText(whichTurn);
     }
 
     @FXML
     private void sendPlayerReadyCommand() {
-        
+        Command clientReady = Command.withType(IM_READY, me);
+        serverConnection.sendMessage(JSONConverter.convertToJSON(clientReady));
+        playerReadyButton.setDisable(true);
     }
 
 }

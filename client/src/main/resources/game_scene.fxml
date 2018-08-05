@@ -132,4 +132,9 @@
          </HBox>
       </children>
    </VBox>
+   <VBox layoutX="276.0" layoutY="503.0" prefHeight="35.0" prefWidth="249.0" AnchorPane.bottomAnchor="50.0">
+      <children>
+         <Label fx:id="whichTurnInfo" alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="307.0" styleClass="custom-text" text="Nacisnij gotow" textAlignment="CENTER" textFill="WHITE" />
+      </children>
+   </VBox>
 </AnchorPane>

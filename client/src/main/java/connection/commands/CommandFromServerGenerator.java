@@ -35,6 +35,7 @@ public class CommandFromServerGenerator {
         commandNameMap.put("SEND_FLEET", new SendFleetCommand(clientIO));
         commandNameMap.put("END_GAME", new EndGameCommand(clientIO));
         commandNameMap.put("CURRENT_PLAYER", new CurrentPlayerCommand(clientIO, secondListener, observable));
+        commandNameMap.put("IM_READY", new CurrentPlayerCommand(clientIO, secondListener, observable));
 
     }
 
