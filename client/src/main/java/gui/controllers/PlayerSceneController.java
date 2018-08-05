@@ -5,8 +5,11 @@ import gui.data.Player;
 import gui.data.ServerInfo;
 import gui.instance.ClientAppRunner;
 import gui.scenes.PlacementScene;
+import gui.utility.ChangesObserver;
 import gui.utility.Command;
 import gui.utility.JSONConverter;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -23,6 +26,7 @@ import javafx.stage.Window;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.Random;
 
 import static gui.utility.CommandType.SEND_PLAYER;
 import static javafx.scene.control.Alert.AlertType.*;
@@ -50,6 +54,7 @@ public class PlayerSceneController {
 
         serverNameComboBox.setItems(appInstance.getServerInfoList());
         serverNameComboBox.getSelectionModel().select(1);
+
     }
 
     @FXML
@@ -70,7 +75,6 @@ public class PlayerSceneController {
         }
     }
 
-
     private void initNewScene(Window currentWindow) throws Exception {
         if (currentWindow instanceof Stage) {
             Stage currentStage = (Stage) currentWindow;
@@ -84,14 +88,29 @@ public class PlayerSceneController {
     }
 
     private void savePlayer() {
-        Player currentPlayer = Player.create(playerNameField.getText());
+        Player currentPlayer = Player.create(getPlayerName());
         appInstance.setPlayer(currentPlayer);
 
         Command addPlayerCommand = Command.withType(SEND_PLAYER, currentPlayer);
         ServerConnection serverConnection = appInstance.getServerConnection();
-
-
+        
         serverConnection.sendMessage(JSONConverter.convertToJSON(addPlayerCommand));
+    }
+
+    private String getPlayerName() {
+        String providedName = playerNameField.getText();
+        if (providedName.isEmpty()) {
+            return createRandomName();
+        }
+        return providedName;
+    }
+
+    private String createRandomName() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(999) + 1;
+        StringBuilder stringBuilder = new StringBuilder("Player");
+        stringBuilder.append(randomNumber);
+        return stringBuilder.toString();
     }
 
     private boolean tryToConnect() {

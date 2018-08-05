@@ -69,7 +69,7 @@ public class ClientAppRunner {
         }
         return false;
     }
-    
+
     private boolean tryToConnect() {
         try {
             serverConnection.createServerConnection();

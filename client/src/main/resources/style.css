@@ -56,6 +56,24 @@
     -fx-padding: 10 20 10 20;
 }
 
+.dark-blue-button:hover {
+    -fx-background-color:
+            #1a1b1d,
+            linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+            linear-gradient(#20262b, #191d22),
+            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-cursor: hand;
+}
+
+.dark-blue-button:pressed {
+    -fx-background-color:
+            #08090b,
+            linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+            linear-gradient(#20262b, #191d22),
+            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-cursor: hand;
+}
+
 .water-button {
     -fx-font-size: 3px;
     -fx-background-color: #ADD8E6;

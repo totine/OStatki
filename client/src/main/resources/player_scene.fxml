@@ -38,7 +38,7 @@
             </HBox>
          </children>
       </VBox>
-         <Button fx:id="startPlacement" layoutX="702.0" layoutY="556.0" mnemonicParsing="false" onMouseClicked="#startPlacing" prefHeight="30.0" prefWidth="84.0" text="Dalej" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
+         <Button fx:id="startPlacement" layoutX="702.0" layoutY="556.0" mnemonicParsing="false" onMouseClicked="#startPlacing" prefHeight="25.0" prefWidth="85.0" text="Dalej" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="50.0">
          <styleClass>
             <String fx:value="dark-blue-button" />
             <String fx:value="small-text" />
