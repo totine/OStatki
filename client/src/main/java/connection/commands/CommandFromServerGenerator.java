@@ -26,16 +26,16 @@ public class CommandFromServerGenerator {
     }
 
     public CommandFromServerGenerator(ServerConnection clientIO, Observable observable,
-                                      InvalidationListener firstListener, InvalidationListener secondListener) {
+                                      InvalidationListener... listeners) {
 
         this.commandNameMap = new HashMap<>();
 
-        commandNameMap.put("SEND_MY_CHANGES", new SendMyBoardChangesCommand(clientIO, firstListener, observable));
+        commandNameMap.put("SEND_MY_CHANGES", new SendMyBoardChangesCommand(clientIO, listeners[0], observable));
         commandNameMap.put("SEND_OPPONENT_CHANGES", new SendOpponentBoardChanges(clientIO));
         commandNameMap.put("SEND_FLEET", new SendFleetCommand(clientIO));
-        commandNameMap.put("END_GAME", new EndGameCommand(clientIO));
-        commandNameMap.put("CURRENT_PLAYER", new CurrentPlayerCommand(clientIO, secondListener, observable));
-        commandNameMap.put("IM_READY", new CurrentPlayerCommand(clientIO, secondListener, observable));
+        commandNameMap.put("END_GAME", new EndGameCommand(clientIO, listeners[2], observable));
+        commandNameMap.put("CURRENT_PLAYER", new CurrentPlayerCommand(clientIO, listeners[1], observable));
+        commandNameMap.put("IM_READY", new CurrentPlayerCommand(clientIO, listeners[1], observable));
 
     }
 

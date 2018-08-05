@@ -6,11 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
 public class AddNewServerController {
+    private static final int DEFAULT_PORT = 8888;
     @FXML
     private TextField hostField;
     @FXML
     private TextField portField;
-    private static final int DEFAULT_PORT = 8888;
 
     @FXML
     void confirmAddingNewServer() {
@@ -32,8 +32,7 @@ public class AddNewServerController {
     private boolean isNumeric(String str) {
         try {
             Double.parseDouble(str);
-        }
-        catch(NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             return false;
         }
         return true;

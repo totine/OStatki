@@ -47,12 +47,12 @@ public class ServerConnection implements Runnable {
     }
 
     public void updateCommandGenerator(Observable observable, InvalidationListener... listener) {
-        if (listener.length == 2) {
-            commandGenerator = new CommandFromServerGenerator(this, observable, listener[0], listener[1]);
+        if (listener.length == 3) {
+            commandGenerator = new CommandFromServerGenerator(this, observable, listener[0], listener[1], listener[2]);
         }
     }
 
-    public void createServerConnection() throws IOException{
+    public void createServerConnection() throws IOException {
         connect();
     }
 

@@ -42,13 +42,15 @@ public class GameSceneController {
     private Button playerReadyButton;
     @FXML
     private GridPane friendlyBoard;
-    private InvalidationListener friendlyBoardEventListener = observable -> Platform.runLater(updateFriendlyBoard());
     @FXML
     private GridPane enemyBoard;
     private Player me;
     @FXML
     private Label whichTurnInfo;
-    private InvalidationListener informAboutTurnListener = observable -> Platform.runLater(checkIfYourTurn());
+
+    private InvalidationListener friendlyBoardEventListener = observable -> Platform.runLater(updateFriendlyBoard());
+    private InvalidationListener informAboutRoundListener = observable -> Platform.runLater(checkIfYourTurn());
+    private InvalidationListener gameEndListener = observable -> Platform.runLater(checkIfGameHasEnded());
 
     public void initialize() {
         appInstance = ClientAppRunner.getInstance();
@@ -61,26 +63,29 @@ public class GameSceneController {
 
         currentPlayerName.setText(playerName);
 
-        Runnable endGame = () -> {
+        ShipPrinter.printFleet(fleet, friendlyBoard);
+        FieldPrinter.insertFields(enemyBoard);
+        observer = new ChangesObserver(friendlyBoardEventListener);
+        observer.addListener(informAboutRoundListener);
+        observer.addListener(gameEndListener);
+
+        serverConnection.updateCommandGenerator(observer, friendlyBoardEventListener, informAboutRoundListener, gameEndListener);
+        enemyBoard.setDisable(true);
+    }
+
+    private Runnable checkIfGameHasEnded() {
+        return  () -> {
             if (serverConnection.isGameEnd()) {
                 showWinnerInformationDialog();
             }
         };
-
-        ShipPrinter.printFleet(fleet, friendlyBoard);
-        FieldPrinter.insertFields(enemyBoard, endGame);
-        observer = new ChangesObserver(friendlyBoardEventListener);
-        observer.addListener(informAboutTurnListener);
-
-        serverConnection.updateCommandGenerator(observer, friendlyBoardEventListener, informAboutTurnListener);
-        enemyBoard.setDisable(true);
     }
 
     private void showWinnerInformationDialog() {
         Alert alert = new Alert(INFORMATION);
         alert.setTitle("We have a winner!");
         alert.setHeaderText(null);
-        alert.setContentText("The winner is: " + serverConnection.getWinner());
+        alert.setContentText("The winner is: " + processPlayerName(serverConnection.getWinner()));
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent()) {
             System.exit(0);
@@ -98,7 +103,7 @@ public class GameSceneController {
 
     private Runnable checkIfYourTurn() {
         return () -> {
-            String currentPlayerName = processCurrentPlayerName(serverConnection.getCurrentPlayer());
+            String currentPlayerName = processPlayerName(serverConnection.getCurrentPlayer());
             String myName = me.getName();
             if (currentPlayerName.equals(myName)) {
                 enemyBoard.setDisable(false);
@@ -110,7 +115,7 @@ public class GameSceneController {
         };
     }
 
-    private static String processCurrentPlayerName(Player currentPlayer) {
+    private static String processPlayerName(Player currentPlayer) {
         String beforeChanges = currentPlayer.getName();
 
         int firstLetterOfName = beforeChanges.indexOf(":") + 2;
