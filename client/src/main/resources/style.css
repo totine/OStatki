@@ -52,7 +52,7 @@
     -fx-text-fill: white;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
     -fx-font-family: "Courier New";
-    -fx-font-size: 12px;
+    -fx-font-size: 10px;
     -fx-padding: 10 20 10 20;
 }
 

@@ -32,10 +32,7 @@ public class GameSceneController {
     private static final String YOUR_TURN_INFO = "Twoja tura";
     private static final String ENEMY_TURN_INFO = "Tura przeciwnika";
 
-    private ClientAppRunner appInstance;
-    private FleetView fleet;
     private ServerConnection serverConnection;
-    private ChangesObserver observer;
     @FXML
     private Label currentPlayerName;
     @FXML
@@ -44,20 +41,20 @@ public class GameSceneController {
     private GridPane friendlyBoard;
     @FXML
     private GridPane enemyBoard;
-    private Player me;
     @FXML
     private Label whichTurnInfo;
+    private Player me;
 
     private InvalidationListener friendlyBoardEventListener = observable -> Platform.runLater(updateFriendlyBoard());
     private InvalidationListener informAboutRoundListener = observable -> Platform.runLater(checkIfYourTurn());
     private InvalidationListener gameEndListener = observable -> Platform.runLater(checkIfGameHasEnded());
 
     public void initialize() {
-        appInstance = ClientAppRunner.getInstance();
+        ClientAppRunner appInstance = ClientAppRunner.getInstance();
 
         serverConnection = appInstance.getServerConnection();
 
-        fleet = appInstance.getFleet();
+        FleetView fleet = appInstance.getFleet();
         me = appInstance.getPlayer();
         String playerName = me.getName();
 
@@ -65,7 +62,8 @@ public class GameSceneController {
 
         ShipPrinter.printFleet(fleet, friendlyBoard);
         FieldPrinter.insertFields(enemyBoard);
-        observer = new ChangesObserver(friendlyBoardEventListener);
+
+        ChangesObserver observer = new ChangesObserver(friendlyBoardEventListener);
         observer.addListener(informAboutRoundListener);
         observer.addListener(gameEndListener);
 
@@ -75,7 +73,7 @@ public class GameSceneController {
     }
 
     private Runnable checkIfGameHasEnded() {
-        return  () -> {
+        return () -> {
             if (serverConnection.isGameEnd()) {
                 showWinnerInformationDialog();
             }
@@ -93,6 +91,15 @@ public class GameSceneController {
         }
     }
 
+    private static String processPlayerName(Player currentPlayer) {
+        String beforeChanges = currentPlayer.getName();
+
+        int firstLetterOfName = beforeChanges.indexOf(":") + 2;
+        int lastLetterOfName = beforeChanges.lastIndexOf("\"");
+
+        return beforeChanges.substring(firstLetterOfName, lastLetterOfName);
+    }
+
     private Runnable updateFriendlyBoard() {
         return () -> {
             ShotBoardHandler.friendlyShotReaction(serverConnection, friendlyBoard);
@@ -104,9 +111,8 @@ public class GameSceneController {
 
     private Runnable checkIfYourTurn() {
         return () -> {
-            String currentPlayerName = processPlayerName(serverConnection.getCurrentPlayer());
-            String myName = me.getName();
-            if (currentPlayerName.equals(myName)) {
+            Player currentPlayer = serverConnection.getCurrentPlayer();
+            if (currentPlayer.getId() == me.getId()) {
                 enemyBoard.setDisable(false);
                 showWhichTurnIsIt(YOUR_TURN_INFO);
             } else {
@@ -114,15 +120,6 @@ public class GameSceneController {
                 showWhichTurnIsIt(ENEMY_TURN_INFO);
             }
         };
-    }
-
-    private static String processPlayerName(Player currentPlayer) {
-        String beforeChanges = currentPlayer.getName();
-
-        int firstLetterOfName = beforeChanges.indexOf(":") + 2;
-        int lastLetterOfName = beforeChanges.lastIndexOf("\"");
-
-        return beforeChanges.substring(firstLetterOfName, lastLetterOfName);
     }
 
     private void showWhichTurnIsIt(String whichTurn) {

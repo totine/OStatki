@@ -1,3 +1,3 @@
 #!/bin/bash
 set -e
-java -jar client/target/*.jar
+java -jar client/target/client-*.jar
