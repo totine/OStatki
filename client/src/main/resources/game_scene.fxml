@@ -82,7 +82,7 @@
          </GridPane>
       </children>
    </VBox>
-   <Button fx:id="playerReadyButton" layoutX="50.0" layoutY="556.0" mnemonicParsing="false" onAction="#sendPlayerReadyCommand" prefHeight="25.0" prefWidth="85.0" styleClass="dark-blue-button" text="Gotowy" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" />
+   <Button fx:id="playerReadyButton" layoutX="50.0" layoutY="556.0" mnemonicParsing="false" onAction="#sendPlayerReadyCommand" prefHeight="25.0" prefWidth="85.0" styleClass="dark-blue-button" text="Gotow" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" />
    <VBox layoutX="643.0" layoutY="472.0" prefHeight="114.0" prefWidth="107.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="50.0">
       <children>
          <Label alignment="BOTTOM_LEFT" prefHeight="30.0" prefWidth="300.0" styleClass="custom-text-small" text="Legenda">
