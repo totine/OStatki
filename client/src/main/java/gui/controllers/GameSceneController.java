@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import static gui.utility.CommandType.IM_READY;
 import static javafx.scene.control.Alert.AlertType.INFORMATION;
@@ -94,7 +95,8 @@ public class GameSceneController {
 
     private static String processPlayerName(Player currentPlayer) {
         String beforeChanges = currentPlayer.getName();
-
+        Logger logger = Logger.getGlobal();
+        logger.warning(currentPlayer.toString());
         int firstLetterOfName = beforeChanges.indexOf(":") + 2;
         int lastLetterOfName = beforeChanges.lastIndexOf("\"");
 
@@ -112,9 +114,8 @@ public class GameSceneController {
 
     private Runnable checkIfYourTurn() {
         return () -> {
-            String currentPlayerName = processPlayerName(serverConnection.getCurrentPlayer());
-            String myName = me.getName();
-            if (currentPlayerName.equals(myName)) {
+            Player currentPlayer = serverConnection.getCurrentPlayer();
+            if (currentPlayer.getId() == me.getId()) {
                 enemyBoard.setDisable(false);
                 showWhichTurnIsIt(YOUR_TURN_INFO);
             } else {
