@@ -91,11 +91,13 @@ public class GameSceneController {
   
     private static String processPlayerName(Player currentPlayer) {
         String beforeChanges = currentPlayer.getName();
+
         int firstLetterOfName = beforeChanges.indexOf(":") + 2;
         int lastLetterOfName = beforeChanges.lastIndexOf("\"");
 
         return beforeChanges.substring(firstLetterOfName, lastLetterOfName);
     }
+
     private Runnable updateFriendlyBoard() {
         return () -> {
             ShotBoardHandler.friendlyShotReaction(serverConnection, friendlyBoard);
@@ -116,15 +118,6 @@ public class GameSceneController {
                 showWhichTurnIsIt(ENEMY_TURN_INFO);
             }
         };
-    }
-
-    private static String processPlayerName(Player currentPlayer) {
-        String beforeChanges = currentPlayer.getName();
-
-        int firstLetterOfName = beforeChanges.indexOf(":") + 2;
-        int lastLetterOfName = beforeChanges.lastIndexOf("\"");
-
-        return beforeChanges.substring(firstLetterOfName, lastLetterOfName);
     }
 
     private void showWhichTurnIsIt(String whichTurn) {
