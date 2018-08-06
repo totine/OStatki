@@ -19,10 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-
 import java.util.Optional;
-import java.util.logging.Logger;
-
 import static gui.utility.CommandType.IM_READY;
 import static javafx.scene.control.Alert.AlertType.INFORMATION;
 
@@ -44,9 +41,7 @@ public class GameSceneController {
     private GridPane enemyBoard;
     @FXML
     private Label whichTurnInfo;
-
     private Player me;
-
 
     private InvalidationListener friendlyBoardEventListener = observable -> Platform.runLater(updateFriendlyBoard());
     private InvalidationListener informAboutRoundListener = observable -> Platform.runLater(checkIfYourTurn());
@@ -65,6 +60,7 @@ public class GameSceneController {
 
         ShipPrinter.printFleet(fleet, friendlyBoard);
         FieldPrinter.insertFields(enemyBoard);
+      
         ChangesObserver observer = new ChangesObserver(friendlyBoardEventListener);
         observer.addListener(informAboutRoundListener);
         observer.addListener(gameEndListener);
@@ -92,17 +88,14 @@ public class GameSceneController {
             System.exit(0);
         }
     }
-
+  
     private static String processPlayerName(Player currentPlayer) {
         String beforeChanges = currentPlayer.getName();
-        Logger logger = Logger.getGlobal();
-        logger.warning(currentPlayer.toString());
         int firstLetterOfName = beforeChanges.indexOf(":") + 2;
         int lastLetterOfName = beforeChanges.lastIndexOf("\"");
 
         return beforeChanges.substring(firstLetterOfName, lastLetterOfName);
     }
-
     private Runnable updateFriendlyBoard() {
         return () -> {
             ShotBoardHandler.friendlyShotReaction(serverConnection, friendlyBoard);
@@ -123,6 +116,15 @@ public class GameSceneController {
                 showWhichTurnIsIt(ENEMY_TURN_INFO);
             }
         };
+    }
+
+    private static String processPlayerName(Player currentPlayer) {
+        String beforeChanges = currentPlayer.getName();
+
+        int firstLetterOfName = beforeChanges.indexOf(":") + 2;
+        int lastLetterOfName = beforeChanges.lastIndexOf("\"");
+
+        return beforeChanges.substring(firstLetterOfName, lastLetterOfName);
     }
 
     private void showWhichTurnIsIt(String whichTurn) {
