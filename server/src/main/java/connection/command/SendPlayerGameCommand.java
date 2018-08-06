@@ -25,7 +25,9 @@ public class SendPlayerGameCommand implements GameCommand {
     @Override
     public void setValue(JsonObject value) {
         value.get("name");
-        player = Player.create(value.toString());
+        String name = value.get("name").toString();
+        int id = Integer.parseInt(value.get("id").toString());
+        player = Player.create(name, id);
     }
 
 }

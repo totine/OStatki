@@ -4,13 +4,15 @@ import java.util.Objects;
 
 public class Player {
     private final String name;
+    private final int id;
 
-    private Player(String name) {
+    private Player(String name, int id) {
         this.name = name;
+        this.id = id;
     }
 
-    public static Player create(String name) {
-        return new Player(name);
+    public static Player create(String name, int id) {
+        return new Player(name, id);
     }
 
     public String getName() {
