@@ -80,7 +80,7 @@ public class PlayerSceneController {
     }
 
     private void savePlayer() {
-        Player currentPlayer = Player.create(getPlayerName());
+        Player currentPlayer = Player.create(getPlayerName(), createIDForPlayer());
         appInstance.setPlayer(currentPlayer);
 
         Command addPlayerCommand = Command.withType(SEND_PLAYER, currentPlayer);
@@ -119,11 +119,18 @@ public class PlayerSceneController {
     }
 
     private String createRandomName() {
-        Random random = new Random();
-        int randomNumber = random.nextInt(MAX_PLAYER_SUFFIX) + 1;
         StringBuilder stringBuilder = new StringBuilder("Player");
-        stringBuilder.append(randomNumber);
+        stringBuilder.append(getRandomNumber());
         return stringBuilder.toString();
+    }
+
+    private int getRandomNumber() {
+        Random random = new Random();
+        return random.nextInt(MAX_PLAYER_SUFFIX) + 1;
+    }
+
+    private int createIDForPlayer() {
+        return getRandomNumber();
     }
 
     @FXML
