@@ -19,7 +19,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+
 import java.util.Optional;
+
 import static gui.utility.CommandType.IM_READY;
 import static javafx.scene.control.Alert.AlertType.INFORMATION;
 
@@ -60,7 +62,7 @@ public class GameSceneController {
 
         ShipPrinter.printFleet(fleet, friendlyBoard);
         FieldPrinter.insertFields(enemyBoard);
-      
+
         ChangesObserver observer = new ChangesObserver(friendlyBoardEventListener);
         observer.addListener(informAboutRoundListener);
         observer.addListener(gameEndListener);
@@ -88,7 +90,7 @@ public class GameSceneController {
             System.exit(0);
         }
     }
-  
+
     private static String processPlayerName(Player currentPlayer) {
         String beforeChanges = currentPlayer.getName();
 
